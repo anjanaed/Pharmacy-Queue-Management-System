@@ -65,7 +65,7 @@ const updateEmployee = async (req, res) => {
 const deleteEmployee = async (req, res) => {
     try {
         const { empId } = req.params;
-        const employee = await Employee.findOneAndDelete({ empId});
+        const employee = await Employee.findOneAndDelete({empId});
 
         if (!employee) {
             res.status(404).json({ message: `No employee with id: ${empId}` });
@@ -76,10 +76,12 @@ const deleteEmployee = async (req, res) => {
     }
 }
 
+
+
 module.exports = { 
     getEmployees, 
     getEmployee, 
     createEmployee, 
     updateEmployee, 
-    deleteEmployee 
+    deleteEmployee
 };
