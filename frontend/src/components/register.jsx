@@ -2,11 +2,13 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, fireStore } from "./firebase";
 import { useState } from "react";
 import { setDoc, doc, getDoc } from "firebase/firestore";
+import axios from "axios";
 
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
 
   const generateCustomUID = async () => {
     const usersRef = doc(fireStore, "metadata", "users");
@@ -38,7 +40,18 @@ const Register = () => {
         await setDoc(doc(fireStore, "uidMappings", user.uid), {
           customUID,
         });
+        const data = {
+          empID: customUID,
+          name: name,
+          email: email,
+          phone: phone,
+        };
+        axios
+          .post("http://localhost:3000/api/employee/", data)
+          .then((result) => console.log(result))
+          .catch((err) => console.log(err));
       }
+
       console.log("User Registerd");
     } catch (error) {
       console.log(error.message);
@@ -49,6 +62,15 @@ const Register = () => {
     <>
       <h1>Register</h1>
       <form onSubmit={handleRegister}>
+        <label htmlFor="name">Name:</label>
+        <br />
+        <input
+          onChange={(e) => setName(e.target.value)}
+          type="name"
+          id="name"
+          name="name"
+        />
+        <br />
         <label htmlFor="email">Email:</label>
         <br />
         <input
@@ -65,6 +87,15 @@ const Register = () => {
           type="password"
           id="pass"
           name="pass"
+        />
+        <br />
+        <label htmlFor="pass">Phone Number:</label>
+        <br />
+        <input
+          onChange={(e) => setPhone(e.target.value)}
+          type="num"
+          id="num"
+          name="num"
         />
         <br />
         <input type="submit" value="Submit" />

@@ -1,8 +1,12 @@
 const express = require('express')
 const mongoose = require('mongoose');
+const cors = require('cors')
 const employeeRoutes = require('./routes/employee.routes.js');
 const orderRoutes = require('./routes/order.routes.js');
+const EmployeeModel =require('./model/employee.model.js')
+const OrderModel=require('./model/order.model.js');
 const app = express()
+app.use(cors())
 
 // middleware configuration
 app.use(express.json());

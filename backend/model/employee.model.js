@@ -26,7 +26,7 @@ const employeeSchema = mongoose.Schema(
 
         phone: { 
             type: String, 
-            required: [true, "Employee phone number is required"],
+            required: [false, "Employee phone number is required"],
             validate: {
                 validator: function (v) {
                     return /^\d{10}$/.test(v);
@@ -37,6 +37,6 @@ const employeeSchema = mongoose.Schema(
     }
 );
 
-const Employee = mongoose.model('Employee', employeeSchema);
+const EmployeeModel = mongoose.model('Employee', employeeSchema);
 
-module.exports = Employee;
+module.exports = EmployeeModel;
