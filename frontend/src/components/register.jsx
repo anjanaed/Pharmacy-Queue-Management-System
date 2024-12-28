@@ -3,6 +3,9 @@ import { auth, fireStore } from "./firebase";
 import { useState } from "react";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import axios from "axios";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "./Login.css";
+
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -59,48 +62,86 @@ const Register = () => {
   };
 
   return (
-    <>
-      <h1>Register</h1>
-      <form onSubmit={handleRegister}>
-        <label htmlFor="name">Name:</label>
-        <br />
+    <div className="login-wrapper">
+      <div className="row g-0 login-container">
+      {/* Left Side */}
+      <div className="col-md-6 left-side d-flex flex-column justify-content-center align-items-center">
+          <img
+            src="public/img/logo.png"
+            alt="Logo"
+            className="left-image img-fluid"
+          />
+          <img
+            src="public/img/pills.png"
+            alt="Pills"
+            className="right-image img-fluid"
+          />
+      </div>
+      {/* Right Side */}
+      <div className="col-md-6 right-side d-flex flex-column justify-content-center">
+      <h3 className="text-center mb-3 display-5 register-heading">PharmacyLanka</h3>
+        <form onSubmit={handleRegister} className="form-container">
+        <div className="mb-3 position-relative">
+        <label htmlFor="name" className="form-label smaller-text">Name</label>
         <input
           onChange={(e) => setName(e.target.value)}
+          className="form-control form-control-lg text-box-small ps-5"
+          placeholder="Enter your Name"
           type="name"
           id="name"
           name="name"
         />
-        <br />
-        <label htmlFor="email">Email:</label>
-        <br />
+        </div>
+        <div className="mb-3 position-relative">
+        <label htmlFor="email" className="form-label smaller-text">Email</label>
         <input
           onChange={(e) => setEmail(e.target.value)}
+          className="form-control form-control-lg text-box-small ps-5"
+          placeholder="Enter your Email"
           type="email"
           id="email"
           name="email"
         />
-        <br />
-        <label htmlFor="pass">Password:</label>
-        <br />
-        <input
-          onChange={(e) => setPassword(e.target.value)}
-          type="password"
-          id="pass"
-          name="pass"
-        />
-        <br />
-        <label htmlFor="pass">Phone Number:</label>
+        </div>
+        <div className="mb-3 position-relative">
+        <label htmlFor="pass" className="form-label smaller-text">Phone Number</label>
         <br />
         <input
           onChange={(e) => setPhone(e.target.value)}
+          className="form-control form-control-lg text-box-small ps-5"
+          placeholder="Enter your Phone Number"
           type="num"
           id="num"
           name="num"
         />
+     </div>
+     <div className="mb-3 position-relative">
+     <label htmlFor="pass" className="form-label smaller-text">Password</label>
         <br />
-        <input type="submit" value="Submit" />
+        <input
+          onChange={(e) => setPassword(e.target.value)}
+          className="form-control form-control-lg text-box-small ps-5"
+          placeholder="Enter your Password"
+          type="password"
+          id="pass"
+          name="pass"
+        />
+
+     </div>  
+     <button 
+  type="submit" 
+  className="btn btn-lg w-100 custom-button"
+>
+  Register
+</button>     
+        
+       
       </form>
-    </>
+
+    </div>
+      
+  </div>
+</div>
   );
 };
 

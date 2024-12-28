@@ -1,0 +1,170 @@
+/* Full viewport wrapper with yellow background */
+.login-wrapper {
+  /* background-image: url('public/img/background.png'); */
+  background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), 
+              url('public/img/background.png');
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+}
+
+
+/* Login container styles */
+.login-container {
+  width: 100%;
+  max-width: 1300px;
+  height: 750px;
+  background-color: white;
+  border-radius: 40px;
+}
+
+/* Left Side Styles */
+.left-side {
+  /* background-color: blue; */
+  display: flex;
+  flex-direction: column; /* Arrange images vertically */
+  justify-content: space-between; /* Add space between the images */
+  align-items: center; /* Center images horizontally */
+  /* background-image: url('public/img/background.png'); */
+  background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), 
+              url('public/img/background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: black;
+  /* padding: 2rem; */
+  border-radius: 40px; /* Adjust border radius for left side */
+  height: 100%; /* Keep height consistent with parent container */
+}
+
+
+/* Logo Image - Smaller */
+.left-image {
+  max-width: 250px; /* Smaller size for logo */
+  margin-top: 9rem; /* Add space at the top to move it down */
+  /* margin-bottom: 1rem;  */
+  align-self: flex-center; /* Align the logo to the top */
+}
+
+/* Pills Image - Larger */
+.right-image {
+  max-width: 600px; /* Larger size for pills image */
+  margin: 1rem 0; /* Space around the pills image */
+  align-self: flex-center; /* Align the pills image to the bottom */
+}
+
+/* Right Side Styles */
+.right-side {
+  background-color: white;
+  color: black;
+  padding: 5rem;
+  border-radius: 0px 40px 40px 0px;
+  text-align: start; /* Ensure text is aligned to the left */
+}
+
+/* Larger text styles for labels and remember me */
+.larger-text {
+  font-size: 1.5rem; /* Larger font size for text */
+  text-align: start; /* Align labels to the start */
+}
+
+/* Larger size for input boxes */
+.text-box-large {
+  font-size: 1.3rem; /* Larger text inside the input boxes */
+  padding: 0.75rem; /* Adjust padding for inputs */
+  text-align: start; /* Ensure input text aligns to the start */
+  border: 1px solid #000; 
+  border-radius: 5px; /* Optional: adds rounded corners */
+
+}
+
+/* Larger checkbox size */
+.checkbox-large {
+  transform: scale(1.9); /* Increase the size of the checkbox */
+  margin-right: 0.8rem; /* Add some space between the checkbox and text */
+  border: 0.5px solid #000; /* Black border */
+  /* border-radius: 4px;  */
+}
+
+h1{
+  color: #0077B6;
+  font-weight: bold;
+  
+}
+
+.custom-button {
+  background-color: #00B4D8;
+  border-color: #00B4D8;
+  color: black; /* Ensure the text color is visible */
+}
+
+.custom-button:hover {
+  background-color: #03045E; /* Darken color for hover effect */
+  border-color: #03045E;
+  color: white;
+}
+
+
+.pharmacy-heading {
+  margin-top: 1.5rem; /* Adjust this for finer control over the spacing */
+  font-family: 'Poppins', sans-serif; /* Use Poppins for this heading */
+  font-weight: 700; /* Make it bold */
+  font-size: 2.8rem; /* Adjust size as needed */
+  color: #0077B6; /* Optional: Ensure it complements the theme */
+
+}
+
+.form-container {
+  margin-top: 2rem; /* Adjust the value to create a gap */
+}
+
+.checkbox{
+  margin-left: 0.5rem;
+  /* margin-bottom: 2rem; */
+}
+
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+/* Apply to Welcome Back Message */
+.welcome-heading {
+  font-family: 'Poppins', sans-serif; /* Use Poppins for this heading */
+  font-weight: 500; /* Make it bold */
+  font-size: 2.8rem; /* Adjust size as needed */
+  color: black; /* Optional: Ensure it complements the theme */
+}
+
+.text-box-small {
+  font-size: 1.1rem; /* Larger text inside the input boxes */
+  padding: 0.75rem; /* Adjust padding for inputs */
+  text-align: start; /* Ensure input text aligns to the start */
+  border: 1px solid #000; 
+  border-radius: 5px; /* Optional: adds rounded corners */
+
+}
+.smaller-text {
+  font-size: 1.4rem; /* Larger font size for text */
+  text-align: start; /* Align labels to the start */
+}
+
+.register-heading{
+  font-family: 'Poppins', sans-serif; /* Use Poppins for this heading */
+  font-weight: 600; /* Make it bold */
+  font-size: 2.8rem; /* Adjust size as needed */
+  color:#0077B6; /* Optional: Ensure it complements the theme */
+
+}
+
+
+
+
+
