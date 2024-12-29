@@ -9,7 +9,11 @@ function  Employees() {
             <header className="main-content">
                 <h1>Employees</h1>
             </header>
+            <div className="content">
+              <h1>hello</h1>
+            </div>
       </main>
+      
     </div>
   );
 }
