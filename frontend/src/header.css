@@ -44,10 +44,9 @@
   }
 
   .logout{
-        padding-top:50px;
+        padding-top:500px;
   }
 
   .logout a:hover {
-    background-color: #ffffff;
     color: #ff0000;
   }

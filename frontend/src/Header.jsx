@@ -14,7 +14,9 @@ function Header() {
           <Link to="/current-order"><FontAwesomeIcon icon={faClipboard} /> Current Order</Link>
           <Link to="/employees"><FontAwesomeIcon icon={faUser} /> Employees</Link>
           <Link to="/order-history"><FontAwesomeIcon icon={faBox} /> Order History</Link>
+          <div className="logout">
           <Link to="/"><FontAwesomeIcon icon={faArrowRightFromBracket} /> Log Out</Link>
+          </div>
         </div>     
       </header>
     </div>
