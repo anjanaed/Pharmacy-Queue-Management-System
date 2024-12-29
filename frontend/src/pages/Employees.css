@@ -1,14 +1,14 @@
 .container {
     display: flex;
-    /* height: 100vh;
-    width: 100%; */
+    height: 100vh;
+    /* width: 10%; */
 }
 
 .main-content {
     flex-grow: 1;
-    background: #F5F5F5 url('background-pattern.png') no-repeat;
     background-size: cover;
-    padding: 20px;
+    padding-left: 20px;
     display: flex;
     flex-direction: column;
+    font-size: 28px;
 }

@@ -1,17 +1,4 @@
-.container {
-    display: flex;
-    height: 100vh;
-    /* width: 10%; */
-}
 
-.main-content {
-    flex-grow: 1;
-    background: #F5F5F5 url('background-pattern.png') no-repeat;
-    background-size: cover;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-}
 
 /**/
 
@@ -26,6 +13,7 @@
     display: flex;
     flex-direction: column;
     padding-top: 20px;
+    color: #F5F5F5;
 }
 .navbar {
     /* height: 100vh;
@@ -62,4 +50,10 @@
 
   .logout a:hover {
     color: #ff0000;
+  }
+
+  .logo{
+    width: 200px;
+    height: 100px;
+    background-color: aqua;
   }

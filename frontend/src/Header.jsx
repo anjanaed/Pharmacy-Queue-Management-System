@@ -7,9 +7,6 @@ function Header() {
   return (
     <div className="container">
       <header className="App-header">
-            <div class="logo">
-                <div class="logo-shape"></div>
-            </div>
         <div className="navbar_base">
           <div className="navbar">
           <Link to="/current-order"><FontAwesomeIcon icon={faClipboard} /> Current Order</Link>
