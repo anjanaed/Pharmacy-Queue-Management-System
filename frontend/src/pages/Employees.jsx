@@ -1,14 +1,15 @@
 import Header from "../Header";
 import './Employees.css';
 
-
-function Employees() {
+function  Employees() {
   return (
-    <div className="Employees_Main">   
-        <Header/>  
-        <div>
-            <h1>Employees</h1>
-        </div>
+    <div className="container">
+      <Header/>
+      <main>
+            <header className="main-content">
+                <h1>Employees</h1>
+            </header>
+      </main>
     </div>
   );
 }

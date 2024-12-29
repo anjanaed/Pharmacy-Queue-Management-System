@@ -1,4 +1,14 @@
-.Employees_Main{
+.container {
+    display: flex;
+    /* height: 100vh;
+    width: 100%; */
+}
+
+.main-content {
+    flex-grow: 1;
+    background: #F5F5F5 url('background-pattern.png') no-repeat;
+    background-size: cover;
+    padding: 20px;
     display: flex;
     flex-direction: column;
 }

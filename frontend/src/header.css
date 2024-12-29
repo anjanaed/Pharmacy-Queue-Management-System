@@ -1,3 +1,24 @@
+.container {
+    display: flex;
+    height: 100vh;
+    /* width: 10%; */
+}
+
+.main-content {
+    flex-grow: 1;
+    background: #F5F5F5 url('background-pattern.png') no-repeat;
+    background-size: cover;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/**/
+
+.App-header{
+    display: flex;
+    flex-direction: column;
+}
 
 .navbar {
     height: 100vh;
@@ -20,4 +41,13 @@
   .navbar a:hover {
     background-color: #ffffff;
     color: #6791FB;
+  }
+
+  .logout{
+        padding-top:50px;
+  }
+
+  .logout a:hover {
+    background-color: #ffffff;
+    color: #ff0000;
   }
