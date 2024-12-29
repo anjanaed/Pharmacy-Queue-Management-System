@@ -1,0 +1,23 @@
+
+.navbar {
+    height: 100vh;
+    width: 300px;
+    background-color: #6791FB;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+  }
+  
+  .navbar a {
+    color: white;
+    padding: 15px 20px;
+    text-decoration: none;
+    text-align: left;
+    font-family: inter;
+    font-size: 24px;
+  }
+  
+  .navbar a:hover {
+    background-color: #ffffff;
+    color: #6791FB;
+  }
