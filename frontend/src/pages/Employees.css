@@ -1,0 +1,4 @@
+.Employees_Main{
+    display: flex;
+    flex-direction: column;
+}
