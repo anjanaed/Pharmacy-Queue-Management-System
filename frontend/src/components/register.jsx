@@ -69,12 +69,12 @@ const Register = () => {
           <img
             src="public/img/logo.png"
             alt="Logo"
-            className="left-image img-fluid"
+            className="right-image img-fluid"
           />
           <img
             src="public/img/pills.png"
             alt="Pills"
-            className="right-image img-fluid"
+            className="left-image img-fluid"
           />
       </div>
       {/* Right Side */}
