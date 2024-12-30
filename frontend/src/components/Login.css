@@ -1,6 +1,5 @@
-/* Full viewport wrapper with yellow background */
+/* Full viewport wrapper */
 .login-wrapper {
-  /* background-image: url('public/img/background.png'); */
   background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), 
               url('public/img/background.png');
   width: 100vw;
@@ -14,77 +13,126 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  
 }
-
 
 /* Login container styles */
 .login-container {
-  width: 100%;
-  max-width: 1300px;
-  height: 750px;
+  width: 65%; /* Adjusted for responsiveness */
+  height: 85%; /* Adjusted height */
+  max-height: 800px; /* Set a max height */
   background-color: white;
   border-radius: 40px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add some elevation */
 }
-
-/* Left Side Styles */
+/* Left Side */
 .left-side {
-  /* background-color: blue; */
+  flex: 1;
   display: flex;
-  flex-direction: column; /* Arrange images vertically */
-  justify-content: space-between; /* Add space between the images */
-  align-items: center; /* Center images horizontally */
-  /* background-image: url('public/img/background.png'); */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), 
               url('public/img/background.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  color: black;
-  /* padding: 2rem; */
-  border-radius: 40px; /* Adjust border radius for left side */
-  height: 100%; /* Keep height consistent with parent container */
+  padding: 20px;
+  border-radius: 40px;
+
+}
+left-image {
+  width: 20%; /* Smaller size for the first image */
+  max-width: 150px; /* Limit the maximum size */
+  height: auto; /* Maintain aspect ratio */
+  margin-bottom: 20px; /* Add spacing below the first image */
 }
 
-
-/* Logo Image - Smaller */
-.left-image {
-  max-width: 250px; /* Smaller size for logo */
-  margin-top: 9rem; /* Add space at the top to move it down */
-  /* margin-bottom: 1rem;  */
-  align-self: flex-center; /* Align the logo to the top */
-}
-
-/* Pills Image - Larger */
 .right-image {
-  max-width: 600px; /* Larger size for pills image */
-  margin: 1rem 0; /* Space around the pills image */
-  align-self: flex-center; /* Align the pills image to the bottom */
+  width: 20%; /* Larger size for the second image */
+  max-width: 250px; /* Limit the maximum size */
+  height: auto; /* Maintain aspect ratio */
+  margin-top: 10px; /* Add spacing above the second image */
 }
 
-/* Right Side Styles */
+@media (max-width: 768px) {
+  /* Adjust sizes for smaller screens */
+  .left-image {
+    width: 50%; /* Slightly increase size for responsiveness */
+    max-width: 120px;
+  }
+
+  .right-image {
+    width: 90%; /* Adjust larger image for smaller screens */
+    max-width: 250px;
+  }
+}
+
+/* Right Side */
 .right-side {
+  flex: 1;
   background-color: white;
-  color: black;
-  padding: 5rem;
-  border-radius: 0px 40px 40px 0px;
-  text-align: start; /* Ensure text is aligned to the left */
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 40px;
+
 }
 
-/* Larger text styles for labels and remember me */
 .larger-text {
-  font-size: 1.5rem; /* Larger font size for text */
+  font-size: 1.2rem;
   text-align: start; /* Align labels to the start */
 }
 
-/* Larger size for input boxes */
 .text-box-large {
-  font-size: 1.3rem; /* Larger text inside the input boxes */
-  padding: 0.75rem; /* Adjust padding for inputs */
-  text-align: start; /* Ensure input text aligns to the start */
-  border: 1px solid #000; 
-  border-radius: 5px; /* Optional: adds rounded corners */
+  font-size: 1rem;
+  padding: 10px;
+  border: 1px solid #000;
+  border-radius: 5px;
+}
 
+.custom-button {
+  background-color: #00B4D8;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.custom-button:hover {
+  background-color: #03045E;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .login-container {
+    width: 95%; /* Slightly narrower for smaller screens */
+    height: auto; /* Allow the height to adjust automatically */
+  }
+
+  .left-side {
+    display: none; /* Hide the left side for smaller devices */
+  }
+
+  .right-side {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .larger-text {
+    font-size: 1rem;
+  }
+
+  .text-box-large {
+    font-size: 0.9rem;
+  }
+
+  .custom-button {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
 }
 
 /* Larger checkbox size */
@@ -94,26 +142,11 @@
   border: 0.5px solid #000; /* Black border */
   /* border-radius: 4px;  */
 }
-
 h1{
   color: #0077B6;
   font-weight: bold;
   
 }
-
-.custom-button {
-  background-color: #00B4D8;
-  border-color: #00B4D8;
-  color: black; /* Ensure the text color is visible */
-}
-
-.custom-button:hover {
-  background-color: #03045E; /* Darken color for hover effect */
-  border-color: #03045E;
-  color: white;
-}
-
-
 .pharmacy-heading {
   margin-top: 1.5rem; /* Adjust this for finer control over the spacing */
   font-family: 'Poppins', sans-serif; /* Use Poppins for this heading */
@@ -163,8 +196,4 @@ h1{
   color:#0077B6; /* Optional: Ensure it complements the theme */
 
 }
-
-
-
-
 
