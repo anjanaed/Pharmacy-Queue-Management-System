@@ -1,36 +1,40 @@
-/* Full viewport wrapper */
-.login-wrapper {
-  background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), 
-              url('public/img/background.png');
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+
+html, body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* Allow scrolling */
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), 
+              url('public/img/background.png') center / cover no-repeat;
 }
 
-/* Login container styles */
+/* Login Wrapper */
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  height: 100vh;
+}
+
+/* Login Container */
 .login-container {
-  width: 65%; /* Adjusted for responsiveness */
-  height: 85%; /* Adjusted height */
-  max-height: 800px; /* Set a max height */
+  width: 100%;
+  max-width: 1200px;
+  height: auto;
   background-color: white;
   border-radius: 40px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add some elevation */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 /* Left Side */
 .left-side {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center; */
+  align-items: start;
   background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), 
               url('public/img/background.png');
   background-size: cover;
