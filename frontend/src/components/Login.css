@@ -86,10 +86,11 @@ body {
   border: none;
   width: 40%;
   height: 6.5vh;
+  text-align: center;
   color: white;
   font-size: 1.1vw;
-  padding: 0.5vw;
   border-radius: 0.5vw;
+  transition-duration: 0.5s;
 }
 
 .custom-button:hover {
@@ -170,7 +171,7 @@ h1{
 }
 
 .text-box-small {
-  font-size: 0.7vw; /* Larger text inside the input boxes */
+  font-size: 0.8vw; /* Larger text inside the input boxes */
   padding: 0.25rem;
   width: 18vw; /* Adjust padding for inputs */
   text-align: start; /* Ensure input text aligns to the start */
@@ -179,7 +180,7 @@ h1{
 
 }
 .smaller-text {
-  font-size: 1vw; /* Larger font size for text */
+  font-size: 1.2vw; /* Larger font size for text */
   text-align: start;
   font-weight: 600; /* Align labels to the start */
 }
@@ -187,7 +188,7 @@ h1{
 .register-heading{
   font-family: 'Poppins', sans-serif; /* Use Poppins for this heading */
   font-weight: 600; /* Make it bold */
-  font-size: 2.2vw; /* Adjust size as needed */
+  font-size: 3vw; /* Adjust size as needed */
   color:#0077B6;
   margin-bottom: 3vh; /* Optional: Ensure it complements the theme */
 

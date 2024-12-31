@@ -32,17 +32,6 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      // await createUserWithEmailAndPassword(auth, email, password);
-      // const customUID = await generateCustomUID();
-      // const user = auth.currentUser;
-      // console.log(user);
-      // if (user) {
-      //   await setDoc(doc(fireStore, "Users", customUID), {
-      //     role: "Employee",
-      //   });
-      //   await setDoc(doc(fireStore, "uidMappings", user.uid), {
-      //     customUID,
-      //   });
         const data = {
           empID: id,
           name: name,

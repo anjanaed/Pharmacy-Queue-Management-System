@@ -127,9 +127,9 @@ return (
         onChange={(e) => setPassword(e.target.value)}
         className="form-control form-control-lg text-box-small ps-2"
         placeholder="Enter your Password"
-        type="email"
-        id="email"
-        name="email"
+        type="password"
+        id="password"
+        name="password"
       />
    </div>
 
