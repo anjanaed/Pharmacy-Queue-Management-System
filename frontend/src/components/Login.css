@@ -1,4 +1,8 @@
 /* Full viewport wrapper */
+body {
+  overflow: hidden;
+}
+
 .login-wrapper {
   background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), 
               url('public/img/background.png');
@@ -13,14 +17,13 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  overflow: hidden;
 }
 
 /* Login container styles */
 .login-container {
-  width: 65%; /* Adjusted for responsiveness */
-  height: 85%; /* Adjusted height */
-  max-height: 800px; /* Set a max height */
-  background-color: white;
+  width: 65vw; 
+  height: 75%;/* Adjusted for responsiveness */
   border-radius: 40px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add some elevation */
 }
@@ -36,42 +39,28 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  padding: 20px;
+  padding: 2vw;
   border-radius: 40px;
 
 }
-left-image {
-  width: 20%; /* Smaller size for the first image */
-  max-width: 150px; /* Limit the maximum size */
-  height: auto; /* Maintain aspect ratio */
-  margin-bottom: 20px; /* Add spacing below the first image */
-}
+
 
 .right-image {
-  width: 20%; /* Larger size for the second image */
-  max-width: 250px; /* Limit the maximum size */
-  height: auto; /* Maintain aspect ratio */
-  margin-top: 10px; /* Add spacing above the second image */
+  width: 15vw; /* Larger size for the second image *//* Limit the maximum size */
+  height: auto; /* Maintain aspect ratio */ /* Add spacing above the second image */
 }
 
-@media (max-width: 768px) {
-  /* Adjust sizes for smaller screens */
-  .left-image {
-    width: 50%; /* Slightly increase size for responsiveness */
-    max-width: 120px;
-  }
-
-  .right-image {
-    width: 90%; /* Adjust larger image for smaller screens */
-    max-width: 250px;
-  }
+.left-image{
+  width: 15vw;
 }
+
+
 
 /* Right Side */
 .right-side {
   flex: 1;
   background-color: white;
-  padding: 40px;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -85,42 +74,45 @@ left-image {
 }
 
 .text-box-large {
-  font-size: 1rem;
-  padding: 10px;
+  font-size: 5rem;
+  padding: 5rem;
   border: 1px solid #000;
   border-radius: 5px;
 }
 
 .custom-button {
   background-color: #00B4D8;
+  margin-top: 2vw ;
   border: none;
+  width: 40%;
+  height: 6.5vh;
   color: white;
-  font-size: 1rem;
-  padding: 10px;
-  border-radius: 5px;
+  font-size: 1.1vw;
+  padding: 0.5vw;
+  border-radius: 0.5vw;
 }
 
 .custom-button:hover {
   background-color: #03045E;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+
+/* @media (max-width: 768px) {
   .login-container {
-    width: 95%; /* Slightly narrower for smaller screens */
-    height: auto; /* Allow the height to adjust automatically */
+    width: 95%; 
+    height: auto; 
   }
 
   .left-side {
-    display: none; /* Hide the left side for smaller devices */
+    display: none; 
   }
 
   .right-side {
     padding: 20px;
   }
-}
+} */
 
-@media (max-width: 480px) {
+/* @media (max-width: 480px) {
   .larger-text {
     font-size: 1rem;
   }
@@ -133,9 +125,9 @@ left-image {
     font-size: 0.9rem;
     padding: 8px;
   }
-}
+} */
 
-/* Larger checkbox size */
+
 .checkbox-large {
   transform: scale(1.9); /* Increase the size of the checkbox */
   margin-right: 0.8rem; /* Add some space between the checkbox and text */
@@ -147,17 +139,18 @@ h1{
   font-weight: bold;
   
 }
-.pharmacy-heading {
-  margin-top: 1.5rem; /* Adjust this for finer control over the spacing */
+.pharmacy-heading {/* Adjust this for finer control over the spacing */
   font-family: 'Poppins', sans-serif; /* Use Poppins for this heading */
   font-weight: 700; /* Make it bold */
-  font-size: 2.8rem; /* Adjust size as needed */
-  color: #0077B6; /* Optional: Ensure it complements the theme */
+  font-size: 2.5rem; /* Adjust size as needed */
 
 }
 
 .form-container {
-  margin-top: 2rem; /* Adjust the value to create a gap */
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column; /* Adjust the value to create a gap */
 }
 
 .checkbox{
@@ -172,28 +165,31 @@ h1{
 .welcome-heading {
   font-family: 'Poppins', sans-serif; /* Use Poppins for this heading */
   font-weight: 500; /* Make it bold */
-  font-size: 2.8rem; /* Adjust size as needed */
+  font-size: 2rem; /* Adjust size as needed */
   color: black; /* Optional: Ensure it complements the theme */
 }
 
 .text-box-small {
-  font-size: 1.1rem; /* Larger text inside the input boxes */
-  padding: 0.75rem; /* Adjust padding for inputs */
+  font-size: 0.7vw; /* Larger text inside the input boxes */
+  padding: 0.25rem;
+  width: 18vw; /* Adjust padding for inputs */
   text-align: start; /* Ensure input text aligns to the start */
   border: 1px solid #000; 
   border-radius: 5px; /* Optional: adds rounded corners */
 
 }
 .smaller-text {
-  font-size: 1.4rem; /* Larger font size for text */
-  text-align: start; /* Align labels to the start */
+  font-size: 1vw; /* Larger font size for text */
+  text-align: start;
+  font-weight: 600; /* Align labels to the start */
 }
 
 .register-heading{
   font-family: 'Poppins', sans-serif; /* Use Poppins for this heading */
   font-weight: 600; /* Make it bold */
-  font-size: 2.8rem; /* Adjust size as needed */
-  color:#0077B6; /* Optional: Ensure it complements the theme */
+  font-size: 2.2vw; /* Adjust size as needed */
+  color:#0077B6;
+  margin-bottom: 3vh; /* Optional: Ensure it complements the theme */
 
 }
 

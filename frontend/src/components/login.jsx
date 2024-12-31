@@ -27,18 +27,18 @@ const Login = () => {
           <img
             src="public/img/logo.png"
             alt="Logo"
-            className="right-image img-fluid"
+            className="right-image"
           />
           <img
             src="public/img/pills.png"
             alt="Pills"
-            className="left-image img-fluid"
+            className="left-image"
           />
         </div>
         {/* Right Side */}
         <div className="col-md-6 right-side d-flex flex-column justify-content-center">
         <h3 className="text-center mb-3 display-5 welcome-heading">Hello! Welcome Back</h3>
-        <h1 className="text-center mb-4 pharmacy-heading">PharmacyLanka</h1>
+        <h1 className="pharmacy-heading">Pharmacy Lanka</h1>
 
           <form onSubmit={handleSubmit} className="form-container" >
             <div className="mb-3 position-relative">
