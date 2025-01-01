@@ -6,6 +6,8 @@ import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const PendingOrder = () => {
   const [orders, setOrders] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentOrderId, setCurrentOrderId] = useState(null);
 
   useEffect(() => {
     // Fetch orders from an API or define them statically
@@ -23,13 +25,23 @@ const PendingOrder = () => {
   }, []);
 
   const handleConfirm = (orderId) => {
-    // Define the logic for confirming an order
-    console.log(`Order ${orderId} confirmed`);
+    setCurrentOrderId(orderId);
+    setIsModalOpen(true);
   };
 
   const handleCancel = (orderId) => {
     // Define the logic for canceling an order
     console.log(`Order ${orderId} canceled`);
+  };
+
+  const handleModalConfirm = () => {
+    // Define the logic for confirming an order
+    console.log(`Order ${currentOrderId} confirmed`);
+    setIsModalOpen(false);
+  };
+
+  const handleModalCancel = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -65,6 +77,18 @@ const PendingOrder = () => {
           </table>
         </div>
       </main>
+
+      {isModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={handleModalCancel}>&times;</span>
+            <h2>Confirm Order</h2>
+            <p>Are you sure you want to confirm this order?</p>
+            <button onClick={handleModalConfirm}>Confirm</button>
+            <button onClick={handleModalCancel}>Cancel</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
