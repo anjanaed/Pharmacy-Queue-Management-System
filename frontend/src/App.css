@@ -1,5 +1,13 @@
-.body{
+.body {
     padding: 0;
     display: flex;
     margin: 0;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    background-image: url('./assets/images/background.jpg');
+    background-size: cover;
+    background-position: center;
 }
