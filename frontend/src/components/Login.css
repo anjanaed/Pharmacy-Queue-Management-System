@@ -174,7 +174,6 @@ h1{
 
 /* Apply to Welcome Back Message */
 .welcome-heading {
-  font-family: 'Poppins', sans-serif; /* Use Poppins for this heading */
   font-weight: 500; /* Make it bold */
   font-size: 2.8rem; /* Adjust size as needed */
   color: black; /* Optional: Ensure it complements the theme */
