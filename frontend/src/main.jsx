@@ -4,6 +4,7 @@ import { StrictMode } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import Employees from './pages/Employees';
+import PendingOrder from './pages/Pending_Order';
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
   {
     path: "/employees",
     element: <Employees />,
+  },
+  {
+    path: "/pending-order",
+    element: <PendingOrder />,
   },
 ]);
 
