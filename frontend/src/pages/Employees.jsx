@@ -1,5 +1,8 @@
 import Header from "../Header";
 import './Employees.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
 function Employees() {
@@ -50,8 +53,8 @@ function Employees() {
                   <td>{employee.email}</td>
                   <td>{employee.name}</td>
                   <td>
-                    <button className="edit" onClick={() => editEmployee(employee.id)}>Edit</button>
-                    <button className="delete" onClick={() => deleteEmployee(employee.id)}>Delete</button>
+                    <button className="edit" onClick={() => editEmployee(employee.id)}><FontAwesomeIcon icon={faPenToSquare} /> Edit</button>
+                    <button className="delete" onClick={() => deleteEmployee(employee.id)}><FontAwesomeIcon icon={faTrash} /> Delete</button>
                   </td>
                 </tr>
               ))}
