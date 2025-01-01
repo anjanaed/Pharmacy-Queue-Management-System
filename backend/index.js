@@ -68,4 +68,3 @@ app.post('/api/orderNumber/increment', (req, res) => {
     currentOrderNumber += 1;
     res.json({ currentOrderNumber });
 });
-

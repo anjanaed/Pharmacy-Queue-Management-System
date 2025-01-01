@@ -1,45 +1,11 @@
 import React, { useState, useEffect } from "react";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-import { auth, fireStore } from "./firebase";
-import { doc, getDoc } from "firebase/firestore";
-import "./EmployeeInterface.css";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./EmployeeInterface.css";
 
 const EmployeeInterface = () => {
-  const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
-
-  const fetchUserData = async () => {
-    auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        const docRef = doc(fireStore, "uidMappings", user.uid);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          setUserData(docSnap.data());
-        } else {
-          console.log("User is not logged in");
-        }
-        setLoading(false);
-      }
-    });
-  };
-
-  useEffect(() => {
-    fetchUserData();
-  }, []);
-
-  const handleLogout = async () => {
-    try {
-      await auth.signOut();
-      window.location.href = "/login";
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
+  const [employeeID, setEmployeeID] = useState(""); // New state variable for employee ID
   const [currentOrder, setCurrentOrder] = useState(0);
   const [tokens, setTokens] = useState(() => {
     const savedTokens = localStorage.getItem("tokens");
@@ -66,12 +32,24 @@ const EmployeeInterface = () => {
     fetchOrderNumber();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
   const handlePrintToken = async () => {
     try {
+      const employeeIDWithPrefix = `E${employeeID}`;
+      const checkResponse = await axios.get(
+        `http://localhost:3000/api/employee/check/${employeeIDWithPrefix}`
+      );
+
+      if (!checkResponse.data.exists) {
+        alert("Invalid Employee ID");
+        return;
+      }
+
+      // Fetch employee data
+      const employeeResponse = await axios.get(
+        `http://localhost:3000/api/employee/${employeeIDWithPrefix}`
+      );
+      console.log("Employee Data:", employeeResponse.data);
+
       const response = await axios.post(
         "http://localhost:3000/api/orderNumber/increment"
       );
@@ -80,6 +58,7 @@ const EmployeeInterface = () => {
       const timestamp = new Date();
       const token = {
         orderNumber: newOrderNumber,
+        employeeID: employeeIDWithPrefix,
         date: timestamp.toLocaleDateString("en-US", {
           year: "numeric",
           month: "long",
@@ -90,8 +69,14 @@ const EmployeeInterface = () => {
 
       setTokens((prevTokens) => [...prevTokens, token]);
       setCurrentOrder(newOrderNumber);
+
+      alert("Order Placed Successfully");
     } catch (error) {
-      console.log(error.message);
+      if (error.response && error.response.status === 404) {
+        alert("Invalid Employee ID");
+      } else {
+        console.log(error.message);
+      }
     }
   };
 
@@ -99,9 +84,7 @@ const EmployeeInterface = () => {
     setTokens([]);
     localStorage.removeItem("tokens");
     setCurrentOrder(0);
-    setNewOrder(1);
     localStorage.removeItem("currentOrder");
-    localStorage.removeItem("newOrder");
   };
 
   const handleDownloadPDF = () => {
@@ -109,10 +92,11 @@ const EmployeeInterface = () => {
     doc.text("Order History", 14, 16);
     doc.autoTable({
       startY: 20,
-      head: [["Number", "Order Number", "Date", "Time"]],
+      head: [["Number", "Order Number", "Employee ID", "Date", "Time"]],
       body: tokens.map((token, index) => [
         index + 1,
         `Order Number - ${token.orderNumber}`,
+        token.employeeID,
         token.date,
         token.time,
       ]),
@@ -150,16 +134,15 @@ const EmployeeInterface = () => {
             <div className="token-generator">
               <header className="header">
                 <h1>Token Generator</h1>
-                {userData && (
-                  <p className="employee-code">
-                    Logged in as: <strong>{userData.customUID}</strong>
-                    <br />
-                    <br />
-                    <button onClick={handleLogout} className="logout-btn">
-                      Logout
-                    </button>
-                  </p>
-                )}
+                <div className="employee-code">
+                  <label htmlFor="employeeID">Employee ID:</label>
+                  <input
+                    type="text"
+                    id="employeeID"
+                    value={`E${employeeID}`}
+                    onChange={(e) => setEmployeeID(e.target.value.replace("E", ""))}
+                  />
+                </div>
               </header>
               <div className="card">
                 <div className="details">
@@ -180,21 +163,8 @@ const EmployeeInterface = () => {
             <div className="token-generator">
               <header className="header">
                 <h1>Order History</h1>
-                {userData && (
-                  <p className="employee-code">
-                    Logged in as: <strong>{userData.customUID}</strong>
-                    <br />
-                    <br />
-                    <button onClick={handleLogout} className="logout-btn">
-                      Logout
-                    </button>
-                  </p>
-                )}
               </header>
               <div className="actions">
-                <button className="secondary-btn" onClick={handleDownloadPDF}>
-                  Download PDF
-                </button>
                 <button className="danger-btn" onClick={handleClearHistory}>
                   Clear History
                 </button>
@@ -204,6 +174,7 @@ const EmployeeInterface = () => {
                   <tr>
                     <th>Number</th>
                     <th>Order Number</th>
+                    <th>Employee ID</th>
                     <th>Date</th>
                     <th>Time</th>
                   </tr>
@@ -214,13 +185,14 @@ const EmployeeInterface = () => {
                       <tr key={index}>
                         <td>{index + 1}</td>
                         <td>Order Number - {token.orderNumber}</td>
+                        <td>{token.employeeID}</td>
                         <td>{token.date}</td>
                         <td>{token.time}</td>
                       </tr>
                     ))
                   ) : (
                     <tr>
-                      <td colSpan="4" style={{ textAlign: "center" }}>
+                      <td colSpan="5" style={{ textAlign: "center" }}>
                         No history available.
                       </td>
                     </tr>
