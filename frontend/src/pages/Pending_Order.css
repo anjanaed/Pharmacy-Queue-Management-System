@@ -23,25 +23,7 @@
     border-radius: 20px;
     background-color: #f4f6fb;
     box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.2);
-}
-.new{
-    padding-top: 15px;
-    align-items: right;
-    padding-right: 25px;
-    padding-bottom: 15px;
-}
-.add-new {
-    background-color: #6791FB;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    width: 150px;
-    height: 40px;
-    font-size: 16px;
-    margin-bottom: 10px;
-    float: right; /* Add this line */
+    padding-top: 20px;
 }
 
 .add-new:hover {
@@ -56,36 +38,43 @@ table {
     margin-right: 20px;
 }
 
+.table-raw{
+    background-color: #baccfc;
+    color: rgb(34, 34, 34); /* Optional: to make the text color white for better contrast */
+}
+
+tr:hover {
+    background-color: #e6e6e7; /* Change the background color on hover */
+}
+
 td {
     /* border: 1px solid #242424; */
     text-align: center;
     padding-top: 10px;
+    padding-bottom: 10px;
 }
 
-th {
-    background-color: #becffa;
-    /* border: 1px solid #242424; */
-    padding: 8px;
-    text-align: center;
-}
 
-.edit {
-    background-color: #4CAF50;
-    color: white;
+
+.Cancel {
+    background-color: #ffffff;
+    color: #369bf4;
     border: none;
     padding: 8px 15px;
     cursor: pointer;
     border-radius: 3px;
     margin-right: 5px;
     margin-left: 10px;
+    border:1px solid #6791FB;
 }
 
-.edit:hover {
-    background-color: #45a049;
+.Cancel:hover {
+    background-color: #ebf6ff;
+    color: rgb(56, 56, 56);
 }
 
-.delete {
-    background-color: #369bf4;
+.Confirm {
+    background-color: #6791FB;
     color: white;
     border: none;
     padding: 8px 15px;
@@ -94,6 +83,6 @@ th {
     margin-left: 10px;
 }
 
-.delete:hover {
+.Confirm:hover {
     background-color: #0b2dda;
 }

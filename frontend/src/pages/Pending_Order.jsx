@@ -12,8 +12,8 @@ const PendingOrder = () => {
     const fetchOrders = async () => {
       // Example static orders
       const fetchedOrders = [
-        { id: 1, orderNumber: 'ORD001' },
-        { id: 2, orderNumber: 'ORD002' },
+        { id: 1, status: 'Pending Order Number', orderNumber: 'ORD001' },
+        { id: 2, status: 'Pending Order Number', orderNumber: 'ORD002' },
         // Add more orders as needed
       ];
       setOrders(fetchedOrders);
@@ -22,8 +22,14 @@ const PendingOrder = () => {
     fetchOrders();
   }, []);
 
-  const addEmployee = () => {
-    // Define the addEmployee function logic
+  const handleConfirm = (orderId) => {
+    // Define the logic for confirming an order
+    console.log(`Order ${orderId} confirmed`);
+  };
+
+  const handleCancel = (orderId) => {
+    // Define the logic for canceling an order
+    console.log(`Order ${orderId} canceled`);
   };
 
   return (
@@ -34,24 +40,24 @@ const PendingOrder = () => {
           <h1>Pending Orders</h1>
         </header>
         <div className="content">
-          <div className="new">
-            <button className="add-new" onClick={addEmployee}>+ Add New</button>
-          </div>
           <table>
             <thead>
               <tr>
-                <th>Pending Order Number</th>
-                <th>Order Number</th>
-                <th>Actions</th>
+                <th className="table-raw">Number</th>
+                <th className="table-raw">Status</th>
+                <th className="table-raw">Pending Order Number</th>
+                <th className="table-raw">Actions</th>
               </tr>
             </thead>
             <tbody>
               {orders.map((order, index) => (
                 <tr key={order.id}>
                   <td>{index + 1}</td>
+                  <td>{order.status}</td>
                   <td>{order.orderNumber}</td>
                   <td>
-                    {/* Add your action buttons or links here */}
+                    <button onClick={() => handleCancel(order.id)} className='Cancel'>Cancel</button>
+                    <button onClick={() => handleConfirm(order.id)} className='Confirm'>Confirm</button> 
                   </td>
                 </tr>
               ))}
