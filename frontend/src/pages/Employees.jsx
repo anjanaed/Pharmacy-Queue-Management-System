@@ -12,20 +12,20 @@ const Employees = () => {
   ]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentEmployee, setCurrentEmployee] = useState(null);
+  const [currentEmployee, setCurrentEmployee] = useState({ id: '', name: '', email: '', password: '', confirmPassword: '' });
 
   const addEmployee = () => {
     // Logic to add a new employee
   };
 
   const handleEdit = (employee) => {
-    setCurrentEmployee(employee);
+    setCurrentEmployee({ ...employee, password: '', confirmPassword: '' });
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setCurrentEmployee(null);
+    setCurrentEmployee({ id: '', name: '', email: '', password: '', confirmPassword: '' });
   };
 
   const handleSave = () => {
@@ -84,6 +84,15 @@ const Employees = () => {
             <h2>Edit Employee</h2>
             <form>
               <label>
+                Employee ID:
+                <input
+                  type="text"
+                  value={currentEmployee.id}
+                  onChange={(e) => setCurrentEmployee({ ...currentEmployee, id: e.target.value })}
+                  disabled
+                />
+              </label>
+              <label>
                 Name:
                 <input
                   type="text"
@@ -97,6 +106,22 @@ const Employees = () => {
                   type="email"
                   value={currentEmployee.email}
                   onChange={(e) => setCurrentEmployee({ ...currentEmployee, email: e.target.value })}
+                />
+              </label>
+              <label>
+                Password:
+                <input
+                  type="password"
+                  value={currentEmployee.password}
+                  onChange={(e) => setCurrentEmployee({ ...currentEmployee, password: e.target.value })}
+                />
+              </label>
+              <label>
+                Confirm Password:
+                <input
+                  type="password"
+                  value={currentEmployee.confirmPassword}
+                  onChange={(e) => setCurrentEmployee({ ...currentEmployee, confirmPassword: e.target.value })}
                 />
               </label>
               <button type="button" onClick={handleSave}>Save</button>
