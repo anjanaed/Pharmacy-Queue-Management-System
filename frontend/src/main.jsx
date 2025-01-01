@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import Employees from './pages/Employees';
 import PendingOrder from './pages/Pending_Order';
+import OrderHistory from './pages/OrderHistory'; // Import OrderHistory component
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/pending-order",
     element: <PendingOrder />,
+  },
+  {
+    path: "/order-history",
+    element: <OrderHistory />, // Add route for OrderHistory
   },
 ]);
 
