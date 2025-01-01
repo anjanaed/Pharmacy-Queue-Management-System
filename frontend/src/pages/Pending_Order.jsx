@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from "../Header"; // Adjust the import path as needed
 import './Pending_Order.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
-
 const PendingOrder = () => {
   const [orders, setOrders] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -84,8 +81,11 @@ const PendingOrder = () => {
             <span className="close" onClick={handleModalCancel}>&times;</span>
             <h2>Confirm Order</h2>
             <p>Are you sure you want to confirm this order?</p>
-            <button onClick={handleModalConfirm}>Confirm</button>
-            <button onClick={handleModalCancel}>Cancel</button>
+            <div className="button-container">
+              <button onClick={handleModalCancel} className="Cancel">Cancel</button>
+              <button onClick={handleModalConfirm} className="Confirm">Confirm</button>
+              
+            </div>
           </div>
         </div>
       )}
