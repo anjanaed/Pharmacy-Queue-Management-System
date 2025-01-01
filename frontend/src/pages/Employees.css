@@ -1,7 +1,6 @@
 .container {
     display: flex;
     height: 100vh;
-    /* width: 10%; */
 }
 
 .main-content {
