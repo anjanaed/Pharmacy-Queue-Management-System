@@ -1,0 +1,14 @@
+.body{
+    padding: 0;
+    display: flex;
+    margin: 0;
+}
+body{
+    height: 100vh;
+    background: #ffffff;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
