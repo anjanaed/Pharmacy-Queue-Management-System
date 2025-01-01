@@ -11,10 +11,10 @@ const getEmployees = async (req, res) => {
 
 const getEmployee = async (req, res) => {
     try {
-        const { empId } = req.params;
-        const employee = await Employee.findOne({ empId });
+        const { empID } = req.params;
+        const employee = await Employee.findOne({ empID });
         if (!employee) {
-            res.status(404).json({ message: `No employee with id: ${empId}` });
+            return res.status(404).json({ message: `No employee with id: ${empID}` });
         }
         res.status(200).json(employee);
     } catch (error) {
@@ -41,14 +41,14 @@ const createEmployee = async (req, res) => {
 
 const updateEmployee = async (req, res) => {
     try {
-        const { empId } = req.params;
-        const employee = await Employee.findOneAndUpdate({ empId }, req.body);
+        const { empID } = req.params;
+        const employee = await Employee.findOneAndUpdate({ empID }, req.body);
 
         if (!employee) {
-            res.status(404).json({ message: `No employee with empID: ${empId}` });
+            return res.status(404).json({ message: `No employee with empID: ${empID}` });
         }
 
-        const updateEmployee = await Employee.findOne({ empId });
+        const updateEmployee = await Employee.findOne({ empID });
         res.status(200).json(updateEmployee);
     } catch (error) {
         if (error.name === 'ValidationError') {
@@ -64,11 +64,11 @@ const updateEmployee = async (req, res) => {
 
 const deleteEmployee = async (req, res) => {
     try {
-        const { empId } = req.params;
-        const employee = await Employee.findOneAndDelete({empId});
+        const { empID } = req.params;
+        const employee = await Employee.findOneAndDelete({empID});
 
         if (!employee) {
-            res.status(404).json({ message: `No employee with id: ${empId}` });
+            return res.status(404).json({ message: `No employee with id: ${empID}` });
         }
         res.status(200).json({ message: 'Employee deleted successfully' });
     } catch (error) {
