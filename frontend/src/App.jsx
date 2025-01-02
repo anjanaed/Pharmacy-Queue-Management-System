@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./components/login";
 import Register from "./components/register";
 import User from "./components/user";
+import EmployeeInterface from "./components/EmployeeInterface";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/user" element={<User />} />
+        <Route path="/user" element={<EmployeeInterface />} />
       </Routes>
     </Router>
   );
