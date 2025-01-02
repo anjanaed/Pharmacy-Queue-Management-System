@@ -49,29 +49,63 @@ const PendingOrder = () => {
           <h1>Pending Orders</h1>
         </header>
         <div className="content">
-          <table>
-            <thead>
-              <tr>
-                <th className="table-raw">Number</th>
-                <th className="table-raw">Status</th>
-                <th className="table-raw">Pending Order Number</th>
-                <th className="table-raw">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {orders.map((order, index) => (
-                <tr key={order.id}>
-                  <td>{index + 1}</td>
-                  <td>{order.status}</td>
-                  <td>{order.orderNumber}</td>
-                  <td>
-                    <button onClick={() => handleCancel(order.id)} className='Cancel'>Cancel</button>
-                    <button onClick={() => handleConfirm(order.id)} className='Confirm'>Confirm</button> 
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className='main_box'>
+            <div className='box'>
+              <h3 className='box-title'>Pending Order Number</h3>
+              <p className='order-number'>01</p>
+              <div className='button-container'>
+                <button className="cancel">Cancel</button>
+                <button className="confirm">Confirm</button>
+              </div>
+            </div>
+
+            <div className='box'>
+              <h3 className='box-title'>Pending Order Number</h3>
+              <p className='order-number'>01</p>
+              <div className='button-container'>
+                <button className="cancel">Cancel</button>
+                <button className="confirm">Confirm</button>
+              </div>
+            </div>
+
+            <div className='box'>
+              <h3 className='box-title'>Pending Order Number</h3>
+              <p className='order-number'>01</p>
+              <div className='button-container'>
+                <button className="cancel">Cancel</button>
+                <button className="confirm">Confirm</button>
+              </div>
+            </div>
+          </div>
+
+          <div className='main_box'>
+            <div className='box'>
+              <h3 className='box-title'>Pending Order Number</h3>
+              <p className='order-number'>01</p>
+              <div className='button-container'>
+                <button className="cancel">Cancel</button>
+                <button className="confirm">Confirm</button>
+              </div>
+            </div>
+
+            <div className='box'>
+              <h3 className='box-title'>Pending Order Number</h3>
+              <p className='order-number'>01</p>
+              <div className='button-container'>
+                <button className="cancel">Cancel</button>
+                <button className="confirm">Confirm</button>
+              </div>
+            </div>
+
+            <div className='box'>
+              <h3 className='box-title'>Pending Order Number</h3>
+              <p className='order-number'>01</p>
+              <div className='button-container'>
+                <button className="cancel">Cancel</button>
+                <button className="confirm">Confirm</button>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
 
@@ -84,7 +118,6 @@ const PendingOrder = () => {
             <div className="button-container">
               <button onClick={handleModalCancel} className="Cancel">Cancel</button>
               <button onClick={handleModalConfirm} className="Confirm">Confirm</button>
-              
             </div>
           </div>
         </div>

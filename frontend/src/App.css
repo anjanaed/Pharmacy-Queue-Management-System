@@ -7,7 +7,6 @@ html, body {
 body {
     display: flex;
     background-size: cover;
-    background-color: aqua;
     background-image: url('./assets/background.jpg');
 }
 
