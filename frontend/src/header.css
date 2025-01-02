@@ -1,10 +1,10 @@
-
-
 /**/
 
 .App-header{
     display: flex;
     flex-direction: column;
+    padding: 0;
+   /* Ensure no padding */
 }
 .navbar_base{
     height: 100vh;
@@ -12,16 +12,14 @@
     background-color: #6791FB;
     display: flex;
     flex-direction: column;
-    padding-top: 20px;
+    padding: 0; /* Ensure no padding */
     color: #F5F5F5;
+    padding-top: 100px;
 }
 .navbar {
-    /* height: 100vh;
-    width: 300px;
-    background-color: #6791FB; */
     display: flex;
     flex-direction: column;
-    padding-top: 20px;
+    padding: 0; /* Ensure no padding */
   }
   
   .navbar a {
@@ -43,7 +41,7 @@
     text-decoration: none;
     text-align: left;
     font-size: 24px;
-    padding-top: 450px;
+    padding-top: 400px;
   }
 
   .logout a:hover {
