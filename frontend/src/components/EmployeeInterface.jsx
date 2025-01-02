@@ -68,6 +68,15 @@ const EmployeeInterface = () => {
     }, 3000);
   };
 
+  const showErrorPopup = (message) => {
+    const errorPopup = document.getElementById('errorPopup');
+    errorPopup.textContent = message;
+    errorPopup.classList.add('show');
+    setTimeout(() => {
+      errorPopup.classList.remove('show');
+    }, 3000);
+  };
+
   const handlePrintToken = async () => {
     try {
       const employeeIDWithPrefix = `E${employeeID}`;
@@ -76,7 +85,7 @@ const EmployeeInterface = () => {
       );
 
       if (!checkResponse.data.exists) {
-        alert("Invalid Employee ID");
+        showErrorPopup("Invalid Employee ID");
         return;
       }
 
@@ -110,11 +119,10 @@ const EmployeeInterface = () => {
       setTokens((prevTokens) => [...prevTokens, token]);
       setCurrentOrder(newOrderNumber);
 
-      // alert("Order Placed Successfully");
       showPopupMessage();
     } catch (error) {
       if (error.response && error.response.status === 404) {
-        alert("Invalid Employee ID");
+        showErrorPopup("Invalid Employee ID");
       } else {
         console.log(error.message);
       }
@@ -169,6 +177,7 @@ const EmployeeInterface = () => {
                 </div>
                 <div id="popupMessage" className="popup-message">Order Placed Successfully</div>
                 <div id="popupOverlay" className="popup-overlay"></div>
+                <div id="errorPopup" className="error-popup"></div>
               </div>
             </div>
           </section>
