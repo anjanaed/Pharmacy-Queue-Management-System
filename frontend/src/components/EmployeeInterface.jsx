@@ -5,19 +5,12 @@ import "./EmployeeInterface.css";
 const EmployeeInterface = () => {
   const [employeeID, setEmployeeID] = useState("");
   const [currentOrder, setCurrentOrder] = useState(0);
-  const [tokens, setTokens] = useState(() => {
-    const savedTokens = localStorage.getItem("tokens");
-    return savedTokens ? JSON.parse(savedTokens) : [];
-  });
 
   const [activeMenu, setActiveMenu] = useState("generateToken");
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
   const employeeIDRef = useRef(null);
   const printTokenButtonRef = useRef(null);
 
-  useEffect(() => {
-    localStorage.setItem("tokens", JSON.stringify(tokens));
-  }, [tokens]);
 
   useEffect(() => {
     const fetchOrderNumber = async () => {
@@ -65,7 +58,7 @@ const EmployeeInterface = () => {
     setTimeout(() => {
       popup.classList.remove('show');
       overlay.classList.remove('show');
-    }, 3000);
+    }, 1000);
   };
 
   const showErrorPopup = (message) => {
@@ -79,7 +72,7 @@ const EmployeeInterface = () => {
 
   const handlePrintToken = async () => {
     try {
-      const employeeIDWithPrefix = `E${employeeID}`;
+      const employeeIDWithPrefix = employeeID;
       const checkResponse = await axios.get(
         `http://localhost:3000/api/employee/check/${employeeIDWithPrefix}`
       );
@@ -89,39 +82,37 @@ const EmployeeInterface = () => {
         return;
       }
 
-      const employeeResponse = await axios.get(
-        `http://localhost:3000/api/employee/${employeeIDWithPrefix}`
-      );
-      console.log("Employee Data:", employeeResponse.data);
-
-      const response = await axios.post(
-        "http://localhost:3000/api/orderNumber/increment"
-      );
-      const newOrderNumber = response.data.currentOrderNumber;
-
       const timestamp = new Date();
-      const token = {
-        orderNumber: newOrderNumber,
-        employeeID: employeeIDWithPrefix,
-        date: timestamp.toLocaleDateString("en-US", {
+      const orderData = {
+        orderID: currentOrder,
+        orderDate: timestamp.toLocaleDateString("en-US", {
           year: "numeric",
           month: "long",
           day: "numeric",
         }),
-        time: timestamp.toLocaleTimeString("en-US", {
-          hour: "numeric",
-          minute: "numeric",
-          second: "numeric",
-          hour12: true,
-        }),
+        orderTime: timestamp.toLocaleTimeString("en-US"),
+        orderStatus:"Pending",
+        EmpID: employeeID
       };
 
-      setTokens((prevTokens) => [...prevTokens, token]);
-      setCurrentOrder(newOrderNumber);
+      try {
+        const orderResponse = await axios.post("http://localhost:3000/api/order", orderData);
+        console.log("Order posted successfully:", orderResponse.data);
+        const response = await axios.post(
+          "http://localhost:3000/api/orderNumber/increment"
+        );
+        setCurrentOrder(response.data.currentOrderNumber);
+
+
+      } catch (error) {
+        console.error("Error posting order:", error);
+      }
+
+
 
       showPopupMessage();
     } catch (error) {
-      if (error.response && error.response.status === 404) {
+      if(error.response && error.response.status === 404) {
         showErrorPopup("Invalid Employee ID");
       } else {
         console.log(error.message);
@@ -151,8 +142,8 @@ const EmployeeInterface = () => {
                     type="text"
                     id="employeeID"
                     ref={employeeIDRef}
-                    value={`E${employeeID}`}
-                    onChange={(e) => setEmployeeID(e.target.value.replace("E", ""))}
+                    value={employeeID}
+                    onChange={(e) => setEmployeeID(e.target.value)}
                   />
                 </div>
                 <button className="primary-btn" ref={printTokenButtonRef} onClick={handlePrintToken}>

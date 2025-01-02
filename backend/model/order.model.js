@@ -5,8 +5,7 @@ const orderSchema = mongoose.Schema(
     {
         orderID: { 
             type: String, 
-            required: [true, 'Order ID is required'],
-            unique: true, 
+            required: [true, 'Order ID is required'], 
         },
 
         orderDate: { 
@@ -23,12 +22,6 @@ const orderSchema = mongoose.Schema(
         orderTime: {
             type: String,
             required: [true, 'Order time is required'],
-            validate: {
-                validator: function (v) {
-                    return /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test(v);
-                },
-                message: props => `${props.value} is not a valid order time`
-            }
         },
 
         orderStatus: { 
@@ -43,13 +36,6 @@ const orderSchema = mongoose.Schema(
         EmpID: { 
             type: String, 
             required: [true, 'Employee ID is required'],
-            validate: {
-                validator: function (v) {
-                    // Validate employee ID format (e.g., must start with "E" followed by digits)
-                    return /^E\d+$/.test(v);
-                },
-                message: props => `${props.value} is not a valid Employee ID`
-            }
         }
     }
 );
