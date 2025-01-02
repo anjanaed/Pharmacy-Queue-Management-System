@@ -34,7 +34,7 @@ const PendingOrder = () => {
 
   const handleModalConfirm = () => {
     // Define the logic for confirming an order
-    console.log(`Order ${currentOrderId} confirmed`);
+    setOrders(orders.filter(order => order.id !== currentOrderId));
     setIsModalOpen(false);
   };
 
@@ -61,6 +61,7 @@ const PendingOrder = () => {
                 </div>
               </div>
             ))}
+            
           </div>
         </div>
       </main>
