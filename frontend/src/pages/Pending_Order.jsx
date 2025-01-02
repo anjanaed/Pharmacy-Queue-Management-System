@@ -14,7 +14,10 @@ const PendingOrder = () => {
       const fetchedOrders = [
         { id: 1, status: 'Pending Order Number', orderNumber: 'ORD001' },
         { id: 2, status: 'Pending Order Number', orderNumber: 'ORD002' },
-        // Add more orders as needed
+        { id: 3, status: 'Pending Order Number', orderNumber: 'ORD003' },
+        { id: 4, status: 'Pending Order Number', orderNumber: 'ORD004' },
+        { id: 5, status: 'Pending Order Number', orderNumber: 'ORD005' },
+        { id: 6, status: 'Pending Order Number', orderNumber: 'ORD006' },
       ];
       setOrders(fetchedOrders);
     };
@@ -61,7 +64,6 @@ const PendingOrder = () => {
                 </div>
               </div>
             ))}
-            
           </div>
         </div>
       </main>
