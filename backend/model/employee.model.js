@@ -15,7 +15,7 @@ const employeeSchema = mongoose.Schema(
 
         email: { 
             type: String, 
-            required: [true, "Employee email is required"],
+            required: [false, "Employee email is required"],
             validate: {
                 validator: function (v) {
                     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
@@ -23,17 +23,6 @@ const employeeSchema = mongoose.Schema(
                 message: props => `${props.value} is not a valid email!`
             }
         }, 
-
-        phone: { 
-            type: String, 
-            required: [false, "Employee phone number is required"],
-            validate: {
-                validator: function (v) {
-                    return /^\d{10}$/.test(v);
-                },
-                message: props => `${props.value} is not a valid phone number!`
-            }
-        },
     }
 );
 
