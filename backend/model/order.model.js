@@ -45,8 +45,8 @@ const orderSchema = mongoose.Schema(
             required: [true, 'Employee ID is required'],
             validate: {
                 validator: function (v) {
-                    // Validate employee ID format (e.g., must start with "EMP" followed by digits)
-                    return /^EMP\d+$/.test(v);
+                    // Validate employee ID format (e.g., must start with "E" followed by digits)
+                    return /^E\d+$/.test(v);
                 },
                 message: props => `${props.value} is not a valid Employee ID`
             }
