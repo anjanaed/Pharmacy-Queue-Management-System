@@ -12,14 +12,10 @@ const getEmployees = async (req, res) => {
 const getEmployee = async (req, res) => {
     try {
         const { empID } = req.params;
-<<<<<<< HEAD
-        const employee = await Employee.findOne( {empID} );
-=======
         const employee = await Employee.findOne({ empID });
         if (!employee) {
             return res.status(404).json({ message: `No employee with id: ${empID}` });
         }
->>>>>>> 9bf97bc2e2e9001b2dd48804f71b5753c578c11d
         res.status(200).json(employee);
     } catch (error) {
         res.status(500).json({ message: error.message });
