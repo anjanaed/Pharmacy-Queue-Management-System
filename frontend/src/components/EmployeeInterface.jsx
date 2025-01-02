@@ -12,18 +12,25 @@ const EmployeeInterface = () => {
   const printTokenButtonRef = useRef(null);
 
 
+  const fetchOrderNumber = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/api/orderNumber"
+      );
+      setCurrentOrder(response.data.currentOrderNumber);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   useEffect(() => {
-    const fetchOrderNumber = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:3000/api/orderNumber"
-        );
-        setCurrentOrder(response.data.currentOrderNumber);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
+
+
     fetchOrderNumber();
+    const interval = setInterval(fetchOrderNumber, 3000);
+
+    // Clean up interval on component unmount
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
