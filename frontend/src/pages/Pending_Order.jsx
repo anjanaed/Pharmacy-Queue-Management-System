@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from "../Header"; // Adjust the import path as needed
 import './Pending_Order.css';
+
 const PendingOrder = () => {
   const [orders, setOrders] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -50,61 +51,16 @@ const PendingOrder = () => {
         </header>
         <div className="content">
           <div className='main_box'>
-            <div className='box'>
-              <h3 className='box-title'>Pending Order Number</h3>
-              <p className='order-number'>01</p>
-              <div className='button-container'>
-                <button className="cancel">Cancel</button>
-                <button className="confirm">Confirm</button>
+            {orders.map((order) => (
+              <div className='box' key={order.id}>
+                <h3 className='box-title'>{order.status}</h3>
+                <p className='order-number'>{order.orderNumber}</p>
+                <div className='button-container'>
+                  <button className="cancel" onClick={() => handleCancel(order.id)}>Cancel</button>
+                  <button className="confirm" onClick={() => handleConfirm(order.id)}>Confirm</button>
+                </div>
               </div>
-            </div>
-
-            <div className='box'>
-              <h3 className='box-title'>Pending Order Number</h3>
-              <p className='order-number'>01</p>
-              <div className='button-container'>
-                <button className="cancel">Cancel</button>
-                <button className="confirm">Confirm</button>
-              </div>
-            </div>
-
-            <div className='box'>
-              <h3 className='box-title'>Pending Order Number</h3>
-              <p className='order-number'>01</p>
-              <div className='button-container'>
-                <button className="cancel">Cancel</button>
-                <button className="confirm">Confirm</button>
-              </div>
-            </div>
-          </div>
-
-          <div className='main_box'>
-            <div className='box'>
-              <h3 className='box-title'>Pending Order Number</h3>
-              <p className='order-number'>01</p>
-              <div className='button-container'>
-                <button className="cancel">Cancel</button>
-                <button className="confirm">Confirm</button>
-              </div>
-            </div>
-
-            <div className='box'>
-              <h3 className='box-title'>Pending Order Number</h3>
-              <p className='order-number'>01</p>
-              <div className='button-container'>
-                <button className="cancel">Cancel</button>
-                <button className="confirm">Confirm</button>
-              </div>
-            </div>
-
-            <div className='box'>
-              <h3 className='box-title'>Pending Order Number</h3>
-              <p className='order-number'>01</p>
-              <div className='button-container'>
-                <button className="cancel">Cancel</button>
-                <button className="confirm">Confirm</button>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </main>
