@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Header from "../Header"; // Adjust the import path as needed
-import './Pending_Order.css';
-const PendingOrder = () => {
+import './order_history.css';
+
+const OrderHistory = () => {
   const [orders, setOrders] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentOrderId, setCurrentOrderId] = useState(null);
@@ -11,8 +12,8 @@ const PendingOrder = () => {
     const fetchOrders = async () => {
       // Example static orders
       const fetchedOrders = [
-        { id: 1, status: 'Pending Order Number', orderNumber: 'ORD001' },
-        { id: 2, status: 'Pending Order Number', orderNumber: 'ORD002' },
+        { id: 1, order: 'Order 1', number: '123', employeeId: 'EMP001', time: '10:00 AM' },
+        { id: 2, order: 'Order 2', number: '456', employeeId: 'EMP002', time: '11:00 AM' },
         // Add more orders as needed
       ];
       setOrders(fetchedOrders);
@@ -20,22 +21,6 @@ const PendingOrder = () => {
 
     fetchOrders();
   }, []);
-
-  const handleConfirm = (orderId) => {
-    setCurrentOrderId(orderId);
-    setIsModalOpen(true);
-  };
-
-  const handleCancel = (orderId) => {
-    // Define the logic for canceling an order
-    console.log(`Order ${orderId} canceled`);
-  };
-
-  const handleModalConfirm = () => {
-    // Define the logic for confirming an order
-    console.log(`Order ${currentOrderId} confirmed`);
-    setIsModalOpen(false);
-  };
 
   const handleModalCancel = () => {
     setIsModalOpen(false);
@@ -46,51 +31,33 @@ const PendingOrder = () => {
       <Header />
       <main>
         <header className="main-content">
-          <h1>Pending Orders</h1>
+          <h1>Order History</h1>
         </header>
         <div className="content">
           <table>
             <thead>
               <tr>
                 <th className="table-raw">Number</th>
-                <th className="table-raw">Status</th>
-                <th className="table-raw">Pending Order Number</th>
-                <th className="table-raw">Actions</th>
+                <th className="table-raw">Order</th>
+                <th className="table-raw">Employee ID</th>
+                <th className="table-raw">Time</th>
               </tr>
             </thead>
             <tbody>
               {orders.map((order, index) => (
                 <tr key={order.id}>
                   <td>{index + 1}</td>
-                  <td>{order.status}</td>
-                  <td>{order.orderNumber}</td>
-                  <td>
-                    <button onClick={() => handleCancel(order.id)} className='Cancel'>Cancel</button>
-                    <button onClick={() => handleConfirm(order.id)} className='Confirm'>Confirm</button> 
-                  </td>
+                  <td>{order.order}</td>
+                  <td>{order.employeeId}</td>
+                  <td>{order.time}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       </main>
-
-      {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={handleModalCancel}>&times;</span>
-            <h2>Confirm Order</h2>
-            <p>Are you sure you want to confirm this order?</p>
-            <div className="button-container">
-              <button onClick={handleModalCancel} className="Cancel">Cancel</button>
-              <button onClick={handleModalConfirm} className="Confirm">Confirm</button>
-              
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
 
-export default PendingOrder;
+export default OrderHistory;
