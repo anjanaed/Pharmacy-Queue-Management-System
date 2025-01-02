@@ -57,6 +57,17 @@ const EmployeeInterface = () => {
     };
   }, []);
 
+  const showPopupMessage = () => {
+    const popup = document.getElementById('popupMessage');
+    const overlay = document.getElementById('popupOverlay');
+    popup.classList.add('show');
+    overlay.classList.add('show');
+    setTimeout(() => {
+      popup.classList.remove('show');
+      overlay.classList.remove('show');
+    }, 3000);
+  };
+
   const handlePrintToken = async () => {
     try {
       const employeeIDWithPrefix = `E${employeeID}`;
@@ -99,7 +110,8 @@ const EmployeeInterface = () => {
       setTokens((prevTokens) => [...prevTokens, token]);
       setCurrentOrder(newOrderNumber);
 
-      alert("Order Placed Successfully");
+      // alert("Order Placed Successfully");
+      showPopupMessage();
     } catch (error) {
       if (error.response && error.response.status === 404) {
         alert("Invalid Employee ID");
@@ -155,6 +167,8 @@ const EmployeeInterface = () => {
                     </strong>
                   </p>
                 </div>
+                <div id="popupMessage" className="popup-message">Order Placed Successfully</div>
+                <div id="popupOverlay" className="popup-overlay"></div>
               </div>
             </div>
           </section>
