@@ -110,7 +110,7 @@ th {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-.modal-content {
+.modal-content1 {
   background-color: #fefefe;
   margin: auto;
   padding: 40px;
@@ -118,6 +118,9 @@ th {
   width: 80%;
   max-width: 400px;
   border-radius: 10px;
+  align-items: left; /* Center align items */
+  text-align: left;
+  
 }
 
 .close {

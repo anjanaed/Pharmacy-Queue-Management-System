@@ -79,7 +79,7 @@ const Employees = () => {
 
       {isModalOpen && (
         <div className="modal">
-          <div className="modal-content">
+          <div className="modal-content1">
             <span className="close" onClick={handleCloseModal}>&times;</span>
             <h2>Edit Employee</h2>
             <form>

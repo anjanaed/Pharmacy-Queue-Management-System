@@ -144,13 +144,13 @@ button {
 }
 
 button.Confirm {
-  background-color: #4CAF50;
+  background-color: #6791FB;
   color: white;
 }
 
 button.Cancel {
-  background-color: #f44336;
-  color: white;
+  background-color: #ffffff;
+  color: #6791FB;
 }
 
 button:hover {
