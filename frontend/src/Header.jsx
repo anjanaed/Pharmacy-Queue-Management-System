@@ -5,8 +5,7 @@ import { Link } from 'react-router-dom';
 
 function Header() {
   return (
-    <div className="container">
-      <header className="App-header">
+    <div >
         <div className="navbar_base">
           <div className="navbar">
             <Link to="/pending-order"><FontAwesomeIcon icon={faClipboard} /> Pending Order</Link>
@@ -17,7 +16,6 @@ function Header() {
             <Link to="/"><FontAwesomeIcon icon={faArrowRightFromBracket} /> Log Out</Link>
           </div>
         </div>
-      </header>
     </div>
   );
 }

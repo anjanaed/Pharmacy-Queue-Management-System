@@ -1,11 +1,11 @@
 import { useState } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./components/login";
-import Register from "./components/register";
-import User from "./components/user";
-import Employees from "./components/Employees"
-import EmployeeInterface from "./components/EmployeeInterface";
+import Login from "./pages/login";
+import Register from "./pages/register";
+import User from "./pages/user";
+import Employees from "./pages/Employees"
+import Header from "./Header";
 
 function App() {
   return (
