@@ -3,13 +3,14 @@ import axios from "axios";
 import "./EmployeeInterface.css";
 
 const EmployeeInterface = () => {
-  const [employeeID, setEmployeeID] = useState("E");
+  const [employeeID, setEmployeeID] = useState("");
   const [currentOrder, setCurrentOrder] = useState(0);
 
   const [activeMenu, setActiveMenu] = useState("generateToken");
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
   const employeeIDRef = useRef(null);
   const printTokenButtonRef = useRef(null);
+
 
   const fetchOrderNumber = async () => {
     try {
@@ -23,6 +24,8 @@ const EmployeeInterface = () => {
   };
 
   useEffect(() => {
+
+
     fetchOrderNumber();
     const interval = setInterval(fetchOrderNumber, 3000);
 
@@ -62,7 +65,7 @@ const EmployeeInterface = () => {
     setTimeout(() => {
       popup.classList.remove('show');
       overlay.classList.remove('show');
-    }, 2500);
+    }, 1000);
   };
 
   const showErrorPopup = (message) => {
@@ -71,7 +74,7 @@ const EmployeeInterface = () => {
     errorPopup.classList.add('show');
     setTimeout(() => {
       errorPopup.classList.remove('show');
-    }, 2500);
+    }, 3000);
   };
 
   const handlePrintToken = async () => {
@@ -131,7 +134,6 @@ const EmployeeInterface = () => {
           <section className="generate-token">
             <div className="token-generator">
               <div className="details">
-                
                 <p>
                   Current Order Number: <strong>{currentOrder}</strong>
                 </p>
@@ -148,7 +150,7 @@ const EmployeeInterface = () => {
                     id="employeeID"
                     ref={employeeIDRef}
                     value={employeeID}
-                    onChange={(e) => setEmployeeID(e.target.value.startsWith("E") ? e.target.value : "E" + e.target.value)}
+                    onChange={(e) => setEmployeeID(e.target.value)}
                   />
                 </div>
                 <button className="primary-btn" ref={printTokenButtonRef} onClick={handlePrintToken}>
