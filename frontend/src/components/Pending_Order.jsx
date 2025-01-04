@@ -77,9 +77,7 @@ const PendingOrder = () => {
     setIsModalOpen(false);
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+
 
   return (
     <div className={styles.full}>
@@ -94,7 +92,7 @@ const PendingOrder = () => {
         <div className={styles['order-contain']}>
           <div className={styles['main-box']}>
             {orders.length === 0 ? (
-              <div>No Pending Orders</div>
+              <div className={styles.empty}>No Pending Orders</div>
             ) : (
               orders.map((order) => (
                 <div className={styles.box} key={order.id}>

@@ -5,6 +5,12 @@
     flex-direction: column;
 }
 
+.empty{
+    width: 100%;
+    text-align: center;
+    font-weight: 600;
+}
+
 .full{
     display: flex;
     flex-direction: row;

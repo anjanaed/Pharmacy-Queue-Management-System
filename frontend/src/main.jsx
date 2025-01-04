@@ -2,18 +2,17 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { StrictMode } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import App from './App';
-import Employees from './pages/Employees';
-import PendingOrder from './pages/Pending_Order';
-import OrderHistory from './pages/OrderHistory';
- // Import OrderHistory component
- import EmployeeInterface from './pages/EmployeeInterface';
+import Employees from './components/Employees';
+import PendingOrder from './components/Pending_Order';
+import OrderHistory from './components/OrderHistory';
+import Login from './components/login';
+import Register from './components/register';
+import EmployeeInterface from './components/EmployeeInterface';
+
+
+
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-  },
   {
     path: "/employees",
     element: <Employees />,
@@ -29,6 +28,14 @@ const router = createBrowserRouter([
   {
     path: "/order-history",
     element: <OrderHistory />, // Add route for OrderHistory
+  },
+  {
+    path: "/login",
+    element: <Login />, // Add route for OrderHistory
+  },
+  {
+    path: "/register",
+    element: <Register />, // Add route for OrderHistory
   },
 ]);
 

@@ -91,19 +91,19 @@ const EmployeeInterface = () => {
         return;
       }
 
-      const timestamp = new Date();
+
       await fetchOrderNumber()
+
+      const timestamp = new Date();
       const orderData = {
         orderID: currentOrder,
-        orderDate: timestamp.toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        }),
+        orderDate : timestamp.toLocaleDateString("en-CA"),
         orderTime: timestamp.toLocaleTimeString("en-US"),
-        orderStatus:"Pending",
+        orderStatus: "Pending",
         EmpID: employeeID
       };
+      const orderDate = timestamp.toLocaleDateString("en-CA");
+      console.log(orderDate)
 
       try {
         const orderResponse = await axios.post("http://localhost:3000/api/order", orderData);

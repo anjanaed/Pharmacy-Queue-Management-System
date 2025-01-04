@@ -16,6 +16,7 @@
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "date-fns": "^4.1.0",
     "firebase": "^11.1.0",
     "jspdf": "^2.5.2",
     "jspdf-autotable": "^3.8.4",
