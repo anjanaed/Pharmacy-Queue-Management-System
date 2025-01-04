@@ -8,34 +8,46 @@ import OrderHistory from './components/OrderHistory';
 import Login from './components/login';
 import Register from './components/register';
 import EmployeeInterface from './components/EmployeeInterface';
+import ProtectedAdminRoutes from './protectedAdminRoutes';
+import ProtectedEmpRoutes from './protectedEmpRoutes';
+import ProtectedLogin from './protectedLogin';
+import AutoRouting from './autoRouting';
+import NotFound from './notFound';
+
 
 
 
 
 const router = createBrowserRouter([
   {
+    path: "/",
+    element:(<AutoRouting><NotFound/></AutoRouting>) ,
+  },
+  {
     path: "/employees",
-    element: <Employees />,
+    element:(<ProtectedAdminRoutes><Employees /></ProtectedAdminRoutes>) ,
   },
   {
     path: "/pending-order",
-    element: <PendingOrder />,
+    element:(<ProtectedAdminRoutes><PendingOrder /></ProtectedAdminRoutes>) ,
   },
   {
     path: "/user",
-    element: <EmployeeInterface />,
+    element: 
+    (<ProtectedEmpRoutes><EmployeeInterface /></ProtectedEmpRoutes>)
+    ,
   },
   {
     path: "/order-history",
-    element: <OrderHistory />, // Add route for OrderHistory
+    element: (<ProtectedAdminRoutes><OrderHistory /></ProtectedAdminRoutes>), // Add route for OrderHistory
   },
   {
     path: "/login",
-    element: <Login />, // Add route for OrderHistory
+    element: (<ProtectedLogin><Login /></ProtectedLogin>), // Add route for OrderHistory
   },
   {
     path: "/register",
-    element: <Register />, // Add route for OrderHistory
+    element: (<ProtectedAdminRoutes><Register /></ProtectedAdminRoutes>), // Add route for OrderHistory
   },
 ]);
 

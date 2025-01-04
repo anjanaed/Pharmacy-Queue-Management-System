@@ -5,10 +5,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import { Link,useNavigate } from 'react-router-dom';
 
 const Employees = () => {
   const [employees, setEmployees] = useState([]);
   const[loading,setLoading]=useState(true);
+  const navigate=useNavigate()
 
 
   const fetchEmployee = async () => {
@@ -42,9 +44,6 @@ const Employees = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentEmployee, setCurrentEmployee] = useState({ id: '', name: '', email: ''});
 
-  const addEmployee = () => {
-    // Logic to add a new employee
-  };
 
   const handleEdit = (employee) => {
     setCurrentEmployee({ ...employee, });
@@ -102,7 +101,7 @@ const Employees = () => {
       </header>
       <div className={styles.content}>
         <div className={styles.new}>
-          <button className={styles['add-new']} onClick={addEmployee}>+ Add New</button>
+          <button className={styles['add-new']} onClick={()=>navigate("/register")}>+ Add New</button>
         </div>
         <table>
           <thead>
