@@ -3,10 +3,10 @@ import { auth, fireStore } from "./components/firebase.js";
 import { setDoc, doc } from "firebase/firestore";
 
 
-const UID="EMP080"
-const email="anjiijjjhhhhgvjknbjgbi@gmail.com"
+const UID="EMP029"
+const email="test1234@gmail.com"
 const password="05102002"
-const rolee="Admin" //Employee or Admin
+const rolee="Employee" //Employee or Admin
 
 
 async function userInject(){
@@ -15,12 +15,9 @@ async function userInject(){
       const user = auth.currentUser;
       console.log("User Registered Successfully")
       if (user) {
-        await setDoc(doc(fireStore, "Users", UID), {
+        await setDoc(doc(fireStore, "Users", user.uid), {
           role: rolee,
         });
-        await setDoc(doc(fireStore, "uidMappings", user.uid), {
-          UID,
-        })
    
     }
     }catch(err){

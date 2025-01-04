@@ -7,6 +7,20 @@ body {
   color: #333;
 }
 
+.logout{
+  margin-left: auto;
+  background-color: #daecff;
+  font-size: 1vw;
+  border-radius: 10px;
+  transition-duration: 0.4s;
+  font-weight: 520;
+}
+
+.logout:hover{
+  background-color: rgb(68, 71, 255);
+  transform: scale(1.1);
+}
+
 body {
   background-image: url('/background.jpg');
   background-size: cover;

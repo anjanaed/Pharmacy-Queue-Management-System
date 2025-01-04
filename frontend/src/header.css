@@ -43,16 +43,14 @@
   margin-top: auto;
   text-align: center;
   padding: 1.5vh;
+  transition-duration: 0.3s;
+  cursor: pointer;
   
 
 }
 
-.logout a {
-  transition-duration: 0.3s;
-  color: black;
-}
 
 
-.logout a:hover {
+.logout:hover {
   color: #ff0000;
 }

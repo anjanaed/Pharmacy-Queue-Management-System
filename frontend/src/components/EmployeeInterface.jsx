@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import styles from "./EmployeeInterface.module.css";
+import { auth } from './firebase';
+import { signOut } from 'firebase/auth';
 
 const EmployeeInterface = () => {
   const [employeeID, setEmployeeID] = useState("");
@@ -23,6 +25,17 @@ const EmployeeInterface = () => {
       console.log(error.message);
     }
   };
+
+    const handleLogOut=async()=>{
+      console.log("clicked")
+      try{
+        await signOut(auth);
+        console.log("logged out");
+        navigate('/login')
+      }catch(err){
+        console.log(err)
+      }
+    }
 
   useEffect(() => {
 
@@ -137,6 +150,7 @@ const EmployeeInterface = () => {
 
   return (
     <div className={styles.container}>
+      <button className={styles.logout} onClick={handleLogOut}>Logout</button>
       <main className={styles.content}>
         {activeMenu === "generateToken" && (
           <section className={styles['generate-token']}>
