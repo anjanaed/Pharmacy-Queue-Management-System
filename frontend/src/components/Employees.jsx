@@ -107,11 +107,11 @@ const Employees = () => {
         <table>
           <thead>
             <tr>
-              <th>Number</th>
-              <th>Employee ID</th>
-              <th>Gmail</th>
-              <th>Name</th>
-              <th>Actions</th>
+              <th className={styles.myth}>Number</th>
+              <th className={styles.myth}>Employee ID</th>
+              <th className={styles.myth}>Gmail</th>
+              <th className={styles.myth}>Name</th>
+              <th className={styles.myth}>Actions</th>
             </tr>
           </thead>
           <tbody>

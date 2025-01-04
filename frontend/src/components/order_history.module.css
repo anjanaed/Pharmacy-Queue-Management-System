@@ -38,6 +38,7 @@ table {
 
 .table-raw{
     background-color: #baccfc;
+    text-align: center;
     color: rgb(34, 34, 34); /* Optional: to make the text color white for better contrast */
 }
 
@@ -51,11 +52,14 @@ tr:hover {
 
 td {
     /* border: 1px solid #242424; */
-    text-align: center;
     padding-top: 0.6vw;
     padding-bottom: 0.6vw;
 }
 
+th {
+  padding: 8px;
+  text-align: center;
+}
 
 
 

@@ -57,7 +57,7 @@
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 1vw;
 }
 
 td {
@@ -66,9 +66,8 @@ td {
     padding-top: 10px;
 }
 
-th {
+.myth {
     background-color: #baccfc;
-    /* border: 1px solid #242424; */
     padding: 8px;
     text-align: center;
 }
