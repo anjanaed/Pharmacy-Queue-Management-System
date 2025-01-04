@@ -27,7 +27,7 @@ body {
 .header {
   
   color: #007bff;
- 
+
   
   text-align: center;
   font-size: 30px;
@@ -175,23 +175,6 @@ body {
   }
 }
 
-.popup-message {
-  visibility: hidden;
-  width: 600px;
-  background-color: #007bff;
-  color: white;
-  text-align: center;
-  border-radius: 10px;
-  padding: 20px;
-  position: fixed;
-  z-index: 1;
-  left: 50%;
-  top: 30%;
-  transform: translate(-50%, -50%);
-  font-size: 50px;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-}
 
 .popup-message.show {
   visibility: visible;
@@ -218,12 +201,19 @@ body {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  background: #007bff;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
+  visibility: hidden;
+  width: 600px;
+  background-color: #007bff;
+  color: white;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  font-size: 50px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
 }
 
 .error-popup {

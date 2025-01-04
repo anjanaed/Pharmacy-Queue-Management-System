@@ -40,8 +40,8 @@ const createOrder = async (req, res) => {
 
 const updateOrder = async (req, res) => {
     try {
-        const { orderID } = req.params;
-        const order = await Order.findOneAndUpdate({ orderID }, req.body);
+        const { orderID,orderDate } = req.params;
+        const order = await Order.findOneAndUpdate({ orderID,orderDate }, req.body,{ new: true });
 
         if (!order) {
             res.status(404).json({ message: `No order with orderID: ${orderID}` });
@@ -53,8 +53,6 @@ const updateOrder = async (req, res) => {
         if (error.name === 'ValidationError') {
             const messages = Object.values(error.errors).map(err => err.message);
             return res.status(400).json({ message: messages.join(', ') });
-        } else if (error.code === 11000) {
-            return res.status(400).json({ message: 'Duplicate order ID' });
         } else {
             return res.status(500).json({ message: error.message });
         }

@@ -1,24 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import Header from "../Header"; // Adjust the import path as needed
-import './order_history.css';
+import styles from './order_history.module.css';
+import axios from 'axios';
+import {format} from 'date-fns'
 
 const OrderHistory = () => {
   const [orders, setOrders] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentOrderId, setCurrentOrderId] = useState(null);
 
-  useEffect(() => {
-    // Fetch orders from an API or define them statically
-    const fetchOrders = async () => {
-      // Example static orders
-      const fetchedOrders = [
-        { id: 1, order: 'Order 1', number: '123', employeeId: 'EMP001', time: '10:00 AM' },
-        { id: 2, order: 'Order 2', number: '456', employeeId: 'EMP002', time: '11:00 AM' },
-        // Add more orders as needed
-      ];
-      setOrders(fetchedOrders);
-    };
 
+
+
+  const fetchOrders = async () => {
+    try{
+    const response = await axios.get("http://127.0.0.1:3000/api/order");
+    console.log(response)
+    const fetchedOrders = response.data.filter((order) => order.orderStatus == "Completed").map((order)=>{
+      const datee = new Date(order.orderDate);
+      const formattedDate = format(datee,'yyyy-MM-dd'); // Format as YYYY-MM-DD
+      console.log(formattedDate)
+      return {
+        id: order.orderID,
+        emp: order.EmpID,
+        date: formattedDate,
+        time: order.orderTime,
+        stat: order.orderStatus,
+      };
+    })
+    
+    setOrders(fetchedOrders);
+  }catch(err){
+    console.log(err)
+  } 
+  };
+
+  useEffect(() => {
     fetchOrders();
   }, []);
 
@@ -27,35 +44,37 @@ const OrderHistory = () => {
   };
 
   return (
-    <div className="container">
+    <div className={styles.full}>
+      <div className={styles.leftDiv}>
       <Header />
-      <main>
-        <header className="main-content">
+      </div>
+      <div className={styles.rightDiv}>
+        <header className={styles.title}>
           <h1>Order History</h1>
         </header>
-        <div className="content">
+        <div className={styles.content}>
           <table>
             <thead>
               <tr>
-                <th className="table-raw">Number</th>
-                <th className="table-raw">Order</th>
-                <th className="table-raw">Employee ID</th>
-                <th className="table-raw">Time</th>
+                <th className={styles["table-raw"]}>#</th>
+                <th className={styles["table-raw"]}>Order ID</th>
+                <th className={styles["table-raw"]}>Employee ID</th>
+                <th className={styles["table-raw"]}>Date & Time</th>
               </tr>
             </thead>
             <tbody>
               {orders.map((order, index) => (
                 <tr key={order.id}>
-                  <td>{index + 1}</td>
-                  <td>{order.order}</td>
-                  <td>{order.employeeId}</td>
-                  <td>{order.time}</td>
+                  <td>#{index + 1}</td>
+                  <td>{order.id}</td>
+                  <td>{order.emp}</td>
+                  <td>{order.date} | {order.time}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-      </main>
+      </div>
     </div>
   );
 };

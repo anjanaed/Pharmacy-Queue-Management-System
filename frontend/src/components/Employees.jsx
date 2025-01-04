@@ -1,136 +1,175 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Header from "../Header";
-import './Employees.css';
+import styles from './Employees.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
 const Employees = () => {
-  const [employees, setEmployees] = useState([
-    { id: 1, employeeId: 'E001', email: 'employee1@gmail.com', name: 'John Doe' },
-    { id: 2, employeeId: 'E002', email: 'employee2@gmail.com', name: 'Jane Smith' }
-  ]);
+  const [employees, setEmployees] = useState([]);
+  const[loading,setLoading]=useState(true);
+
+
+  const fetchEmployee = async () => {
+    try {
+      const response = await axios.get("http://127.0.0.1:3000/api/employee");
+      console.log(response);
+
+      const fetchedEmployee = response.data
+        .map((emp) => ({
+          id: emp.empID,
+          email:emp.email,
+          name: emp.name
+        }));
+      setEmployees(fetchedEmployee);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+    }
+    setLoading(false);
+  };
+
+      useEffect(() => {
+    
+    
+        fetchEmployee();
+
+      }, []);
+
+
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentEmployee, setCurrentEmployee] = useState({ id: '', name: '', email: '', password: '', confirmPassword: '' });
+  const [currentEmployee, setCurrentEmployee] = useState({ id: '', name: '', email: ''});
 
   const addEmployee = () => {
     // Logic to add a new employee
   };
 
   const handleEdit = (employee) => {
-    setCurrentEmployee({ ...employee, password: '', confirmPassword: '' });
+    setCurrentEmployee({ ...employee, });
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setCurrentEmployee({ id: '', name: '', email: '', password: '', confirmPassword: '' });
+    setCurrentEmployee({ id: '', name: '', email: ''});
   };
 
-  const handleSave = () => {
+  const handleSave = async (empid) => {
+    try{
+      await axios.put(`http://127.0.0.1:3000/api/employee/${empid}`,{
+        name:currentEmployee.name,
+        email:currentEmployee.email
+      }).then((res)=>{
+        console.log("updated")
+        fetchEmployee()
+      })
+    }catch(err){
+      console.log(err)
+    }
+
+
     // Define the logic for saving the edited employee details
     console.log('Employee details saved:', currentEmployee);
     setIsModalOpen(false);
   };
 
-  const deleteEmployee = (id) => {
-    setEmployees(employees.filter(employee => employee.id !== id));
-  };
+  const deleteEmployee = async (id) => {
+    try{
+      await axios.delete(`http://127.0.0.1:3000/api/employee/${id}`)
+      .then((res)=>{
+        console.log("User Deleted")
+        console.log(res)
+        fetchEmployee()
+      }
+      )}catch(err){
+        console.log(err)
+      }
+    }
+  
+
+
 
   return (
-    <div className="container">
+    <div className={styles.full}>
+      <div className={styles.leftDiv}>
       <Header />
-      <main>
-        <header className="main-content">
-          <h1>Employees</h1>
-        </header>
-        <div className="content">
-          <div className="new">
-            <button className="add-new" onClick={addEmployee}>+ Add New</button>
-          </div>
-          <table>
-            <thead>
-              <tr>
-                <th>Number</th>
-                <th>Employee ID</th>
-                <th>Gmail</th>
-                <th>Name</th>
-                <th>Actions</th>
+      </div>
+    <div className={styles.rightDiv}>
+      <header className={styles.title}>
+        <h1>Employee Details</h1>
+      </header>
+      <div className={styles.content}>
+        <div className={styles.new}>
+          <button className={styles['add-new']} onClick={addEmployee}>+ Add New</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Number</th>
+              <th>Employee ID</th>
+              <th>Gmail</th>
+              <th>Name</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {employees.map((employee, index) => (
+              <tr >
+                <td>{index + 1}</td>
+                <td>{employee.id}</td>
+                <td>{employee.email}</td>
+                <td>{employee.name}</td>
+                <td>
+                  <button className={styles.edit} onClick={() => handleEdit(employee)}><FontAwesomeIcon icon={faPenToSquare} /> Edit</button>
+                  <button className={styles.delete} onClick={() => deleteEmployee(employee.id)}><FontAwesomeIcon icon={faTrash} /> Delete</button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {employees.map((employee, index) => (
-                <tr key={employee.id}>
-                  <td>{index + 1}</td>
-                  <td>{employee.employeeId}</td>
-                  <td>{employee.email}</td>
-                  <td>{employee.name}</td>
-                  <td>
-                    <button className="edit" onClick={() => handleEdit(employee)}><FontAwesomeIcon icon={faPenToSquare} /> Edit</button>
-                    <button className="delete" onClick={() => deleteEmployee(employee.id)}><FontAwesomeIcon icon={faTrash} /> Delete</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </main>
-
-      {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content1">
-            <span className="close" onClick={handleCloseModal}>&times;</span>
-            <h2>Edit Employee</h2>
-            <form>
-              <label>
-                Employee ID:
-                <input
-                  type="text"
-                  value={currentEmployee.id}
-                  onChange={(e) => setCurrentEmployee({ ...currentEmployee, id: e.target.value })}
-                  disabled
-                />
-              </label>
-              <label>
-                Name:
-                <input
-                  type="text"
-                  value={currentEmployee.name}
-                  onChange={(e) => setCurrentEmployee({ ...currentEmployee, name: e.target.value })}
-                />
-              </label>
-              <label>
-                Email:
-                <input
-                  type="email"
-                  value={currentEmployee.email}
-                  onChange={(e) => setCurrentEmployee({ ...currentEmployee, email: e.target.value })}
-                />
-              </label>
-              <label>
-                Password:
-                <input
-                  type="password"
-                  value={currentEmployee.password}
-                  onChange={(e) => setCurrentEmployee({ ...currentEmployee, password: e.target.value })}
-                />
-              </label>
-              <label>
-                Confirm Password:
-                <input
-                  type="password"
-                  value={currentEmployee.confirmPassword}
-                  onChange={(e) => setCurrentEmployee({ ...currentEmployee, confirmPassword: e.target.value })}
-                />
-              </label>
-              <button type="button" onClick={handleSave}>Save</button>
-            </form>
-          </div>
-        </div>
-      )}
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
+
+    {isModalOpen && (
+      <div className={styles.modal}>
+        <div className={styles['modal-content1']}>
+          <span className={styles.close} onClick={handleCloseModal}>&times;</span>
+          <h2>Edit Employee</h2>
+          <form>
+            <label>
+              Employee ID:
+              <input
+                type="text"
+                value={currentEmployee.id}
+                onChange={(e) => setCurrentEmployee({ ...currentEmployee, id: e.target.value })}
+                disabled
+              />
+            </label>
+            <label>
+              Name:
+              <input
+                type="text"
+                value={currentEmployee.name}
+                onChange={(e) => setCurrentEmployee({ ...currentEmployee, name: e.target.value })}
+              />
+            </label>
+            <label>
+              Email:
+              <input
+                type="email"
+                value={currentEmployee.email}
+                onChange={(e) => setCurrentEmployee({ ...currentEmployee, email: e.target.value })}
+              />
+            </label>
+            <button type="button" onClick={()=>handleSave(currentEmployee.id)}>Save</button>
+          </form>
+        </div>
+      </div>
+    )}
+  </div>
   );
-};
+}
 
 export default Employees;

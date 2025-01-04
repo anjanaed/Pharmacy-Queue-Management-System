@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import "./EmployeeInterface.css";
+import styles from "./EmployeeInterface.module.css";
 
 const EmployeeInterface = () => {
   const [employeeID, setEmployeeID] = useState("");
   const [currentOrder, setCurrentOrder] = useState(0);
+  const[loading,setLoading]=useState(false)
 
   const [activeMenu, setActiveMenu] = useState("generateToken");
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
@@ -78,6 +79,7 @@ const EmployeeInterface = () => {
   };
 
   const handlePrintToken = async () => {
+    setLoading(true)
     try {
       const employeeIDWithPrefix = employeeID;
       const checkResponse = await axios.get(
@@ -89,18 +91,19 @@ const EmployeeInterface = () => {
         return;
       }
 
+
+      await fetchOrderNumber()
+
       const timestamp = new Date();
       const orderData = {
         orderID: currentOrder,
-        orderDate: timestamp.toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        }),
+        orderDate : timestamp.toLocaleDateString("en-CA"),
         orderTime: timestamp.toLocaleTimeString("en-US"),
-        orderStatus:"Pending",
+        orderStatus: "Pending",
         EmpID: employeeID
       };
+      const orderDate = timestamp.toLocaleDateString("en-CA");
+      console.log(orderDate)
 
       try {
         const orderResponse = await axios.post("http://localhost:3000/api/order", orderData);
@@ -114,6 +117,7 @@ const EmployeeInterface = () => {
       } catch (error) {
         console.error("Error posting order:", error);
       }
+      setLoading(false)
 
 
 
@@ -127,23 +131,27 @@ const EmployeeInterface = () => {
     }
   };
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div className="container">
-      <main className="content">
+    <div className={styles.container}>
+      <main className={styles.content}>
         {activeMenu === "generateToken" && (
-          <section className="generate-token">
-            <div className="token-generator">
-              <div className="details">
+          <section className={styles['generate-token']}>
+            <div className={styles['token-generator']}>
+              <div className={styles.details}>
                 <p>
                   Current Order Number: <strong>{currentOrder}</strong>
                 </p>
               </div>
               
-              <div className="token-box">
-              <header className="header">
+              <div className={styles['token-box']}>
+              <header className={styles.header}>
                 Generate Token
               </header>
-                <div className="employee-code">
+                <div className={styles['employee-code']}>
                   <label htmlFor="employeeID">Employee ID:</label>
                   <input
                     type="text"
@@ -153,7 +161,7 @@ const EmployeeInterface = () => {
                     onChange={(e) => setEmployeeID(e.target.value)}
                   />
                 </div>
-                <button className="primary-btn" ref={printTokenButtonRef} onClick={handlePrintToken}>
+                <button className={styles['primary-btn']} ref={printTokenButtonRef} onClick={handlePrintToken}>
                   Print Token
                 </button>
                 <div >
@@ -173,9 +181,9 @@ const EmployeeInterface = () => {
                     </strong>
                   </p>
                 </div>
-                <div id="popupMessage" className="popup-message">Order Placed Successfully</div>
-                <div id="popupOverlay" className="popup-overlay"></div>
-                <div id="errorPopup" className="error-popup"></div>
+                <div id="popupMessage" className={styles['popup-message']}>Order Placed Successfully</div>
+                <div id="popupOverlay" className={styles['popup-overlay']}></div>
+                <div id="errorPopup" className={styles['error-popup']}></div>
               </div>
             </div>
           </section>

@@ -1,43 +1,75 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import Header from "../Header"; // Adjust the import path as needed
-import './Pending_Order.css';
+import styles from "./Pending_Order.module.css";
+import axios from "axios";
+import { IoMdCloseCircle } from "react-icons/io";
 
 const PendingOrder = () => {
   const [orders, setOrders] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentOrderId, setCurrentOrderId] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // Fetch orders from an API or define them statically
-    const fetchOrders = async () => {
-      // Example static orders
-      const fetchedOrders = [
-        { id: 1, status: 'Pending Order Number', orderNumber: 'ORD001' },
-        { id: 2, status: 'Pending Order Number', orderNumber: 'ORD002' },
-        { id: 3, status: 'Pending Order Number', orderNumber: 'ORD003' },
-        { id: 4, status: 'Pending Order Number', orderNumber: 'ORD004' },
-        { id: 5, status: 'Pending Order Number', orderNumber: 'ORD005' },
-        { id: 6, status: 'Pending Order Number', orderNumber: 'ORD006' },
-      ];
+  const fetchOrders = async () => {
+    try {
+      const response = await axios.get("http://127.0.0.1:3000/api/order");
+
+      const fetchedOrders = response.data
+        .filter((order) => order.orderStatus == "Pending")
+        .map((order) => ({
+          id: order.orderID,
+          date:order.orderDate,
+          empId: order.EmpID,
+        }));
       setOrders(fetchedOrders);
-    };
-
-    fetchOrders();
-  }, []);
-
-  const handleConfirm = (orderId) => {
-    setCurrentOrderId(orderId);
-    setIsModalOpen(true);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+    }
   };
 
-  const handleCancel = (orderId) => {
-    // Define the logic for canceling an order
-    console.log(`Order ${orderId} canceled`);
+
+    useEffect(() => {
+  
+  
+      fetchOrders();
+      const interval = setInterval(fetchOrders, 3000);
+  
+      // Clean up interval on component unmount
+      return () => clearInterval(interval);
+    }, []);
+
+  const handleConfirm = async (orderId,orderDate) => {
+    try {
+      await axios.put(`http://127.0.0.1:3000/api/order/${orderId}/${orderDate}`, {
+        orderStatus: "Completed",
+      }).then((res) => {
+        console.log(res)
+        console.log("Order Completed");
+        fetchOrders();
+      });
+    } catch (error) {
+      console.error("Error confirming order:", error);
+    }
+  };
+
+  const handleCancel = async (orderId,orderDate) => {
+    try {
+      await axios.put(`http://127.0.0.1:3000/api/order/${orderId}/${orderDate}`, {
+        orderStatus: "Cancelled",
+      }).then((res) => {
+        console.log(res)
+        console.log("Order Cancelled");
+        fetchOrders();
+      });
+    } catch (error) {
+      console.error("Error cancelling order:", error);
+    }
   };
 
   const handleModalConfirm = () => {
     // Define the logic for confirming an order
-    setOrders(orders.filter(order => order.id !== currentOrderId));
+    setOrders(orders.filter((order) => order.id !== currentOrderId));
     setIsModalOpen(false);
   };
 
@@ -45,43 +77,67 @@ const PendingOrder = () => {
     setIsModalOpen(false);
   };
 
+
+
   return (
-    <div className="container">
+    <div className={styles.full}>
+    <div className={styles['left-div']}>
       <Header />
-      <main>
-        <header className="main-content">
+    </div>
+    <div className={styles['right-div']}>
+      <div className={styles.conPed}>
+        <div className={styles.title}>
           <h1>Pending Orders</h1>
-        </header>
-        <div className="content">
-          <div className='main_box'>
-            {orders.map((order) => (
-              <div className='box' key={order.id}>
-                <h3 className='box-title'>{order.status}</h3>
-                <p className='order-number'>{order.orderNumber}</p>
-                <div className='button-container'>
-                  <button className="cancel" onClick={() => handleCancel(order.id)}>Cancel</button>
-                  <button className="confirm" onClick={() => handleConfirm(order.id)}>Confirm</button>
+        </div>
+        <div className={styles['order-contain']}>
+          <div className={styles['main-box']}>
+            {orders.length === 0 ? (
+              <div className={styles.empty}>No Pending Orders</div>
+            ) : (
+              orders.map((order) => (
+                <div className={styles.box} key={order.id}>
+                  <div className={styles.top}>
+                    <p className={styles.emp}>Emp - {order.empId}</p>
+                    <IoMdCloseCircle color="red" className={styles['close-icon']} onClick={() => handleCancel(order.id, order.date)} />
+                  </div>
+                  <h3 className={styles['box-title']}>Order</h3>
+                  <p className={styles['order-number']}>{order.id}</p>
+                  <div className={styles['button-container']}>
+                    <button
+                      className={styles['confirm-btn']}
+                      onClick={() => handleConfirm(order.id, order.date)}
+                    >
+                      Confirm
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
-      </main>
 
-      {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={handleModalCancel}>&times;</span>
-            <h2>Confirm Order</h2>
-            <p>Are you sure you want to confirm this order?</p>
-            <div className="button-container">
-              <button onClick={handleModalCancel} className="Cancel">Cancel</button>
-              <button onClick={handleModalConfirm} className="Confirm">Confirm</button>
+        {isModalOpen && (
+          <div className={styles.modal}>
+            <div className={styles['modal-content']}>
+              <span className={styles.close} onClick={handleModalCancel}>
+                &times;
+              </span>
+              <h2>Confirm Order</h2>
+              <p>Are you sure you want to confirm this order?</p>
+              <div className={styles['button-container']}>
+                <button onClick={handleModalCancel} className={styles.Cancel}>
+                  Cancel
+                </button>
+                <button onClick={handleModalConfirm} className={styles.Confirm}>
+                  Confirm
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
+  </div>
   );
 };
 
