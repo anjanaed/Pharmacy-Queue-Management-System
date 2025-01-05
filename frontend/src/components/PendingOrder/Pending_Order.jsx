@@ -20,12 +20,13 @@ const PendingOrder = () => {
       // onStart callback
       () => {
         setIsPlaying(true);
-        setNotification("Audio is playing...");
+        setNotification("Order is Calling...");
+        
       },
       // onEnd callback
       () => {
         setIsPlaying(false);
-        setNotification("Audio finished");
+        setNotification(null)
       }
     );
   }, []);
@@ -104,7 +105,7 @@ const PendingOrder = () => {
   const handleBoxClick = (orderId) => {
     // Prevent multiple audio plays at once
     if (!isPlaying) {
-      SpeechUtil.speak(orderId);
+      SpeechUtil.speak(`${orderId} can be collected from the counter`);
     }
   };
 

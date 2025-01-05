@@ -11,12 +11,6 @@ const orderSchema = mongoose.Schema(
         orderDate: { 
             type: Date, 
             required: [true, 'Order date is required'],
-            validate: {
-                validator: function (v) {
-                    return v <= new Date();
-                },
-                message: props => `Order date ${props.value} cannot be in the future`
-            }
         },
 
         orderTime: {
