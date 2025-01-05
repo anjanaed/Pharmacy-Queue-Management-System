@@ -230,6 +230,11 @@ body {
   transition: opacity 0.5s ease-in-out;
 }
 
+.popup-message.show {
+  visibility: visible;
+  opacity: 1;
+}
+
 .error-popup {
   position: fixed;
   bottom: 20px;

@@ -157,7 +157,7 @@ const EmployeeInterface = () => {
             <div className={styles['token-generator']}>
               <div className={styles.details}>
                 <p>
-                  Current Order Number: <strong>{currentOrder}</strong>
+                  Last Order Number: <strong>{currentOrder-1}</strong>
                 </p>
               </div>
               
