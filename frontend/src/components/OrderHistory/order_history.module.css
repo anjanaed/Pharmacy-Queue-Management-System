@@ -72,3 +72,29 @@ button {
   cursor: pointer;
 }
 
+.downloadButtonContainer {
+  display: flex;
+  justify-content: center;
+ 
+  position: absolute;
+  top: 0.5vw;
+  right: 1.5vw;
+}
+
+.downloadButton {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 1vw 2vw;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1vw;
+  margin: 1vw 0;
+  cursor: pointer;
+  border-radius: 0.5vw;
+}
+
+.downloadButton:hover {
+  background-color: #45a049;
+}

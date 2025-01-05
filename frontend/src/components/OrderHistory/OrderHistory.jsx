@@ -49,9 +49,15 @@ const OrderHistory = () => {
       <Header />
       </div>
       <div className={styles.rightDiv}>
+      <div className={styles.downloadButtonContainer}>
+          <button className={styles.downloadButton} >Download as PDF</button>
+        </div>
         <header className={styles.title}>
           <h1>Order History</h1>
+          
+          
         </header>
+        
         <div className={styles.content}>
           <table>
             <thead>
