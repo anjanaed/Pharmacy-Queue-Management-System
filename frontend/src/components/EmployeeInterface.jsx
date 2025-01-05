@@ -129,13 +129,12 @@ const EmployeeInterface = () => {
 
       } catch (error) {
         console.error("Error posting order:", error);
+        setLoading(false);
       }
-      setLoading(false)
-
-
 
       showPopupMessage();
     } catch (error) {
+      setLoading(false); // Add this line to reset loading state on error
       if(error.response && error.response.status === 404) {
         showErrorPopup("Invalid Employee ID");
       } else {
