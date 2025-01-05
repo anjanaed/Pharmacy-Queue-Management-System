@@ -2,14 +2,19 @@ import React, { useState, useEffect } from 'react';
 import Header from "../Header/Header";  // Correct if Header.jsx is in the Header folder
 import styles from './order_history.module.css';
 import axios from 'axios';
-import {format} from 'date-fns'
+import { format } from 'date-fns';
 import Loading from '../Loading/Loading';
-import Modal from '../Modal/Modal';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 const OrderHistory = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
 
   const fetchOrders = async () => {
     try {
@@ -68,20 +73,48 @@ const OrderHistory = () => {
     setShowModal(false);
   };
 
+  const handleDownloadHistory = () => {
+    const filteredOrders = orders.filter(order => {
+      const orderDate = new Date(order.date);
+      return (!startDate || orderDate >= startDate) && (!endDate || orderDate <= endDate);
+    });
+
+    const doc = new jsPDF();
+    doc.text('Order History', 20, 10);
+    const tableColumn = ["#", "Order ID", "Employee ID", "Employee Name", "Date & Time"];
+    const tableRows = [];
+
+    filteredOrders.forEach((order, index) => {
+      const orderData = [
+        index + 1,
+        order.id,
+        order.emp,
+        order.empName,
+        `${order.date} | ${order.time}`
+      ];
+      tableRows.push(orderData);
+    });
+
+    doc.autoTable({
+      head: [tableColumn],
+      body: tableRows,
+      startY: 20
+    });
+    doc.save('order_history.pdf');
+    setShowModal(false);
+  };
+
   return (
     <div className={styles.full}>
       <div className={styles.leftDiv}>
         <Header />
       </div>
       <div className={styles.rightDiv}>
-        
         <header className={styles.title}>
-          
           <h1>Order History</h1>
           <div className={styles.downloadButtonContainer}>
             <button className={styles.downloadButton} onClick={handleDownloadClick}>Download as PDF</button>
           </div>
-         
         </header>
         <div className={styles.content}>
           <table>
@@ -108,9 +141,35 @@ const OrderHistory = () => {
           </table>
         </div>
       </div>
-      <Modal show={showModal} handleClose={handleCloseModal}>
-        
-      </Modal>
+      {showModal && (
+        <div className={styles.modalBackdrop}>
+          <div className={styles.modalContent}>
+            <button className={styles.closeButton} onClick={handleCloseModal}>×</button>
+            <div className={styles.datePickerContainer}>
+              <div className={styles.datePicker}>
+                <label>Start Date:</label>
+                <DatePicker
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  dateFormat="yyyy-MM-dd"
+                  placeholderText="Select start date"
+                />
+              </div>
+              &nbsp;&nbsp;&nbsp;
+              <div className={styles.datePicker}>
+                <label>End Date:</label>
+                <DatePicker
+                  selected={endDate}
+                  onChange={(date) => setEndDate(date)}
+                  dateFormat="yyyy-MM-dd"
+                  placeholderText="Select end date"
+                />
+              </div>
+            </div>
+            <button className={styles.downloadButton1} onClick={handleDownloadHistory}>Download History</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
