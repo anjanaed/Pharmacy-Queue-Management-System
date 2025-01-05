@@ -3,6 +3,7 @@ import axios from "axios";
 import styles from "./EmployeeInterface.module.css";
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
+import Loading from "../Loading/Loading";
 
 const EmployeeInterface = () => {
   const [employeeID, setEmployeeID] = useState("");
@@ -144,7 +145,7 @@ const EmployeeInterface = () => {
   };
 
   if (loading) {
-    return <div className={styles.loading}>Loading...!</div>;
+    return <Loading/>;
   }
 
   return (

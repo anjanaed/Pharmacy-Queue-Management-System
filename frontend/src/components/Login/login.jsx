@@ -3,21 +3,34 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from './login.module.css';  // Importing the CSS Module
+import { useNavigate } from "react-router-dom";
+import Loading from "../Loading/Loading";
+
 
 const Login = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading]=useState(false)
+  const navigate =useNavigate()
+
 
   const handleSubmit = async (e) => {
+    setLoading(true)
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, name, password);
       console.log("User logged in");
-      window.location.href = "/";
+      navigate("/")
+      setLoading(false)
     } catch (error) {
       console.error(error.message);
+      setLoading(false)
     }
   };
+
+  if (loading){
+    return <Loading/>;
+  }
 
   return (
     <div className={styles['login-wrapper']}>
