@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import useAuth from "../useAuth";
 import { getDoc, doc } from "firebase/firestore";
 import { fireStore } from "../components/firebase";
+import Loading from "../components/Loading/Loading";
 
 const AutoRouting = ({ children }) => {
   const { user, loading } = useAuth();
@@ -42,7 +43,7 @@ const AutoRouting = ({ children }) => {
   }, [user, loading]);
 
   if (checkingAccess) {
-    return <div>Loading...</div>;
+    return <Loading/>;
   }
 
   if (!user) {

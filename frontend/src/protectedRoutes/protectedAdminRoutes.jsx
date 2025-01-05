@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import useAuth from "../useAuth";
 import { getDoc, doc } from "firebase/firestore";
 import { fireStore } from "../components/firebase";
+import Loading from "../components/Loading/Loading";
 
 const ProtectedAdminRoutes = ({ children }) => {
   const { user, loading } = useAuth();
@@ -36,7 +37,7 @@ const ProtectedAdminRoutes = ({ children }) => {
   }, [user]);
 
   if (loading || checkingAccess) {
-    return <div>Loading...</div>;
+    return <Loading/>;
   }
 
   if (!user) {
@@ -51,3 +52,5 @@ const ProtectedAdminRoutes = ({ children }) => {
 };
 
 export default ProtectedAdminRoutes;
+
+

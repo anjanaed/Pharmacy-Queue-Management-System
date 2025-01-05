@@ -6,14 +6,17 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./register.module.css"; // Import CSS module
+import Loading from "../Loading/Loading";
 
 const Register = () => {
   const [email, setEmail] = useState("");
   const [id, setId] = useState("");
   const [name, setName] = useState("");
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleRegister = async (e) => {
+    setLoading(true);
     e.preventDefault();
     try {
       const data = {
@@ -27,11 +30,17 @@ const Register = () => {
         .catch((err) => console.log(err));
 
       console.log("User Registered");
+      setLoading(false);
+      navigate("/employees");
     } catch (error) {
       console.log(error.message);
+      setLoading(false);
     }
-    navigate("/employees");
   };
+
+  if (loading){
+    return <Loading/>
+  }
 
   return (
     <div className={styles.loginWrapper}>

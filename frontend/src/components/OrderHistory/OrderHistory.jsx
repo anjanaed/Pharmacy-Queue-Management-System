@@ -3,14 +3,11 @@ import Header from "../Header/Header";  // Correct if Header.jsx is in the Heade
 import styles from './order_history.module.css';
 import axios from 'axios';
 import {format} from 'date-fns'
+import Loading from '../Loading/Loading';
 
 const OrderHistory = () => {
   const [orders, setOrders] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentOrderId, setCurrentOrderId] = useState(null);
-
-
-
+  const [loading,setLoading]=useState(true)
 
   const fetchOrders = async () => {
     try{
@@ -28,10 +25,11 @@ const OrderHistory = () => {
         stat: order.orderStatus,
       };
     })
-    
     setOrders(fetchedOrders);
+    setLoading(false)
   }catch(err){
     console.log(err)
+    setLoading(false)
   } 
   };
 
@@ -39,9 +37,11 @@ const OrderHistory = () => {
     fetchOrders();
   }, []);
 
-  const handleModalCancel = () => {
-    setIsModalOpen(false);
-  };
+  if(loading){
+    return <Loading/>;
+  }
+
+
 
   return (
     <div className={styles.full}>
