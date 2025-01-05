@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Header from "../Header"; // Adjust the import path as needed
+import Header from "../Header/Header";  // Correct if Header.jsx is in the Header folder
 import styles from './order_history.module.css';
 import axios from 'axios';
 import {format} from 'date-fns'

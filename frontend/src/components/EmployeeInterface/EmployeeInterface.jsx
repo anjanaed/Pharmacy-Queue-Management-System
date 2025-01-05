@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import styles from "./EmployeeInterface.module.css";
-import { auth } from './firebase';
+import { auth } from "../firebase";
 import { signOut } from 'firebase/auth';
 
 const EmployeeInterface = () => {

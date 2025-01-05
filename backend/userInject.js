@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, fireStore } from "./components/firebase.js";
+import { auth, fireStore } from "../frontend/src/components/firebase.js";
 import { setDoc, doc } from "firebase/firestore";
 
 

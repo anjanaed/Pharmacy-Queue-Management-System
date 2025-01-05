@@ -2,7 +2,7 @@ import './header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faBox, faClipboard, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate,Link } from 'react-router-dom';
-import { auth } from './components/firebase';
+import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
 
 function Header() {
