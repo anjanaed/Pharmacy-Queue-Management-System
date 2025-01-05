@@ -13,24 +13,41 @@ const OrderHistory = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:3000/api/order");
-      console.log(response);
-      const fetchedOrders = response.data.filter((order) => order.orderStatus == "Completed").map((order) => {
+      // Fetch orders
+      const ordersResponse = await axios.get("http://127.0.0.1:3000/api/order");
+      const fetchedOrders = ordersResponse.data.filter((order) => order.orderStatus === "Completed").map((order) => {
         const datee = new Date(order.orderDate);
         const formattedDate = format(datee, 'yyyy-MM-dd'); // Format as YYYY-MM-DD
-        console.log(formattedDate);
         return {
           id: order.orderID,
-          emp: order.EmpID,
+          empId: order.EmpID,
           date: formattedDate,
           time: order.orderTime,
           stat: order.orderStatus,
         };
       });
-      setOrders(fetchedOrders);
-      setLoading(false);
+
+      // Fetch employees
+      const employeesResponse = await axios.get("http://127.0.0.1:3000/api/employee");
+      const employees = employeesResponse.data;
+      console.log(employees)
+
+      // Create a mapping of employee IDs to employee names
+      const employeeMap = employees.reduce((map, employee) => {
+        map[employee.empID] = employee.name;
+        return map;
+      }, {});
+
+      // Map employee names to orders
+      const ordersWithEmployeeNames = fetchedOrders.map((order) => ({
+        ...order,
+        empName: employeeMap[order.empId] || 'Unknown',
+      }));
+
+      setOrders(ordersWithEmployeeNames);
     } catch (err) {
       console.log(err);
+    } finally {
       setLoading(false);
     }
   };
@@ -73,6 +90,7 @@ const OrderHistory = () => {
                 <th className={styles["table-raw"]}>#</th>
                 <th className={styles["table-raw"]}>Order ID</th>
                 <th className={styles["table-raw"]}>Employee ID</th>
+                <th className={styles["table-raw"]}>Employee Name</th>
                 <th className={styles["table-raw"]}>Date & Time</th>
               </tr>
             </thead>
@@ -81,7 +99,8 @@ const OrderHistory = () => {
                 <tr key={order.id}>
                   <td>#{index + 1}</td>
                   <td>{order.id}</td>
-                  <td>{order.emp}</td>
+                  <td>{order.empId}</td>
+                  <td>{order.empName}</td>
                   <td>{order.date} | {order.time}</td>
                 </tr>
               ))}
@@ -97,3 +116,5 @@ const OrderHistory = () => {
 };
 
 export default OrderHistory;
+
+
