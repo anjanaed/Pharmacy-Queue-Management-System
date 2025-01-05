@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Navigate } from 'react-router-dom';
-import useAuth from "./useAuth";
+import { Navigate } from "react-router-dom";
+import useAuth from "../useAuth";
 import { getDoc, doc } from "firebase/firestore";
-import { fireStore } from "./components/firebase";
+import { fireStore } from "../components/firebase";
 
-const AutoRouting = ({ children }) => {
+const ProtectedAdminRoutes = ({ children }) => {
   const { user, loading } = useAuth();
   const [checkingAccess, setCheckingAccess] = useState(true);
-  const [admin,setAdmin]=useState(false)
+  const [admin, setAdmin] = useState(false);
 
   useEffect(() => {
     const checkRoles = async () => {
@@ -15,29 +15,27 @@ const AutoRouting = ({ children }) => {
         try {
           const docRef = doc(fireStore, "Users", user.uid);
           const docSnap = await getDoc(docRef);
-          if (docSnap.exists()){
-            const role=docSnap.data().role;
-            console.log(role)
-            if (role=="Admin"){
+          if (docSnap.exists()) {
+            const role = docSnap.data().role;
+            console.log(role);
+            if (role == "Admin") {
               setAdmin(true);
             }
             setCheckingAccess(false);
-
-        }else{
+          } else {
             console.log("No role data");
             setCheckingAccess(false);
-        }
-        }catch (error) {
+          }
+        } catch (error) {
           console.error("Error fetching document:", error);
         }
       }
-      
     };
 
     checkRoles();
   }, [user]);
 
-  if (checkingAccess) {
+  if (loading || checkingAccess) {
     return <div>Loading...</div>;
   }
 
@@ -45,14 +43,11 @@ const AutoRouting = ({ children }) => {
     return <Navigate to="/login" />;
   }
 
-    if(admin){
-        return <Navigate to="/pending-order"/>;
-    }else{
-        return <Navigate to ="/user"/>
-    }
-  
+  if (!admin) {
+    return <Navigate to="/" />;
+  }
 
   return children;
 };
 
-export default AutoRouting;
+export default ProtectedAdminRoutes;

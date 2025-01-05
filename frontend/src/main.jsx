@@ -8,11 +8,11 @@ import OrderHistory from './components/OrderHistory/OrderHistory';
 import Login from './components/Login/login';
 import Register from './components/Register/register';
 import EmployeeInterface from './components/EmployeeInterface/EmployeeInterface';
-import ProtectedAdminRoutes from './protectedAdminRoutes';
-import ProtectedEmpRoutes from './protectedEmpRoutes';
-import ProtectedLogin from './protectedLogin';
-import AutoRouting from './autoRouting';
-import NotFound from './notFound';
+import ProtectedAdminRoutes from './protectedRoutes/protectedAdminRoutes';
+import ProtectedEmpRoutes from './protectedRoutes/protectedEmpRoutes';
+import ProtectedLogin from './protectedRoutes/protectedLogin';
+import AutoRouting from './protectedRoutes/autoRouting';
+import NotFound from './components/Deadend/notFound';
 
 
 
