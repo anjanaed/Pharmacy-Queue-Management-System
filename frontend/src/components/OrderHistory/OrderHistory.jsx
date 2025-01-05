@@ -43,6 +43,8 @@ const OrderHistory = () => {
         return map;
       }, {});
 
+      console.log(employeeMap[1])
+
       // Map employee names to orders
       const ordersWithEmployeeNames = fetchedOrders.map((order) => ({
         ...order,
@@ -79,18 +81,36 @@ const OrderHistory = () => {
       return (!startDate || orderDate >= startDate) && (!endDate || orderDate <= endDate);
     });
 
+    const employeeOrderCount = filteredOrders.reduce((countMap, order) => {
+      countMap[order.empId] = (countMap[order.empId] || 0) + 1;
+      return countMap;
+    
+    }, {});
+
+    const uniqueEmployees = Object.keys(employeeOrderCount).map(empId => {
+      return {
+        empId,
+        empName: orders.find(order => order.empId === empId).empName,
+        orderCount: employeeOrderCount[empId]
+      };
+    });
+
+    const formattedStartDate = format(startDate, 'yyyy/MM/dd');
+    const formattedEndDate = format(endDate, 'yyyy/MM/dd');
+    
+
+
     const doc = new jsPDF();
-    doc.text('Order History', 20, 10);
-    const tableColumn = ["#", "Order ID", "Employee ID", "Employee Name", "Date & Time"];
+    doc.text(`Employee Order Details \n\nDuration: ${formattedStartDate} - ${formattedEndDate} `, 15, 10,);
+    const tableColumn = ["#","Employee ID", "Employee Name", "Completed Orders"];
     const tableRows = [];
 
-    filteredOrders.forEach((order, index) => {
+    uniqueEmployees.forEach((emp, index) => {
       const orderData = [
         index + 1,
-        order.id,
-        order.emp,
-        order.empName,
-        `${order.date} | ${order.time}`
+        emp.empId,
+        emp.empName,
+        emp.orderCount
       ];
       tableRows.push(orderData);
     });
@@ -98,9 +118,32 @@ const OrderHistory = () => {
     doc.autoTable({
       head: [tableColumn],
       body: tableRows,
-      startY: 20
+      startY: 30,
+      theme: 'grid', // You can change the theme to 'striped', 'grid', or 'plain'
+      styles: {
+        fontSize: 10,
+        cellPadding: 3,
+      },
+      headStyles: {
+        fillColor: [99, 143, 255], // Custom header color
+        textColor: [255, 255, 255], // Custom header text color
+        fontSize: 12,
+        halign: 'center',
+      },
+      bodyStyles: {
+        fillColor: [245, 245, 245],
+        textColor:[0,0,0],
+        halign: 'center', // Custom body color
+      },
+      alternateRowStyles: {
+        fillColor: [255, 255, 255], // Custom alternate row color
+      },
+      margin: { top: 30 },
     });
+
+
     doc.save('order_history.pdf');
+
     setShowModal(false);
   };
 
