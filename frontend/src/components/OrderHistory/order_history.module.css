@@ -74,11 +74,11 @@ button {
 
 .downloadButtonContainer {
   display: flex;
-  justify-content: center;
- 
+  justify-content: flex-end;
   position: absolute;
-  top: 0.5vw;
-  right: 1.5vw;
+  top: 0;
+  right: 0;
+  margin: 1vw;
 }
 
 .downloadButton {
@@ -92,7 +92,7 @@ button {
   font-size: 1vw;
   margin: 1vw 0;
   cursor: pointer;
-  border-radius: 0.5vw;
+  border-radius: 1vw;
 }
 
 .downloadButton:hover {

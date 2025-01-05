@@ -4,60 +4,68 @@ import styles from './order_history.module.css';
 import axios from 'axios';
 import {format} from 'date-fns'
 import Loading from '../Loading/Loading';
+import Modal from '../Modal/Modal';
 
 const OrderHistory = () => {
   const [orders, setOrders] = useState([]);
-  const [loading,setLoading]=useState(true)
+  const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
   const fetchOrders = async () => {
-    try{
-    const response = await axios.get("http://127.0.0.1:3000/api/order");
-    console.log(response)
-    const fetchedOrders = response.data.filter((order) => order.orderStatus == "Completed").map((order)=>{
-      const datee = new Date(order.orderDate);
-      const formattedDate = format(datee,'yyyy-MM-dd'); // Format as YYYY-MM-DD
-      console.log(formattedDate)
-      return {
-        id: order.orderID,
-        emp: order.EmpID,
-        date: formattedDate,
-        time: order.orderTime,
-        stat: order.orderStatus,
-      };
-    })
-    setOrders(fetchedOrders);
-    setLoading(false)
-  }catch(err){
-    console.log(err)
-    setLoading(false)
-  } 
+    try {
+      const response = await axios.get("http://127.0.0.1:3000/api/order");
+      console.log(response);
+      const fetchedOrders = response.data.filter((order) => order.orderStatus == "Completed").map((order) => {
+        const datee = new Date(order.orderDate);
+        const formattedDate = format(datee, 'yyyy-MM-dd'); // Format as YYYY-MM-DD
+        console.log(formattedDate);
+        return {
+          id: order.orderID,
+          emp: order.EmpID,
+          date: formattedDate,
+          time: order.orderTime,
+          stat: order.orderStatus,
+        };
+      });
+      setOrders(fetchedOrders);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     fetchOrders();
   }, []);
 
-  if(loading){
-    return <Loading/>;
+  if (loading) {
+    return <Loading />;
   }
 
+  const handleDownloadClick = () => {
+    setShowModal(true);
+  };
 
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
   return (
     <div className={styles.full}>
       <div className={styles.leftDiv}>
-      <Header />
+        <Header />
       </div>
       <div className={styles.rightDiv}>
-      <div className={styles.downloadButtonContainer}>
-          <button className={styles.downloadButton} >Download as PDF</button>
-        </div>
-        <header className={styles.title}>
-          <h1>Order History</h1>
-          
-          
-        </header>
         
+        <header className={styles.title}>
+          
+          <h1>Order History</h1>
+          <div className={styles.downloadButtonContainer}>
+            <button className={styles.downloadButton} onClick={handleDownloadClick}>Download as PDF</button>
+          </div>
+         
+        </header>
         <div className={styles.content}>
           <table>
             <thead>
@@ -81,6 +89,9 @@ const OrderHistory = () => {
           </table>
         </div>
       </div>
+      <Modal show={showModal} handleClose={handleCloseModal}>
+        
+      </Modal>
     </div>
   );
 };
