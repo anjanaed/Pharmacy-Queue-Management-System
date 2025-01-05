@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import Header from "../Header";
+import Header from "../Header/Header";  // Correct if Header.jsx is in the Header folder
 import styles from './Employees.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
