@@ -1,15 +1,34 @@
 import React, { useState, useEffect } from "react";
-import Header from "../Header/Header"; // Correct if Header.jsx is in the Header folder
+import Header from "../Header/Header";
 import styles from "./Pending_Order.module.css";
 import axios from "axios";
 import { IoMdCloseCircle } from "react-icons/io";
 import Loading from "../Loading/Loading";
+import SpeechUtil from "./Speech";
+import Notification from '../Notifications/Notification';
 
 const PendingOrder = () => {
   const [orders, setOrders] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentOrderId, setCurrentOrderId] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [notification, setNotification] = useState(null);
+
+  useEffect(() => {
+    SpeechUtil.initialize(
+      // onStart callback
+      () => {
+        setIsPlaying(true);
+        setNotification("Audio is playing...");
+      },
+      // onEnd callback
+      () => {
+        setIsPlaying(false);
+        setNotification("Audio finished");
+      }
+    );
+  }, []);
 
   const fetchOrders = async () => {
     try {
@@ -29,16 +48,16 @@ const PendingOrder = () => {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     fetchOrders();
     const interval = setInterval(fetchOrders, 2000);
 
-    // Clean up interval on component unmount
     return () => clearInterval(interval);
   }, []);
 
-  if (loading){
-    return <Loading/>;
+  if (loading) {
+    return <Loading />;
   }
 
   const handleConfirm = async (orderId, orderDate) => {
@@ -74,7 +93,6 @@ const PendingOrder = () => {
   };
 
   const handleModalConfirm = () => {
-    // Define the logic for confirming an order
     setOrders(orders.filter((order) => order.id !== currentOrderId));
     setIsModalOpen(false);
   };
@@ -83,8 +101,21 @@ const PendingOrder = () => {
     setIsModalOpen(false);
   };
 
+  const handleBoxClick = (orderId) => {
+    // Prevent multiple audio plays at once
+    if (!isPlaying) {
+      SpeechUtil.speak(orderId);
+    }
+  };
+
   return (
     <div className={styles.full}>
+      {notification && (
+        <Notification
+          message={notification}
+          onClose={() => setNotification(null)}
+        />
+      )}
       <div className={styles["left-div"]}>
         <Header />
       </div>
@@ -99,13 +130,21 @@ const PendingOrder = () => {
                 <div className={styles.empty}>No Pending Orders</div>
               ) : (
                 orders.map((order) => (
-                  <div className={styles.box} key={order.id}>
+                  <div 
+                    className={`${styles.box} ${isPlaying ? styles.disabled : ''}`}
+                    key={order.id}
+                    onClick={() => handleBoxClick(order.id)}
+                    style={{ cursor: isPlaying ? 'not-allowed' : 'pointer' }}
+                  >
                     <div className={styles.top}>
                       <p className={styles.emp}>Emp - {order.empId}</p>
                       <IoMdCloseCircle
                         color="red"
                         className={styles["close-icon"]}
-                        onClick={() => handleCancel(order.id, order.date)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleCancel(order.id, order.date);
+                        }}
                       />
                     </div>
                     <h3 className={styles["box-title"]}>Order</h3>
@@ -113,7 +152,10 @@ const PendingOrder = () => {
                     <div className={styles["button-container"]}>
                       <button
                         className={styles["confirm-btn"]}
-                        onClick={() => handleConfirm(order.id, order.date)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleConfirm(order.id, order.date);
+                        }}
                       >
                         Confirm
                       </button>
@@ -136,10 +178,7 @@ const PendingOrder = () => {
                   <button onClick={handleModalCancel} className={styles.Cancel}>
                     Cancel
                   </button>
-                  <button
-                    onClick={handleModalConfirm}
-                    className={styles.Confirm}
-                  >
+                  <button onClick={handleModalConfirm} className={styles.Confirm}>
                     Confirm
                   </button>
                 </div>
