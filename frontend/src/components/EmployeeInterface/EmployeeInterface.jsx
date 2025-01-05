@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import styles from "./EmployeeInterface.module.css";
-import { auth } from "../firebase";
+import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
 
 const EmployeeInterface = () => {
@@ -129,13 +129,12 @@ const EmployeeInterface = () => {
 
       } catch (error) {
         console.error("Error posting order:", error);
+        setLoading(false);
       }
-      setLoading(false)
-
-
 
       showPopupMessage();
     } catch (error) {
+      setLoading(false); // Add this line to reset loading state on error
       if(error.response && error.response.status === 404) {
         showErrorPopup("Invalid Employee ID");
       } else {
@@ -145,7 +144,7 @@ const EmployeeInterface = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className={styles.loading}>Loading...!</div>;
   }
 
   return (
@@ -157,7 +156,7 @@ const EmployeeInterface = () => {
             <div className={styles['token-generator']}>
               <div className={styles.details}>
                 <p>
-                  Current Order Number: <strong>{currentOrder}</strong>
+                  Last Order Number: <strong>{currentOrder-1}</strong>
                 </p>
               </div>
               
