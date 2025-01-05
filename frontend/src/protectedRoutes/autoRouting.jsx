@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import useAuth from "./useAuth";
+import useAuth from "../useAuth";
 import { getDoc, doc } from "firebase/firestore";
-import { fireStore } from "./components/firebase";
+import { fireStore } from "../components/firebase";
 
-const ProtectedAdminRoutes = ({ children }) => {
+const AutoRouting = ({ children }) => {
   const { user, loading } = useAuth();
   const [checkingAccess, setCheckingAccess] = useState(true);
   const [admin, setAdmin] = useState(false);
@@ -20,22 +20,28 @@ const ProtectedAdminRoutes = ({ children }) => {
             console.log(role);
             if (role == "Admin") {
               setAdmin(true);
+              setCheckingAccess(false);
             }
-            setCheckingAccess(false);
+            setCheckingAccess(false)
           } else {
             console.log("No role data");
             setCheckingAccess(false);
           }
         } catch (error) {
           console.error("Error fetching document:", error);
+          setCheckingAccess(false);
         }
+      } else {
+        setCheckingAccess(false);
       }
     };
 
-    checkRoles();
-  }, [user]);
+    if (!loading) {
+      checkRoles();
+    }
+  }, [user, loading]);
 
-  if (loading || checkingAccess) {
+  if (checkingAccess) {
     return <div>Loading...</div>;
   }
 
@@ -43,11 +49,13 @@ const ProtectedAdminRoutes = ({ children }) => {
     return <Navigate to="/login" />;
   }
 
-  if (!admin) {
-    return <Navigate to="/" />;
+  if (admin) {
+    return <Navigate to="/pending-order" />;
+  } else {
+    return <Navigate to="/user" />;
   }
 
   return children;
 };
 
-export default ProtectedAdminRoutes;
+export default AutoRouting;

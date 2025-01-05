@@ -1,0 +1,121 @@
+/* Full viewport wrapper */
+body {
+    overflow: hidden;
+  }
+  
+  .login-wrapper {
+    background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), 
+                url('public/img/background.png');
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+  }
+  
+  /* Login container styles */
+  .login-container {
+    width: 65vw;
+    height: 75%; 
+    border-radius: 40px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Left Side */
+  .left-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), 
+                url('public/img/background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 2vw;
+    border-radius: 40px;
+  }
+  
+  .left-image {
+    width: 15vw;
+  }
+  
+  .right-image {
+    width: 15vw;
+  }
+  
+  .right-side {
+    flex: 1;
+    background-color: white;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 40px;
+  }
+  
+  .smaller-text {
+    font-size: 1.2vw;
+    font-weight: 600;
+  }
+  
+  .text-box-small {
+    font-size: 1vw;
+    padding: 0.25rem;
+    width: 18vw;
+    text-align: start;
+    border: 1px solid #000;
+    border-radius: 5px;
+  }
+  
+  .custom-button {
+    background-color: #00B4D8;
+    margin-top: 2vw;
+    border: none;
+    width: 40%;
+    height: 6.5vh;
+    text-align: center;
+    color: white;
+    font-size: 1.1vw;
+    border-radius: 0.5vw;
+    transition-duration: 0.5s;
+  }
+  
+  .custom-button:hover {
+    background-color: #03045E;
+  }
+  
+  .welcome-heading {
+    font-weight: 500;
+    font-size: 2rem;
+    color: black;
+  }
+  
+  .register-heading {
+    /* font-family: 'Poppins', sans-serif; */
+    font-weight: 600;
+    font-size: 3vw;
+    color: #0077B6;
+    margin-bottom: 3vh;
+  }
+  
+  .form-container {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  
+  
+ 
+  /* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap'); */
+  
