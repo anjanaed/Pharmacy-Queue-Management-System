@@ -1,20 +1,34 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./EmployeeInterface.module.css";
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
 import Loading from "../Loading/Loading";
+import Notification from '../Notifications/Notification';
 
 const EmployeeInterface = () => {
+  const navigate = useNavigate();
   const [employeeID, setEmployeeID] = useState("");
   const [currentOrder, setCurrentOrder] = useState(0);
-  const[loading,setLoading]=useState(false)
-
+  const [loading, setLoading] = useState(false);
+  const [notifications, setNotifications] = useState([]);
   const [activeMenu, setActiveMenu] = useState("generateToken");
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
+  
   const employeeIDRef = useRef(null);
   const printTokenButtonRef = useRef(null);
 
+  // Helper function to add notifications
+  const addNotification = (message, type) => {
+    const id = Date.now();
+    setNotifications(prev => [...prev, { id, message, type }]);
+  };
+
+  // Helper function to remove notifications
+  const removeNotification = (id) => {
+    setNotifications(prev => prev.filter(notification => notification.id !== id));
+  };
 
   const fetchOrderNumber = async () => {
     try {
@@ -23,28 +37,24 @@ const EmployeeInterface = () => {
       );
       setCurrentOrder(response.data.currentOrderNumber);
     } catch (error) {
-      console.log(error.message);
+      addNotification(error.message, 'error');
     }
   };
 
-    const handleLogOut=async()=>{
-      console.log("clicked")
-      try{
-        await signOut(auth);
-        console.log("logged out");
-        navigate('/login')
-      }catch(err){
-        console.log(err)
-      }
+  const handleLogOut = async () => {
+    addNotification("Logging out...", 'info');
+    try {
+      await signOut(auth);
+      addNotification("Logged out successfully", 'success');
+      navigate('/login');
+    } catch (err) {
+      addNotification(err.message, 'error');
     }
+  };
 
   useEffect(() => {
-
-
     fetchOrderNumber();
     const interval = setInterval(fetchOrderNumber, 3000);
-
-    // Clean up interval on component unmount
     return () => clearInterval(interval);
   }, []);
 
@@ -66,34 +76,13 @@ const EmployeeInterface = () => {
     };
 
     window.addEventListener("keydown", handleKeyDown);
-
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
 
-  const showPopupMessage = () => {
-    const popup = document.getElementById('popupMessage');
-    const overlay = document.getElementById('popupOverlay');
-    popup.classList.add('show');
-    overlay.classList.add('show');
-    setTimeout(() => {
-      popup.classList.remove('show');
-      overlay.classList.remove('show');
-    }, 1000);
-  };
-
-  const showErrorPopup = (message) => {
-    const errorPopup = document.getElementById('errorPopup');
-    errorPopup.textContent = message;
-    errorPopup.classList.add('show');
-    setTimeout(() => {
-      errorPopup.classList.remove('show');
-    }, 3000);
-  };
-
   const handlePrintToken = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       const employeeIDWithPrefix = employeeID;
       const checkResponse = await axios.get(
@@ -101,55 +90,60 @@ const EmployeeInterface = () => {
       );
 
       if (!checkResponse.data.exists) {
-        showErrorPopup("Invalid Employee ID");
+        addNotification("Invalid Employee ID", 'error');
+        setLoading(false);
         return;
       }
 
-
-      await fetchOrderNumber()
+      await fetchOrderNumber();
 
       const timestamp = new Date();
       const orderData = {
         orderID: currentOrder,
-        orderDate : timestamp.toLocaleDateString("en-CA"),
+        orderDate: timestamp.toLocaleDateString("en-CA"),
         orderTime: timestamp.toLocaleTimeString("en-US"),
         orderStatus: "Pending",
         EmpID: employeeID
       };
-      const orderDate = timestamp.toLocaleDateString("en-CA");
-      console.log(orderDate)
 
-      try {
-        const orderResponse = await axios.post("http://localhost:3000/api/order", orderData);
-        console.log("Order posted successfully:", orderResponse.data);
-        const response = await axios.post(
-          "http://localhost:3000/api/orderNumber/increment"
-        );
-        setCurrentOrder(response.data.currentOrderNumber);
+      const orderResponse = await axios.post("http://localhost:3000/api/order", orderData);
+      addNotification("Order posted successfully", 'success');
 
+      const response = await axios.post(
+        "http://localhost:3000/api/orderNumber/increment"
+      );
+      setCurrentOrder(response.data.currentOrderNumber);
+      addNotification("Order Placed Successfully", 'success');
 
-      } catch (error) {
-        console.error("Error posting order:", error);
-        setLoading(false);
-      }
-
-      showPopupMessage();
     } catch (error) {
-      setLoading(false); // Add this line to reset loading state on error
-      if(error.response && error.response.status === 404) {
-        showErrorPopup("Invalid Employee ID");
+      if (error.response && error.response.status === 404) {
+        addNotification("Invalid Employee ID", 'error');
       } else {
-        console.log(error.message);
+        addNotification(error.message, 'error');
       }
+    } finally {
+      setLoading(false);
     }
   };
 
   if (loading) {
-    return <Loading/>;
+    return <Loading />;
   }
 
   return (
     <div className={styles.container}>
+      {/* Notification Stack */}
+      <div className={styles.notificationContainer}>
+        {notifications.map(({ id, message, type }) => (
+          <Notification
+            key={id}
+            message={message}
+            type={type}
+            onClose={() => removeNotification(id)}
+          />
+        ))}
+      </div>
+
       <button className={styles.logout} onClick={handleLogOut}>Logout</button>
       <main className={styles.content}>
         {activeMenu === "generateToken" && (
@@ -162,9 +156,9 @@ const EmployeeInterface = () => {
               </div>
               
               <div className={styles['token-box']}>
-              <header className={styles.header}>
-                Generate Token
-              </header>
+                <header className={styles.header}>
+                  Generate Token
+                </header>
                 <div className={styles['employee-code']}>
                   <label htmlFor="employeeID">Employee ID:</label>
                   <input
@@ -175,10 +169,14 @@ const EmployeeInterface = () => {
                     onChange={(e) => setEmployeeID(e.target.value)}
                   />
                 </div>
-                <button className={styles['primary-btn']} ref={printTokenButtonRef} onClick={handlePrintToken}>
+                <button 
+                  className={styles['primary-btn']} 
+                  ref={printTokenButtonRef} 
+                  onClick={handlePrintToken}
+                >
                   Print Token
                 </button>
-                <div >
+                <div>
                   <p>
                     <strong>
                       {currentDateTime.toLocaleDateString("en-US", {
@@ -195,9 +193,6 @@ const EmployeeInterface = () => {
                     </strong>
                   </p>
                 </div>
-                <div id="popupMessage" className={styles['popup-message']}>Order Placed Successfully</div>
-                <div id="popupOverlay" className={styles['popup-overlay']}></div>
-                <div id="errorPopup" className={styles['error-popup']}></div>
               </div>
             </div>
           </section>

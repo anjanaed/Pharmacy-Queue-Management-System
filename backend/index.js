@@ -26,7 +26,7 @@ mongoose.connect("mongodb+srv://backendoc2002:5zneisS9SrygW9mB@pharmacy.hft0r.mo
     console.log("Connected to database");
 
     // Check the last order in the database and set currentOrderNumber
-    const lastOrder = await OrderModel.findOne().sort({ orderID: -1 });
+    const lastOrder = await OrderModel.findOne().sort({ _id: -1 });
     if (lastOrder) {
         const lastOrderDate = new Date(lastOrder.orderDate);
         const today = new Date();

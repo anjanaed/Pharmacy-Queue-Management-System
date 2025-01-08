@@ -76,6 +76,20 @@ const deleteEmployee = async (req, res) => {
     }
 }
 
+const employeeExists = async (req, res) => {
+    const employeeID = req.params.id;
+  try {
+    const employee = await Employee.findOne({ empID: employeeID });
+    if (employee) {
+      res.status(200).json({ exists: true });
+    } else {
+      res.status(404).json({ exists: false });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+ 
 
 
 module.exports = { 
@@ -83,5 +97,6 @@ module.exports = {
     getEmployee, 
     createEmployee, 
     updateEmployee, 
-    deleteEmployee
+    deleteEmployee,
+    employeeExists
 };

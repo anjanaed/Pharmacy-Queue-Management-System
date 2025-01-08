@@ -1,179 +1,180 @@
-import React, { useState,useEffect } from 'react';
-import Header from "../Header/Header";  // Correct if Header.jsx is in the Header folder
+import React, { useState, useEffect } from 'react';
+import Header from "../Header/Header";
 import styles from './Employees.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import { Link,useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Loading from '../Loading/Loading';
+import Notification from '../Notifications/Notification';
 
 const Employees = () => {
   const [employees, setEmployees] = useState([]);
-  const[loading,setLoading]=useState(true);
-  const navigate=useNavigate()
+  const [loading, setLoading] = useState(true);
+  const [notification, setNotification] = useState(null);
+  const navigate = useNavigate();
 
+  const showNotification = (message, type) => {
+    const id = Date.now();
+    setNotification({ id, message, type });
+  };
+
+  const handleNotificationClose = () => {
+    setNotification(null);
+  };
 
   const fetchEmployee = async () => {
     try {
       const response = await axios.get("http://127.0.0.1:3000/api/employee");
-      console.log(response);
-
-      const fetchedEmployee = response.data
-        .map((emp) => ({
-          id: emp.empID,
-          email:emp.email,
-          name: emp.name
-        }));
+      const fetchedEmployee = response.data.map((emp) => ({
+        id: emp.empID,
+        email: emp.email,
+        name: emp.name
+      }));
       setEmployees(fetchedEmployee);
       setLoading(false);
+      showNotification("Employees loaded successfully", 'success');
     } catch (error) {
-      console.error("Error fetching orders:", error);
+      showNotification("Error fetching employees: " + error.message, 'error');
+      setLoading(false);
     }
-    setLoading(false);
   };
 
-      useEffect(() => {
-    
-    
-        fetchEmployee();
-
-      }, []);
-
-
+  useEffect(() => {
+    fetchEmployee();
+  }, []);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentEmployee, setCurrentEmployee] = useState({ id: '', name: '', email: ''});
-
+  const [currentEmployee, setCurrentEmployee] = useState({ id: '', name: '', email: '' });
 
   const handleEdit = (employee) => {
-    setCurrentEmployee({ ...employee, });
+    setCurrentEmployee({ ...employee });
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setCurrentEmployee({ id: '', name: '', email: ''});
+    setCurrentEmployee({ id: '', name: '', email: '' });
   };
 
   const handleSave = async (empid) => {
-    try{
-      await axios.put(`http://127.0.0.1:3000/api/employee/${empid}`,{
-        name:currentEmployee.name,
-        email:currentEmployee.email
-      }).then((res)=>{
-        console.log("updated")
-        fetchEmployee()
-      })
-    }catch(err){
-      console.log(err)
+    try {
+      await axios.put(`http://127.0.0.1:3000/api/employee/${empid}`, {
+        name: currentEmployee.name,
+        email: currentEmployee.email
+      });
+      showNotification("Employee details updated successfully", 'success');
+      fetchEmployee();
+      setIsModalOpen(false);
+    } catch (err) {
+      showNotification("Error updating employee: " + err.message, 'error');
     }
-
-
-    // Define the logic for saving the edited employee details
-    console.log('Employee details saved:', currentEmployee);
-    setIsModalOpen(false);
   };
 
   const deleteEmployee = async (id) => {
-    try{
-      await axios.delete(`http://127.0.0.1:3000/api/employee/${id}`)
-      .then((res)=>{
-        console.log("User Deleted")
-        console.log(res)
-        fetchEmployee()
-      }
-      )}catch(err){
-        console.log(err)
-      }
+    try {
+      await axios.delete(`http://127.0.0.1:3000/api/employee/${id}`);
+      showNotification("Employee deleted successfully", 'success');
+      fetchEmployee();
+    } catch (err) {
+      showNotification("Error deleting employee: " + err.message, 'error');
     }
+  };
 
-    if (loading){
-      return <Loading/>;
-    }
-  
-
-
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className={styles.full}>
+      {notification && (
+        <Notification
+          message={notification.message}
+          type={notification.type}
+          onClose={handleNotificationClose}
+        />
+      )}
       <div className={styles.leftDiv}>
-      <Header />
+        <Header />
       </div>
-    <div className={styles.rightDiv}>
-      <header className={styles.title}>
-        <h1>Employee Details</h1>
-      </header>
-      <div className={styles.content}>
-        <div className={styles.new}>
-          <button className={styles['add-new']} onClick={()=>navigate("/register")}>+ Add New</button>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th className={styles.myth}>Number</th>
-              <th className={styles.myth}>Employee ID</th>
-              <th className={styles.myth}>Gmail</th>
-              <th className={styles.myth}>Name</th>
-              <th className={styles.myth}>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {employees.map((employee, index) => (
-              <tr >
-                <td>{index + 1}</td>
-                <td>{employee.id}</td>
-                <td>{employee.email}</td>
-                <td>{employee.name}</td>
-                <td>
-                  <button className={styles.edit} onClick={() => handleEdit(employee)}><FontAwesomeIcon icon={faPenToSquare} /> Edit</button>
-                  <button className={styles.delete} onClick={() => deleteEmployee(employee.id)}><FontAwesomeIcon icon={faTrash} /> Delete</button>
-                </td>
+      <div className={styles.rightDiv}>
+        <header className={styles.title}>
+          <h1>Employee Details</h1>
+        </header>
+        <div className={styles.content}>
+          <div className={styles.new}>
+            <button className={styles['add-new']} onClick={() => navigate("/register")}>+ Add New</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th className={styles.myth}>Number</th>
+                <th className={styles.myth}>Employee ID</th>
+                <th className={styles.myth}>Gmail</th>
+                <th className={styles.myth}>Name</th>
+                <th className={styles.myth}>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    {isModalOpen && (
-      <div className={styles.modal}>
-        <div className={styles['modal-content1']}>
-          <span className={styles.close} onClick={handleCloseModal}>&times;</span>
-          <h2>Edit Employee</h2>
-          <form>
-            <label>
-              Employee ID:
-              <input
-                type="text"
-                value={currentEmployee.id}
-                onChange={(e) => setCurrentEmployee({ ...currentEmployee, id: e.target.value })}
-                disabled
-              />
-            </label>
-            <label>
-              Name:
-              <input
-                type="text"
-                value={currentEmployee.name}
-                onChange={(e) => setCurrentEmployee({ ...currentEmployee, name: e.target.value })}
-              />
-            </label>
-            <label>
-              Email:
-              <input
-                type="email"
-                value={currentEmployee.email}
-                onChange={(e) => setCurrentEmployee({ ...currentEmployee, email: e.target.value })}
-              />
-            </label>
-            <button type="button" onClick={()=>handleSave(currentEmployee.id)}>Save</button>
-          </form>
+            </thead>
+            <tbody>
+              {employees.map((employee, index) => (
+                <tr key={employee.id}>
+                  <td>{index + 1}</td>
+                  <td>{employee.id}</td>
+                  <td>{employee.email}</td>
+                  <td>{employee.name}</td>
+                  <td>
+                    <button className={styles.edit} onClick={() => handleEdit(employee)}>
+                      <FontAwesomeIcon icon={faPenToSquare} /> Edit
+                    </button>
+                    <button className={styles.delete} onClick={() => deleteEmployee(employee.id)}>
+                      <FontAwesomeIcon icon={faTrash} /> Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
-    )}
-  </div>
+
+      {isModalOpen && (
+        <div className={styles.modal}>
+          <div className={styles['modal-content1']}>
+            <span className={styles.close} onClick={handleCloseModal}>&times;</span>
+            <h2>Edit Employee</h2>
+            <form>
+              <label>
+                Employee ID:
+                <input
+                  type="text"
+                  value={currentEmployee.id}
+                  onChange={(e) => setCurrentEmployee({ ...currentEmployee, id: e.target.value })}
+                  disabled
+                />
+              </label>
+              <label>
+                Name:
+                <input
+                  type="text"
+                  value={currentEmployee.name}
+                  onChange={(e) => setCurrentEmployee({ ...currentEmployee, name: e.target.value })}
+                />
+              </label>
+              <label>
+                Email:
+                <input
+                  type="email"
+                  value={currentEmployee.email}
+                  onChange={(e) => setCurrentEmployee({ ...currentEmployee, email: e.target.value })}
+                />
+              </label>
+              <button type="button" onClick={() => handleSave(currentEmployee.id)}>Save</button>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
   );
-}
+};
 
 export default Employees;
