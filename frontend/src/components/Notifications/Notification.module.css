@@ -14,6 +14,18 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   }
   
+  .notification.success {
+    background-color: #28a745;
+  }
+  
+  .notification.error {
+    background-color: #dc3545;
+  }
+  
+  .notification.info {
+    background-color: #17a2b8;
+  }
+  
   .notification.closing {
     animation: slideOut 0.3s ease-in forwards;
   }

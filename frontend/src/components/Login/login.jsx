@@ -2,40 +2,80 @@ import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import styles from './login.module.css';  // Importing the CSS Module
+import styles from './login.module.css';
 import { useNavigate } from "react-router-dom";
 import Loading from "../Loading/Loading";
-
+import Notification from '../Notifications/Notification';
 
 const Login = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading]=useState(false)
-  const navigate =useNavigate()
+  const [loading, setLoading] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const navigate = useNavigate();
 
+  const addNotification = (message, type) => {
+    const id = Date.now();
+    setNotifications(prev => [...prev, { id, message, type }]);
+  };
+
+  const removeNotification = (id) => {
+    setNotifications(prev => prev.filter(notification => notification.id !== id));
+  };
 
   const handleSubmit = async (e) => {
-    setLoading(true)
     e.preventDefault();
+    if (!name || !password) {
+      addNotification('Please fill in all fields', 'error');
+      return;
+    }
+    
+    setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, name, password);
-      console.log("User logged in");
-      navigate("/")
-      setLoading(false)
+      addNotification('Successfully logged in!', 'success');
+      setTimeout(() => navigate("/"), 2000);
     } catch (error) {
-      console.error(error.message);
-      setLoading(false)
+      switch (error.code) {
+        case 'auth/invalid-email':
+          addNotification('Invalid email format', 'error');
+          break;
+        case 'auth/user-not-found':
+          addNotification('No user found with this email', 'error');
+          break;
+        case 'auth/wrong-password':
+          addNotification('Incorrect password', 'error');
+          break;
+        case 'auth/too-many-requests':
+          addNotification('Too many attempts. Please try again later', 'error');
+          break;
+        default:
+          addNotification('Login failed. Please try again', 'error');
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
-  if (loading){
-    return <Loading/>;
+  if (loading) {
+    return <Loading />;
   }
 
   return (
     <div className={styles['login-wrapper']}>
+      {/* Notification Stack */}
+      <div className={styles.notificationContainer}>
+        {notifications.map(({ id, message, type }) => (
+          <Notification
+            key={id}
+            message={message}
+            type={type}
+            onClose={() => removeNotification(id)}
+          />
+        ))}
+      </div>
+
       <div className={`row g-0 ${styles['login-container']}`}>
-        {/* Left Side */}
         <div className={`col-md-6 ${styles['left-side']} `}>
           <img
             src="public/img/logo.png"
@@ -49,7 +89,6 @@ const Login = () => {
           />
         </div>
 
-        {/* Right Side */}
         <div className={styles['right-side']}>
           <h3 className={`text-center mb-3 ${styles['welcome-heading']}`}>Hello! Welcome Back</h3>
           <h3 className={`text-center ${styles['register-heading']}`}>PharmacyLanka</h3>

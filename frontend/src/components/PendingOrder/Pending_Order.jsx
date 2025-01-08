@@ -13,20 +13,26 @@ const PendingOrder = () => {
   const [currentOrderId, setCurrentOrderId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [notification, setNotification] = useState(null);
+  const [notifications, setNotifications] = useState([]);
+
+  const addNotification = (message, type) => {
+    const id = Date.now();
+    setNotifications(prev => [...prev, { id, message, type }]);
+  };
+
+  const removeNotification = (id) => {
+    setNotifications(prev => prev.filter(notification => notification.id !== id));
+  };
 
   useEffect(() => {
     SpeechUtil.initialize(
-      // onStart callback
       () => {
         setIsPlaying(true);
-        setNotification("Order is Calling...");
-        
+        addNotification("Order is being called...", 'info');
       },
-      // onEnd callback
       () => {
         setIsPlaying(false);
-        setNotification(null)
+        // Don't remove notification here as it will be handled by the timeout in the Notification component
       }
     );
   }, []);
@@ -34,9 +40,8 @@ const PendingOrder = () => {
   const fetchOrders = async () => {
     try {
       const response = await axios.get("http://127.0.0.1:3000/api/order");
-
       const fetchedOrders = response.data
-        .filter((order) => order.orderStatus == "Pending")
+        .filter((order) => order.orderStatus === "Pending")
         .map((order) => ({
           id: order.orderID,
           date: order.orderDate,
@@ -45,7 +50,7 @@ const PendingOrder = () => {
       setOrders(fetchedOrders);
       setLoading(false);
     } catch (error) {
-      console.error("Error fetching orders:", error);
+      addNotification(`Error fetching orders: ${error.message}`, 'error');
       setLoading(false);
     }
   };
@@ -53,7 +58,6 @@ const PendingOrder = () => {
   useEffect(() => {
     fetchOrders();
     const interval = setInterval(fetchOrders, 2000);
-
     return () => clearInterval(interval);
   }, []);
 
@@ -63,39 +67,32 @@ const PendingOrder = () => {
 
   const handleConfirm = async (orderId, orderDate) => {
     try {
-      await axios
-        .put(`http://127.0.0.1:3000/api/order/${orderId}/${orderDate}`, {
-          orderStatus: "Completed",
-        })
-        .then((res) => {
-          console.log(res);
-          console.log("Order Completed");
-          fetchOrders();
-        });
+      await axios.put(`http://127.0.0.1:3000/api/order/${orderId}/${orderDate}`, {
+        orderStatus: "Completed",
+      });
+      addNotification(`Order ${orderId} completed successfully`, 'success');
+      fetchOrders();
     } catch (error) {
-      console.error("Error confirming order:", error);
+      addNotification(`Error confirming order: ${error.message}`, 'error');
     }
   };
 
   const handleCancel = async (orderId, orderDate) => {
     try {
-      await axios
-        .put(`http://127.0.0.1:3000/api/order/${orderId}/${orderDate}`, {
-          orderStatus: "Cancelled",
-        })
-        .then((res) => {
-          console.log(res);
-          console.log("Order Cancelled");
-          fetchOrders();
-        });
+      await axios.put(`http://127.0.0.1:3000/api/order/${orderId}/${orderDate}`, {
+        orderStatus: "Cancelled",
+      });
+      addNotification(`Order ${orderId} cancelled successfully`, 'success');
+      fetchOrders();
     } catch (error) {
-      console.error("Error cancelling order:", error);
+      addNotification(`Error cancelling order: ${error.message}`, 'error');
     }
   };
 
   const handleModalConfirm = () => {
     setOrders(orders.filter((order) => order.id !== currentOrderId));
     setIsModalOpen(false);
+    addNotification("Order confirmed", 'success');
   };
 
   const handleModalCancel = () => {
@@ -103,20 +100,28 @@ const PendingOrder = () => {
   };
 
   const handleBoxClick = (orderId) => {
-    // Prevent multiple audio plays at once
     if (!isPlaying) {
       SpeechUtil.speak(`${orderId} can be collected from the counter`);
+      // addNotification(`Calling Order ${orderId}`);
+    } else {
+      addNotification("Please wait for the current announcement to finish", 'info');
     }
   };
 
   return (
     <div className={styles.full}>
-      {notification && (
-        <Notification
-          message={notification}
-          onClose={() => setNotification(null)}
-        />
-      )}
+      {/* Notification Stack */}
+      <div className={styles.notificationContainer}>
+        {notifications.map(({ id, message, type }) => (
+          <Notification
+            key={id}
+            message={message}
+            type={type}
+            onClose={() => removeNotification(id)}
+          />
+        ))}
+      </div>
+
       <div className={styles["left-div"]}>
         <Header />
       </div>
