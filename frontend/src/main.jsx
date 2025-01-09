@@ -18,10 +18,9 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <AutoRouting>
-        <NotFound />
-      </AutoRouting>
+      <AutoRouting/>
     ),
+    errorElement:<NotFound/>
   },
   {
     path: "/employees",

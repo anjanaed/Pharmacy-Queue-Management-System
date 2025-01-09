@@ -23,6 +23,14 @@ const Employees = () => {
     setNotification(null);
   };
 
+    useEffect(() => {
+      const notificationMessage = localStorage.getItem('registerNotification');
+      if (notificationMessage) {
+        showNotification(notificationMessage, 'success');
+        localStorage.removeItem('registerNotification');
+      }
+    }, []);
+
   const fetchEmployee = async () => {
     try {
       const response = await axios.get("http://127.0.0.1:3000/api/employee");
@@ -33,9 +41,8 @@ const Employees = () => {
       }));
       setEmployees(fetchedEmployee);
       setLoading(false);
-      showNotification("Employees loaded successfully", 'success');
     } catch (error) {
-      showNotification("Error fetching employees: " + error.message, 'error');
+      showNotification("Error Fetching Employees: " + error.message, 'error');
       setLoading(false);
     }
   };
@@ -63,21 +70,21 @@ const Employees = () => {
         name: currentEmployee.name,
         email: currentEmployee.email
       });
-      showNotification("Employee details updated successfully", 'success');
+      showNotification("Employee Details Updated", 'success');
       fetchEmployee();
       setIsModalOpen(false);
     } catch (err) {
-      showNotification("Error updating employee: " + err.message, 'error');
+      showNotification("Error Updating Employee: " + err.message, 'error');
     }
   };
 
   const deleteEmployee = async (id) => {
     try {
       await axios.delete(`http://127.0.0.1:3000/api/employee/${id}`);
-      showNotification("Employee deleted successfully", 'success');
+      showNotification("Employee Deleted Successfully", 'success');
       fetchEmployee();
     } catch (err) {
-      showNotification("Error deleting employee: " + err.message, 'error');
+      showNotification("Error Deleting Employee: " + err.message, 'error');
     }
   };
 
