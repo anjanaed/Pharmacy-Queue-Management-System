@@ -12,7 +12,7 @@ function Header() {
     console.log("clicked")
     try{
       await signOut(auth);
-      console.log("logged out");
+      localStorage.setItem('logoutNotification', 'Logged out successfully');
       navigate('/login')
     }catch(err){
       console.log(err)
