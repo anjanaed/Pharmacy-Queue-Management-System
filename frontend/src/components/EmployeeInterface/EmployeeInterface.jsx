@@ -40,12 +40,21 @@ const EmployeeInterface = () => {
       addNotification(error.message, 'error');
     }
   };
+    useEffect(() => {
+      const notificationMessage = localStorage.getItem('logInNotification');
+      if (notificationMessage) {
+        addNotification(notificationMessage, 'success');
+        localStorage.removeItem('logInNotification');
+      }
+    }, []);
 
   const handleLogOut = async () => {
     addNotification("Logging out...", 'info');
     try {
       await signOut(auth);
       addNotification("Logged out successfully", 'success');
+      localStorage.setItem('logoutNotification', 'Logged out successfully');
+
       navigate('/login');
     } catch (err) {
       addNotification(err.message, 'error');

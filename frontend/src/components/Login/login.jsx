@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -18,6 +18,13 @@ const Login = () => {
     const id = Date.now();
     setNotifications(prev => [...prev, { id, message, type }]);
   };
+  useEffect(() => {
+    const notificationMessage = localStorage.getItem('logoutNotification');
+    if (notificationMessage) {
+      addNotification(notificationMessage, 'success');
+      localStorage.removeItem('logoutNotification');
+    }
+  }, []);
 
   const removeNotification = (id) => {
     setNotifications(prev => prev.filter(notification => notification.id !== id));
@@ -33,8 +40,8 @@ const Login = () => {
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, name, password);
-      addNotification('Successfully logged in!', 'success');
-      setTimeout(() => navigate("/"), 2000);
+      localStorage.setItem('logInNotification', 'Successfully logged in!');
+      navigate("/");
     } catch (error) {
       switch (error.code) {
         case 'auth/invalid-email':

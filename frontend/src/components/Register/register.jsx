@@ -7,13 +7,20 @@ import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./register.module.css"; // Import CSS module
 import Loading from "../Loading/Loading";
+import Notification from "../Notifications/Notification";
 
 const Register = () => {
   const [email, setEmail] = useState("");
   const [id, setId] = useState("");
   const [name, setName] = useState("");
+  const [notifications, setNotifications] = useState([]);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+
+  const addNotification = (message, type) => {
+    const id = Date.now();
+    setNotifications((prev) => [...prev, { id, message, type }]);
+  };
 
   const handleRegister = async (e) => {
     setLoading(true);
@@ -26,24 +33,41 @@ const Register = () => {
       };
       axios
         .post("http://localhost:3000/api/employee/", data)
-        .then((result) => console.log(result))
-        .catch((err) => console.log(err));
+        .then(() =>{
+          localStorage.setItem(
+            "registerNotification",
+            "User Registered Successfully!"
+          )
+          navigate("/employees");}
+        )
+        .catch((err) => addNotification(err.response.data.message,'error'));
 
-      console.log("User Registered");
       setLoading(false);
-      navigate("/employees");
     } catch (error) {
       console.log(error.message);
       setLoading(false);
     }
   };
 
-  if (loading){
-    return <Loading/>
+  if (loading) {
+    return <Loading />;
   }
+  const removeNotification = (id) => {
+    setNotifications(prev => prev.filter(notification => notification.id !== id));
+  };
 
   return (
     <div className={styles.loginWrapper}>
+      <div className={styles.notificationContainer}>
+        {notifications.map(({ id, message, type }) => (
+          <Notification
+            key={id}
+            message={message}
+            type={type}
+            onClose={() => removeNotification(id)}
+          />
+        ))}
+      </div>
       <div className={`row g-0 ${styles.loginContainer}`}>
         {/* Left Side */}
         <div

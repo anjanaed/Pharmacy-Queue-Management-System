@@ -1,0 +1,33 @@
+.mainBox{
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+
+
+
+
+}
+
+.content{
+    width: 25%;
+    text-align: center;
+    font-size: 2vw;
+    font-weight: 600;
+    padding: 2vw;
+    border-radius: 20px;
+    background-color: rgb(88, 121, 255);
+}
+
+.content button{
+    border-radius: 10px;
+    margin-top: 1vw;
+    padding: 1vw 1.5vw;
+    transition-duration: 0.5s;
+    font-size: 1.3vw;
+}
+
+.content button:hover{
+    background-color: rgb(89, 89, 255);
+}

@@ -23,6 +23,13 @@ const PendingOrder = () => {
   const removeNotification = (id) => {
     setNotifications(prev => prev.filter(notification => notification.id !== id));
   };
+  useEffect(() => {
+    const notificationMessage = localStorage.getItem('logInNotification');
+    if (notificationMessage) {
+      addNotification(notificationMessage, 'success');
+      localStorage.removeItem('logInNotification');
+    }
+  }, []);
 
   useEffect(() => {
     SpeechUtil.initialize(

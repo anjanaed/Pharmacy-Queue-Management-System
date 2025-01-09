@@ -62,7 +62,6 @@ const OrderHistory = () => {
       }));
 
       setOrders(ordersWithEmployeeNames);
-      addNotification("Order history loaded successfully", 'success');
     } catch (err) {
       addNotification(`Error loading data: ${err.message}`, 'error');
     } finally {

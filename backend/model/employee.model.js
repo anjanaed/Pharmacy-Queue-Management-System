@@ -6,6 +6,7 @@ const employeeSchema = mongoose.Schema(
         empID: { 
             type: String, 
             required: [true, "Employee ID is required"], 
+            unique:[true, "Employee ID is Already Existing"]
         },
 
         name: { 
@@ -16,6 +17,7 @@ const employeeSchema = mongoose.Schema(
         email: { 
             type: String, 
             required: [false, "Employee email is required"],
+            unique:[true,"Email Already Registered"],
             validate: {
                 validator: function (v) {
                     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
