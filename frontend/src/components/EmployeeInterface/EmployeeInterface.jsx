@@ -114,30 +114,35 @@ const EmployeeInterface = () => {
         orderStatus: "Pending",
         EmpID: employeeID
       };
+      
+      try {
+        const orderResponse = await axios.post("https://pharmacy-queue-management-system.vercel.app/api/order", orderData);
+        addNotification("Order posted successfully", 'success');
 
-      const orderResponse = await axios.post("https://pharmacy-queue-management-system.vercel.app/api/order", orderData);
-      addNotification("Order posted successfully", 'success');
-
-      const response = await axios.post(
-        "https://pharmacy-queue-management-system.vercel.app/api/orderNumber/increment"
-      );
-      setCurrentOrder(response.data.currentOrderNumber);
-      addNotification("Order Placed Successfully", 'success');
-
+        const response = await axios.post(
+          "https://pharmacy-queue-management-system.vercel.app/api/orderNumber/increment"
+        );
+        setCurrentOrder(response.data.currentOrderNumber);
+        addNotification("Order Placed Successfully", 'success');
+      } catch (error) {
+        console.error("Error posting order:", error);
+        setLoading(false);
+      }
+      
     } catch (error) {
+      setLoading(false);
       if (error.response && error.response.status === 404) {
         addNotification("Invalid Employee ID", 'error');
       } else {
         addNotification(error.message, 'error');
       }
-    } finally {
-      setLoading(false);
     }
   };
 
   if (loading) {
     return <Loading />;
   }
+
 
   return (
     <div className={styles.container}>
