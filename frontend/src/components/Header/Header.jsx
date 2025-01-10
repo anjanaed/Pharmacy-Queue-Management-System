@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faBox, faClipboard, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate,Link } from 'react-router-dom';
 import { auth } from '../firebase';
+import React from 'react';
 import { signOut } from 'firebase/auth';
 
 function Header() {
