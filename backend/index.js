@@ -1,11 +1,14 @@
 const express = require('express')
 const mongoose = require('mongoose');
 const cors = require('cors')
+const dotenv = require('dotenv');
 const employeeRoutes = require('./routes/employee.routes.js');
 const orderRoutes = require('./routes/order.routes.js');
 const OrderModel=require('./model/order.model.js');
 const app = express()
 app.use(cors())
+
+dotenv.config();
 
 // middleware configuration
 app.use(express.json());
@@ -21,7 +24,7 @@ app.get('/', (req, res) =>{
 });
 
 
-mongoose.connect("mongodb+srv://backendoc2002:5zneisS9SrygW9mB@pharmacy.hft0r.mongodb.net/Node-API?retryWrites=true&w=majority&appName=Pharmacy")
+mongoose.connect(process.env.MONGODB_URI)
 .then(async () => {
     console.log("Connected to database");
 
