@@ -21,6 +21,8 @@ const Register = () => {
     const id = Date.now();
     setNotifications((prev) => [...prev, { id, message, type }]);
   };
+  const apiUrl = import.meta.env.VITE_REACT_APP_API_BASE_URL;
+
 
   const handleRegister = async (e) => {
     setLoading(true);
@@ -32,7 +34,7 @@ const Register = () => {
         email: email,
       };
       axios
-        .post("https://pharmacy-queue-management-system.vercel.app/api/employee/", data)
+        .post(`${apiUrl}/api/employee/`, data)
         .then(() =>{
           localStorage.setItem(
             "registerNotification",

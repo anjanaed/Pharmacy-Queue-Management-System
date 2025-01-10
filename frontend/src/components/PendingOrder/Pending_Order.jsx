@@ -19,6 +19,8 @@ const PendingOrder = () => {
     const id = Date.now();
     setNotifications(prev => [...prev, { id, message, type }]);
   };
+  const apiUrl = import.meta.env.VITE_REACT_APP_API_BASE_URL;
+
 
   const removeNotification = (id) => {
     setNotifications(prev => prev.filter(notification => notification.id !== id));
@@ -46,7 +48,7 @@ const PendingOrder = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get("https://pharmacy-queue-management-system.vercel.app/api/order");
+      const response = await axios.get(`${apiUrl}/api/order`);
       const fetchedOrders = response.data
         .filter((order) => order.orderStatus === "Pending")
         .map((order) => ({
@@ -74,7 +76,7 @@ const PendingOrder = () => {
 
   const handleConfirm = async (orderId, orderDate) => {
     try {
-      await axios.put(`https://pharmacy-queue-management-system.vercel.app/api/order/${orderId}/${orderDate}`, {
+      await axios.put(`${apiUrl}/api/order/${orderId}/${orderDate}`, {
         orderStatus: "Completed",
       });
       addNotification(`Order ${orderId} completed successfully`, 'success');
@@ -86,7 +88,7 @@ const PendingOrder = () => {
 
   const handleCancel = async (orderId, orderDate) => {
     try {
-      await axios.put(`https://pharmacy-queue-management-system.vercel.app/api/order/${orderId}/${orderDate}`, {
+      await axios.put(`${apiUrl}/api/order/${orderId}/${orderDate}`, {
         orderStatus: "Cancelled",
       });
       addNotification(`Order ${orderId} cancelled successfully`, 'success');

@@ -18,6 +18,8 @@ const EmployeeInterface = () => {
   
   const employeeIDRef = useRef(null);
   const printTokenButtonRef = useRef(null);
+  const apiUrl = import.meta.env.VITE_REACT_APP_API_BASE_URL;
+
 
   // Helper function to add notifications
   const addNotification = (message, type) => {
@@ -30,10 +32,12 @@ const EmployeeInterface = () => {
     setNotifications(prev => prev.filter(notification => notification.id !== id));
   };
 
+
+
   const fetchOrderNumber = async () => {
     try {
       const response = await axios.get(
-        "https://pharmacy-queue-management-system.vercel.app/api/orderNumber"
+        `${apiUrl}/api/orderNumber`
       );
       setCurrentOrder(response.data.currentOrderNumber);
     } catch (error) {
@@ -95,7 +99,7 @@ const EmployeeInterface = () => {
     try {
       const employeeIDWithPrefix = employeeID;
       const checkResponse = await axios.get(
-        `https://pharmacy-queue-management-system.vercel.app/api/employee/check/${employeeIDWithPrefix}`
+        `${apiUrl}/api/employee/check/${employeeIDWithPrefix}`
       );
 
       if (!checkResponse.data.exists) {
@@ -115,11 +119,11 @@ const EmployeeInterface = () => {
         EmpID: employeeID
       };
 
-      const orderResponse = await axios.post("https://pharmacy-queue-management-system.vercel.app/api/order", orderData);
+      const orderResponse = await axios.post(`${apiUrl}/api/order`, orderData);
       addNotification("Order posted successfully", 'success');
 
       const response = await axios.post(
-        "https://pharmacy-queue-management-system.vercel.app/api/orderNumber/increment"
+        `${apiUrl}/api/orderNumber/increment`
       );
       setCurrentOrder(response.data.currentOrderNumber);
       addNotification("Order Placed Successfully", 'success');

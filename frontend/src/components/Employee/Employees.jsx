@@ -19,6 +19,10 @@ const Employees = () => {
     setNotification({ id, message, type });
   };
 
+  const apiUrl = import.meta.env.VITE_REACT_APP_API_BASE_URL;
+
+
+
   const handleNotificationClose = () => {
     setNotification(null);
   };
@@ -33,7 +37,7 @@ const Employees = () => {
 
   const fetchEmployee = async () => {
     try {
-      const response = await axios.get("https://pharmacy-queue-management-system.vercel.app/api/employee");
+      const response = await axios.get(`${apiUrl}/api/employee`);
       const fetchedEmployee = response.data.map((emp) => ({
         id: emp.empID,
         email: emp.email,
@@ -66,7 +70,7 @@ const Employees = () => {
 
   const handleSave = async (empid) => {
     try {
-      await axios.put(`https://pharmacy-queue-management-system.vercel.app/api/employee/${empid}`, {
+      await axios.put(`${apiUrl}/api/employee/${empid}`, {
         name: currentEmployee.name,
         email: currentEmployee.email
       });
@@ -80,7 +84,7 @@ const Employees = () => {
 
   const deleteEmployee = async (id) => {
     try {
-      await axios.delete(`https://pharmacy-queue-management-system.vercel.app/api/employee/${id}`);
+      await axios.delete(`${apiUrl}/api/employee/${id}`);
       showNotification("Employee Deleted Successfully", 'success');
       fetchEmployee();
     } catch (err) {
