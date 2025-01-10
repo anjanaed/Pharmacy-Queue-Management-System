@@ -32,7 +32,7 @@ const Register = () => {
         email: email,
       };
       axios
-        .post("http://localhost:3000/api/employee/", data)
+        .post("https://pharmacy-queue-management-system.vercel.app/api/employee/", data)
         .then(() =>{
           localStorage.setItem(
             "registerNotification",

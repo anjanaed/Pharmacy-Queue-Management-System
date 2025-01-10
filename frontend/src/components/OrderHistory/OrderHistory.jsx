@@ -30,7 +30,7 @@ const OrderHistory = () => {
   const fetchOrders = async () => {
     try {
       // Fetch orders
-      const ordersResponse = await axios.get("http://127.0.0.1:3000/api/order");
+      const ordersResponse = await axios.get("https://pharmacy-queue-management-system.vercel.app/api/order");
       const fetchedOrders = ordersResponse.data
         .filter((order) => order.orderStatus === "Completed")
         .map((order) => {
@@ -46,7 +46,7 @@ const OrderHistory = () => {
         });
 
       // Fetch employees
-      const employeesResponse = await axios.get("http://127.0.0.1:3000/api/employee");
+      const employeesResponse = await axios.get("https://pharmacy-queue-management-system.vercel.app/api/employee");
       const employees = employeesResponse.data;
 
       // Create a mapping of employee IDs to employee names

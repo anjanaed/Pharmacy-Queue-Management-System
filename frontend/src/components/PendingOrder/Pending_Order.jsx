@@ -46,7 +46,7 @@ const PendingOrder = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:3000/api/order");
+      const response = await axios.get("https://pharmacy-queue-management-system.vercel.app/api/order");
       const fetchedOrders = response.data
         .filter((order) => order.orderStatus === "Pending")
         .map((order) => ({
@@ -74,7 +74,7 @@ const PendingOrder = () => {
 
   const handleConfirm = async (orderId, orderDate) => {
     try {
-      await axios.put(`http://127.0.0.1:3000/api/order/${orderId}/${orderDate}`, {
+      await axios.put(`https://pharmacy-queue-management-system.vercel.app/api/order/${orderId}/${orderDate}`, {
         orderStatus: "Completed",
       });
       addNotification(`Order ${orderId} completed successfully`, 'success');
@@ -86,7 +86,7 @@ const PendingOrder = () => {
 
   const handleCancel = async (orderId, orderDate) => {
     try {
-      await axios.put(`http://127.0.0.1:3000/api/order/${orderId}/${orderDate}`, {
+      await axios.put(`https://pharmacy-queue-management-system.vercel.app/api/order/${orderId}/${orderDate}`, {
         orderStatus: "Cancelled",
       });
       addNotification(`Order ${orderId} cancelled successfully`, 'success');

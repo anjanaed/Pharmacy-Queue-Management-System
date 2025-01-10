@@ -33,7 +33,7 @@ const EmployeeInterface = () => {
   const fetchOrderNumber = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/api/orderNumber"
+        "https://pharmacy-queue-management-system.vercel.app/api/orderNumber"
       );
       setCurrentOrder(response.data.currentOrderNumber);
     } catch (error) {
@@ -95,7 +95,7 @@ const EmployeeInterface = () => {
     try {
       const employeeIDWithPrefix = employeeID;
       const checkResponse = await axios.get(
-        `http://localhost:3000/api/employee/check/${employeeIDWithPrefix}`
+        `https://pharmacy-queue-management-system.vercel.app/api/employee/check/${employeeIDWithPrefix}`
       );
 
       if (!checkResponse.data.exists) {
@@ -115,11 +115,11 @@ const EmployeeInterface = () => {
         EmpID: employeeID
       };
 
-      const orderResponse = await axios.post("http://localhost:3000/api/order", orderData);
+      const orderResponse = await axios.post("https://pharmacy-queue-management-system.vercel.app/api/order", orderData);
       addNotification("Order posted successfully", 'success');
 
       const response = await axios.post(
-        "http://localhost:3000/api/orderNumber/increment"
+        "https://pharmacy-queue-management-system.vercel.app/api/orderNumber/increment"
       );
       setCurrentOrder(response.data.currentOrderNumber);
       addNotification("Order Placed Successfully", 'success');

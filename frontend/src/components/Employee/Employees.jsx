@@ -33,7 +33,7 @@ const Employees = () => {
 
   const fetchEmployee = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:3000/api/employee");
+      const response = await axios.get("https://pharmacy-queue-management-system.vercel.app/api/employee");
       const fetchedEmployee = response.data.map((emp) => ({
         id: emp.empID,
         email: emp.email,
@@ -66,7 +66,7 @@ const Employees = () => {
 
   const handleSave = async (empid) => {
     try {
-      await axios.put(`http://127.0.0.1:3000/api/employee/${empid}`, {
+      await axios.put(`https://pharmacy-queue-management-system.vercel.app/api/employee/${empid}`, {
         name: currentEmployee.name,
         email: currentEmployee.email
       });
@@ -80,7 +80,7 @@ const Employees = () => {
 
   const deleteEmployee = async (id) => {
     try {
-      await axios.delete(`http://127.0.0.1:3000/api/employee/${id}`);
+      await axios.delete(`https://pharmacy-queue-management-system.vercel.app/api/employee/${id}`);
       showNotification("Employee Deleted Successfully", 'success');
       fetchEmployee();
     } catch (err) {
