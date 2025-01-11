@@ -95,7 +95,6 @@ const EmployeeInterface = () => {
     try {
       setLoading(true);
       const response = await axios.post(`${apiUrl}/api/orderNumber/increment`);
-      console.log(response.data.currentOrderNumber);
       await fetchOrderNumber();
     } catch (err) {
       console.error(err);
@@ -128,26 +127,26 @@ const EmployeeInterface = () => {
         EmpID: employeeID
       };
 
+
       await axios.post(`${apiUrl}/api/order`, orderData);
-      console.log(orderData);
       addNotification("Order posted successfully", 'success');
 
       await incrementOrderNumber();
       addNotification("Order Placed Successfully", 'success');
     } catch (error) {
+      setLoading(false);
       if (error.response && error.response.status === 404) {
         addNotification("Invalid Employee ID", 'error');
       } else {
         addNotification(error.message, 'error');
       }
-    } finally {
-      setLoading(false);
     }
   };
 
   if (loading) {
     return <Loading />;
   }
+
 
   return (
     <div className={styles.container}>
