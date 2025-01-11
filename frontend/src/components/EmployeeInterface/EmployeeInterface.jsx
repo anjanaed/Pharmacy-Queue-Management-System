@@ -119,6 +119,7 @@ const EmployeeInterface = () => {
         EmpID: employeeID
       };
 
+
       const orderResponse = await axios.post(`${apiUrl}/api/order`, orderData);
       addNotification("Order posted successfully", 'success');
 
@@ -128,20 +129,21 @@ const EmployeeInterface = () => {
       setCurrentOrder(response.data.currentOrderNumber);
       addNotification("Order Placed Successfully", 'success');
 
+
     } catch (error) {
+      setLoading(false);
       if (error.response && error.response.status === 404) {
         addNotification("Invalid Employee ID", 'error');
       } else {
         addNotification(error.message, 'error');
       }
-    } finally {
-      setLoading(false);
     }
   };
 
   if (loading) {
     return <Loading />;
   }
+
 
   return (
     <div className={styles.container}>
