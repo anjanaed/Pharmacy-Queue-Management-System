@@ -23,6 +23,9 @@ const OrderHistory = () => {
     setNotifications(prev => [...prev, { id, message, type }]);
   };
 
+  const apiUrl = import.meta.env.VITE_REACT_APP_API_BASE_URL;
+
+
   const removeNotification = (id) => {
     setNotifications(prev => prev.filter(notification => notification.id !== id));
   };
@@ -30,7 +33,7 @@ const OrderHistory = () => {
   const fetchOrders = async () => {
     try {
       // Fetch orders
-      const ordersResponse = await axios.get("https://pharmacy-queue-management-system.vercel.app/api/order");
+      const ordersResponse = await axios.get(`${apiUrl}/api/order`);
       const fetchedOrders = ordersResponse.data
         .filter((order) => order.orderStatus === "Completed")
         .map((order) => {
@@ -46,7 +49,7 @@ const OrderHistory = () => {
         });
 
       // Fetch employees
-      const employeesResponse = await axios.get("https://pharmacy-queue-management-system.vercel.app/api/employee");
+      const employeesResponse = await axios.get(`${apiUrl}/api/employee`);
       const employees = employeesResponse.data;
 
       // Create a mapping of employee IDs to employee names
