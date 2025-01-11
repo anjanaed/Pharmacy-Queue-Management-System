@@ -36,9 +36,7 @@ const EmployeeInterface = () => {
 
   const fetchOrderNumber = async () => {
     try {
-      const response = await axios.get(
-        `${apiUrl}/api/orderNumber`
-      );
+      const response = await axios.get(`${apiUrl}/api/orderNumber`);
       setCurrentOrder(response.data.currentOrderNumber);
     } catch (error) {
       addNotification(error.message, 'error');
@@ -93,10 +91,22 @@ const EmployeeInterface = () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
+  const incrementOrderNumber = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.post(`${apiUrl}/api/orderNumber/increment`);
+      console.log(response.data.currentOrderNumber);
+      await fetchOrderNumber();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handlePrintToken = async () => {
-    setLoading(true);
     try {
+      setLoading(true);
       const employeeIDWithPrefix = employeeID;
       const checkResponse = await axios.get(
         `${apiUrl}/api/employee/check/${employeeIDWithPrefix}`
@@ -104,7 +114,6 @@ const EmployeeInterface = () => {
 
       if (!checkResponse.data.exists) {
         addNotification("Invalid Employee ID", 'error');
-        setLoading(false);
         return;
       }
 
@@ -119,15 +128,12 @@ const EmployeeInterface = () => {
         EmpID: employeeID
       };
 
-      const orderResponse = await axios.post(`${apiUrl}/api/order`, orderData);
+      await axios.post(`${apiUrl}/api/order`, orderData);
+      console.log(orderData);
       addNotification("Order posted successfully", 'success');
 
-      const response = await axios.post(
-        `${apiUrl}/api/orderNumber/increment`
-      );
-      setCurrentOrder(response.data.currentOrderNumber);
+      await incrementOrderNumber();
       addNotification("Order Placed Successfully", 'success');
-
     } catch (error) {
       if (error.response && error.response.status === 404) {
         addNotification("Invalid Employee ID", 'error');

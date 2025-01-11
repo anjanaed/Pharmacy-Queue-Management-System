@@ -1,14 +1,11 @@
 const express = require('express')
 const mongoose = require('mongoose');
 const cors = require('cors')
-const dotenv = require('dotenv');
 const employeeRoutes = require('./routes/employee.routes.js');
 const orderRoutes = require('./routes/order.routes.js');
 const OrderModel=require('./model/order.model.js');
 const app = express()
 app.use(cors())
-
-dotenv.config();
 
 // middleware configuration
 app.use(express.json());
@@ -23,25 +20,44 @@ app.get('/', (req, res) =>{
     res.send('Hello from backend server');
 });
 
+async function upNumber(){
+    currentOrderNumber++;
+}
 
-mongoose.connect(process.env.MONGODB_URI)
-.then(async () => {
-    console.log("Connected to database");
-
-    // Check the last order in the database and set currentOrderNumber
-    const lastOrder = await OrderModel.findOne().sort({ _id: -1 });
+async function checkLastOrder(){
+    let lastOrder = await OrderModel.findOne().sort({ _id: -1 });
     if (lastOrder) {
-        const lastOrderDate = new Date(lastOrder.orderDate);
-        const today = new Date();
-        if (lastOrderDate.toDateString() === today.toDateString()) {
-            currentOrderNumber = parseInt(lastOrder.orderID) + 1;
+        let lastOrderDate = new Date(lastOrder.orderDate);
+        let today = new Date();
+        let todayUTC530 = new Date(today.getTime() + (5.5 * 60 * 60 * 1000));
+        if (lastOrderDate.toDateString() === todayUTC530.toDateString()) {
+            if (currentOrderNumber - 2 === lastOrder.orderID || 
+                currentOrderNumber - 1 === lastOrder.orderID || 
+                currentOrderNumber === lastOrder.orderID) {
+                // Do nothing if currentOrderNumber is within the last three order IDs
+            } else {
+                await orderUpdate();
+            }
         } else {
             currentOrderNumber = 1;
         }
     } else {
         currentOrderNumber = 1;
     }
+}
 
+async function orderUpdate(){
+    let lastOrder = await OrderModel.findOne().sort({ _id: -1 });
+    currentOrderNumber = parseInt(lastOrder.orderID) + 1;
+    lastOrder=null;
+
+}
+
+
+mongoose.connect("mongodb+srv://backendoc2002:5zneisS9SrygW9mB@pharmacy.hft0r.mongodb.net/Node-API?retryWrites=true&w=majority&appName=Pharmacy")
+.then(async () => {
+    console.log("Connected to database");
+    await checkLastOrder();
     app.listen(3000, () => {
         console.log('Server is running on port 3000');
     });
@@ -51,7 +67,7 @@ mongoose.connect(process.env.MONGODB_URI)
 });
 
 
-let currentOrderNumber = 1; // Initialize to 1 instead of 0
+let currentOrderNumber; 
 
 // Reset order number at midnight
 const resetOrderNumber = () => {
@@ -77,11 +93,12 @@ const scheduleReset = () => {
 
 scheduleReset();
 
-app.get('/api/orderNumber', (req, res) => {
+app.get('/api/orderNumber', async(req, res) => {
+    await orderUpdate();
     res.json({ currentOrderNumber });
 });
 
-app.post('/api/orderNumber/increment', (req, res) => {
-    currentOrderNumber += 1;
+app.post('/api/orderNumber/increment', async(req, res) => {
+    await upNumber();
     res.json({ currentOrderNumber });
 });

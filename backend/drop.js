@@ -51,9 +51,9 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 
 // Replace with your MongoDB connection string
+const uri = 'mongodb+srv://backendoc2002:5zneisS9SrygW9mB@pharmacy.hft0r.mongodb.net/Node-API?retryWrites=true&w=majority&appName=Pharmacy';
 
-
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(async () => {
     console.log('Connected to MongoDB');
     const db = mongoose.connection.db;
