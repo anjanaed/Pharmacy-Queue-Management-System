@@ -119,10 +119,11 @@ const EmployeeInterface = () => {
       await fetchOrderNumber();
 
       const timestamp = new Date();
+      const utc530Timestamp = new Date(timestamp.getTime() + (5.5 * 60 * 60 * 1000));
       const orderData = {
         orderID: currentOrder,
-        orderDate: timestamp.toLocaleDateString("en-CA"),
-        orderTime: timestamp.toLocaleTimeString("en-US"),
+        orderDate: utc530Timestamp.toLocaleDateString("en-CA"),
+        orderTime: utc530Timestamp.toLocaleTimeString("en-US"),
         orderStatus: "Pending",
         EmpID: employeeID
       };
