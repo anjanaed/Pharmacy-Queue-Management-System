@@ -1,7 +1,7 @@
 .navbar_base{
   height: 100vh;
   width: 100%;
-  background-color: #638fff;
+  background-color: #3D52A0;
   display: flex;
   flex-direction: column;
 
@@ -32,7 +32,7 @@
 
 .navbar a:hover {
   background-color: #ebebeb;
-  color: #6791FB;
+  color: #3D52A0;
 }
 
 .logout{
@@ -52,5 +52,5 @@
 
 
 .logout:hover {
-  color: #ff0000;
+  color:#7091E6;
 }

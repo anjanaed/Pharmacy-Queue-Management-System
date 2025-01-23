@@ -72,7 +72,7 @@
 
 .box:hover{
     transform: scale(1.03);
-    background-color: #f6f6f6;
+    background-color: #EDE8F5;
 }
 
 .close-icon{
@@ -95,7 +95,7 @@
 .order-number {
     font-size: 3vw;
     font-weight: bold;
-    color: #4875e9;
+    color: #3D52A0;
     margin-bottom: 0;
 }
 
@@ -115,7 +115,8 @@
     font-weight: 500;
     margin-top: 2.5vh;
     border: none;
-    background-color: #7da1fe;
+    color:#ffffff;
+    background-color: #7091E6;
     border-radius: 4px;
     cursor: pointer;
     font-size: 1vw;
@@ -123,7 +124,7 @@
 }
 
 .confirm-btn:hover{
-    background-color: rgb(26, 26, 255);
+    background-color: rgb(61, 82, 160);
 }
 
 
@@ -166,7 +167,8 @@
 
 .close:hover,
 .close:focus {
-  color: black;
+  color:black;
   text-decoration: none;
   cursor: pointer;
 }
+
