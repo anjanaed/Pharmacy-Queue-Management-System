@@ -37,7 +37,7 @@
     padding-bottom: 15px;
 }
 .add-new {
-    background-color: #6791FB;
+    background-color: #7091E6;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -51,7 +51,7 @@
 }
 
 .add-new:hover {
-    background-color: #4875e9;
+    background-color: #3D52A0;
 }
 
 table {
@@ -67,15 +67,15 @@ td {
 }
 
 .myth {
-    background-color: #baccfc;
+    background-color: #7091E6;
     padding: 8px;
     text-align: center;
 }
 
 .edit {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
+    background-color: white;
+    color:#7091E6;
+    border: 2px solid #7091E6; 
     padding: 8px 15px;
     cursor: pointer;
     border-radius: 3px;
@@ -84,13 +84,15 @@ td {
 }
 
 .edit:hover {
-    background-color: #45a049;
+    background-color: #3D52A0;
+    color:white;
+    border: 2px solid #3D52A0;
 }
 
 .delete {
-    background-color: #369bf4;
-    color: white;
-    border: none;
+    background-color: #7091E6;
+    color:white;
+    border: 2px solid #7091E6;
     padding: 8px 15px;
     cursor: pointer;
     border-radius: 3px;
@@ -98,7 +100,9 @@ td {
 }
 
 .delete:hover {
-    background-color: #0b2dda;
+    background-color: #3D52A0;
+    color:white;
+    border: 2px solid #3D52A0; 
 }
 
 .modal {
