@@ -27,9 +27,6 @@
     padding-top: 1vw
 }
 
-.add-new:hover {
-    background-color: #4875e9;
-}
 
 table {
     width: 100%;
@@ -37,17 +34,17 @@ table {
 }
 
 .table-raw{
-    background-color: #baccfc;
+    background-color: #7091E6;
     text-align: center;
-    color: rgb(34, 34, 34); /* Optional: to make the text color white for better contrast */
+    color: #black; /* Optional: to make the text color white for better contrast */
 }
 
 tr{
-  transition-duration: 0.4s;
+  /* transition-duration: 0.4s; */
 }
 
 tr:hover {
-    background-color: #e6e6e7; /* Change the background color on hover */
+    background-color: #EDE8F5; /* Change the background color on hover */
 }
 
 td {
@@ -82,7 +79,7 @@ button {
 }
 
 .downloadButton {
-  background-color: #4CAF50; /* Green */
+  background-color: #7091E6; /* Green */
   border: none;
   color: white;
   padding: 1vw 2vw;
@@ -96,7 +93,7 @@ button {
 }
 
 .downloadButton:hover {
-  background-color: #45a049;
+  background-color: #3D52A0;
 }
 
 

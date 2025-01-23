@@ -9,7 +9,7 @@ body {
 
 .logout{
   margin-left: auto;
-  background-color: #daecff;
+  background-color: #7091E6;
   font-size: 1vw;
   border-radius: 10px;
   transition-duration: 0.4s;
@@ -17,12 +17,14 @@ body {
 }
 
 .logout:hover{
-  background-color: rgb(68, 71, 255);
+  background-color:#3D52A0;
   transform: scale(1.1);
+  color:white
 }
 
 body {
-  background-image: url('/background.jpg');
+  /* background-image: url('/background.jpg'); */
+  /* background-color:#3D52A0; */
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -40,7 +42,7 @@ body {
 /* Header Section */
 .header {
   
-  color: #007bff;
+  color: #3D52A0;
 
   
   text-align: center;
@@ -102,7 +104,7 @@ body {
 
 .token-generator .details strong {
   font-size: 35px;
-  color: #ff0000;
+  color: #3D52A0;
 }
 
 .token-generator .details::after {
@@ -144,14 +146,14 @@ body {
   border-radius: 6px;
   margin-left: auto;
   margin-right: auto;
-  background-color: #00f2ff11;
+  background-color: #EDE8F5;
   color: black;
   font-weight: bold;
   font-size: 30px;
 }
 /* Button Styling */
 .primary-btn {
-  background-color: #007bff;
+  background-color: #7091E6;
   color: white;
   font-size: 25px;
   padding: 20px 40px;
@@ -164,7 +166,7 @@ body {
 }
 
 .primary-btn:hover {
-  background-color: #0056b3;
+  background-color: #3D52A0;
 }
 
 /* Footer Section */

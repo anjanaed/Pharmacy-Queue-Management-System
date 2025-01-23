@@ -4,11 +4,12 @@ body {
   }
   
   .login-wrapper {
-    background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), 
-                url('public/img/background.png');
+    /* background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), 
+                url('public/img/background.png'); */
     width: 100vw;
     height: 100vh;
     display: flex;
+
     justify-content: center;
     align-items: center;
     margin: 0;
@@ -41,7 +42,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     padding: 2vw;
-    border-radius: 40px;
+    border-radius: 20px;
   }
   
   .left-image {
@@ -77,7 +78,7 @@ body {
   }
   
   .custom-button {
-    background-color: #00B4D8;
+    background-color: #7091E6;
     margin-top: 2vw;
     border: none;
     width: 40%;
@@ -90,7 +91,7 @@ body {
   }
   
   .custom-button:hover {
-    background-color: #03045E;
+    background-color: #3D52A0;
   }
   
   .welcome-heading {
@@ -103,7 +104,7 @@ body {
     /* font-family: 'Poppins', sans-serif; */
     font-weight: 600;
     font-size: 3vw;
-    color: #0077B6;
+    color: #3D52A0;
     margin-bottom: 3vh;
   }
   
