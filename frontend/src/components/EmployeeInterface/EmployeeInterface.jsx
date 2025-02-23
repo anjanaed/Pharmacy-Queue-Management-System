@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./EmployeeInterface.module.css";
 import { auth } from "../firebase";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { signOut } from "firebase/auth";
 import Loading from "../Loading/Loading";
 import Notification from "../Notifications/Notification";
@@ -138,14 +141,57 @@ const EmployeeInterface = () => {
 
   return (
     <div className={styles.containerr}>
+            <div className={styles.notificationContainer}>
+        {notifications.map(({ id, message, type }) => (
+          <Notification
+            key={id}
+            message={message}
+            type={type}
+            onClose={() => removeNotification(id)}
+          />
+        ))}
+      </div>
       <div className={styles.topDiv}>
-      <div className={styles.title}>
-      <div className={styles.titleUnWrap}>Lanka </div> 
-      <div className={styles.titleWrap}> Pharmacy</div>
+        <div className={styles.title}>
+          <div className={styles.titleUnWrap}>Lanka </div>
+          <div className={styles.titleWrap}> Pharmacy</div>
+          <div className={styles.logoutBtn}>
+            <button onClick={handleLogOut}>Logout</button>
+          </div>
+        </div>
       </div>
-        
-        <div className={styles.logoutBtn}><button>LogOut</button></div>
+      <div className={styles.secondDiv}>
+        <div className={styles.genBox}>
+          <div className={styles.boxTop}>
+            Recent Order Number : {currentOrder - 1}{" "}
+            <FontAwesomeIcon icon={faCircleCheck} />
+          </div>
+          <div className={styles.boxDes}>
+            Enter Your Employee ID To Place Order & Print The Receipt
+          </div>
+          <div className={styles.inputArea}>
+            <div className={styles.inputData}>
+              <div className={styles.inputBox}>
+                <FontAwesomeIcon icon={faUser} size="2x" />
+                <input
+                  type="text"
+                  id="employeeID"
+                  ref={employeeIDRef}
+                  value={employeeID}
+                  onChange={(e) => setEmployeeID(e.target.value)}
+                  placeholder="Enter Employee ID"
+                ></input>
+              </div>
+            </div>
+          </div>
+          <div className={styles.printBtn}>
+            <button ref={printTokenButtonRef} onClick={handlePrintToken}>
+              Print Token
+            </button>
+          </div>
+        </div>
       </div>
+      <div className={styles.foot}>Powered by Mavericks</div>
     </div>
   );
 };
