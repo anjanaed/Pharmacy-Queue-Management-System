@@ -125,6 +125,7 @@ const EmployeeInterface = () => {
       const response = await axios.post(`${apiUrl}/api/orderNumber/increment`);
       setCurrentOrder(response.data.currentOrderNumber);
       addNotification("Order Placed Successfully", "success");
+      setLoading(false);
     } catch (error) {
       setLoading(false);
       if (error.response && error.response.status === 404) {

@@ -99,7 +99,7 @@ body {
   font-size: 2.4vw;
   font-family: "Comfortaa", sans-serif;
   line-height: 1.5;
-  font-weight: 600;
+  font-weight:bold;
   
 }
 .boxDes{
@@ -159,8 +159,8 @@ body {
   background-color: #060640;
   border-radius: 50px;
   font-weight: 600;
-  padding: 0.5vw 2.9vw;
-  border: 2px solid white;
+  padding: 1vw 2.9vw;
+  border: 0px solid white;
   transition: all 0.5s ease; 
   font-size: 1.2vw;
   font-family: "Comfortaa", sans-serif;

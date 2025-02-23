@@ -31,6 +31,8 @@
 .title {
     text-align: center;
     color: black;
+    font-family: "Comfortaa", sans-serif;
+    font-weight: 700;
     margin-top: 2vh;
 
 }
@@ -40,7 +42,7 @@
     font-size: 2.5rem;
 }
 .order-contain{
-    background: rgba(252, 252, 252, 0.5);
+    background: rgba(142, 183, 255, 0.64);
     margin: 1vw;
     border-radius: 10px;
 
@@ -95,7 +97,7 @@
 .order-number {
     font-size: 3vw;
     font-weight: bold;
-    color: #4875e9;
+    color: #1255ff;
     margin-bottom: 0;
 }
 
@@ -115,7 +117,8 @@
     font-weight: 500;
     margin-top: 2.5vh;
     border: none;
-    background-color: #7da1fe;
+    background-color: #060640;
+    color: white;
     border-radius: 4px;
     cursor: pointer;
     font-size: 1vw;

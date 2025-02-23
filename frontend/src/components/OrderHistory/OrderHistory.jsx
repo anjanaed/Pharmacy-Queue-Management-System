@@ -189,7 +189,7 @@ const OrderHistory = () => {
       </div>
       <div className={styles.rightDiv}>
         <header className={styles.title}>
-          <h1>Order History</h1>
+          <h1><strong>Order History</strong></h1>
           <div className={styles.downloadButtonContainer}>
             <button className={styles.downloadButton} onClick={handleDownloadClick}>
               Download as PDF
@@ -232,7 +232,7 @@ const OrderHistory = () => {
                   selected={startDate}
                   onChange={(date) => setStartDate(date)}
                   dateFormat="yyyy-MM-dd"
-                  placeholderText="Select start date"
+                  placeholderText="Select Start Date"
                 />
               </div>
               <div className={styles.datePicker}>
@@ -241,7 +241,7 @@ const OrderHistory = () => {
                   selected={endDate}
                   onChange={(date) => setEndDate(date)}
                   dateFormat="yyyy-MM-dd"
-                  placeholderText="Select end date"
+                  placeholderText="Select End Date"
                 />
               </div>
             </div>
@@ -249,7 +249,7 @@ const OrderHistory = () => {
               className={styles.downloadButton1} 
               onClick={handleDownloadHistory}
             >
-              Download History
+              Download
             </button>
           </div>
         </div>

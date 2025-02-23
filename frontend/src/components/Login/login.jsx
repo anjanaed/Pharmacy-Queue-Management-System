@@ -98,7 +98,7 @@ const Login = () => {
 
         <div className={styles['right-side']}>
           <h3 className={`text-center mb-3 ${styles['welcome-heading']}`}>Hello! Welcome Back</h3>
-          <h3 className={`text-center ${styles['register-heading']}`}>PharmacyLanka</h3>
+          <h3 className={`text-center ${styles['register-heading']}`}>Lanka Pharmacy</h3>
           <form onSubmit={handleSubmit} className={styles['form-container']}>
             <div className="mb-3 position-relative">
               <label htmlFor="name" className={`form-label ${styles['smaller-text']}`}>User Name</label>
@@ -116,7 +116,7 @@ const Login = () => {
               <input
                 onChange={(e) => setPassword(e.target.value)}
                 className={`form-control form-control-lg ${styles['text-box-small']} ps-2`}
-                placeholder="Enter your Password"
+                placeholder="Enter Password"
                 type="password"
                 id="password"
                 name="password"

@@ -91,7 +91,7 @@ const Register = () => {
           className={`${styles.rightSide} d-flex flex-column justify-content-center`}
         >
           <h3 className={`text-center ${styles.registerHeading}`}>
-            PharmacyLanka
+          Lanka Pharmacy
           </h3>
           <form onSubmit={handleRegister} className={styles.formContainer}>
             <div className="mb-3 position-relative">
@@ -148,7 +148,9 @@ const Register = () => {
           </form>
         </div>
       </div>
+      
     </div>
+    
   );
 };
 

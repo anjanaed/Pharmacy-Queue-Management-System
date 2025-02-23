@@ -25,12 +25,12 @@ function Header() {
     <div >
         <div className="navbar_base">
           <div className="navbar">
-            <Link to="/pending-order"><FontAwesomeIcon icon={faClipboard} /> Pending Order</Link>
+            <Link to="/pending-order"><FontAwesomeIcon icon={faClipboard} /> Pending Orders</Link>
             <Link to="/employees"><FontAwesomeIcon icon={faUser} /> Employees</Link>
             <Link to="/order-history"><FontAwesomeIcon icon={faBox} /> Order History</Link>
           </div>
           <div className="logout" onClick={handleLogOut}>
-            <FontAwesomeIcon icon={faArrowRightFromBracket}/> Log Out
+            <FontAwesomeIcon icon={faArrowRightFromBracket}/> Logout
           </div>
         </div>
     </div>
