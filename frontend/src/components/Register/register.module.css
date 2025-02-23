@@ -4,8 +4,8 @@ body {
 }
 
 .loginWrapper {
-  background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), 
-              url('public/img/background.png');
+  background: linear-gradient(to left, #6dd5fa, #2f2fbc, #6dd5fa);
+
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -48,13 +48,15 @@ body {
   width: 15vw;
 }
 
+
+
 .rightImage {
   width: 15vw;
 }
 
 .rightSide {
   flex: 1;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.779);
   padding: 2rem;
   display: flex;
   flex-direction: column;
@@ -91,6 +93,7 @@ body {
 
 .customButton:hover {
   background-color: #03045E;
+  transform: scale(1.05);
 }
 
 .welcomeHeading {
@@ -100,11 +103,13 @@ body {
 }
 
 .registerHeading {
-  /* font-family: 'Poppins', sans-serif; */
+  font-family: "Comfortaa", sans-serif;
   font-weight: 600;
   font-size: 3vw;
-  color: #0077B6;
-  margin-bottom: 3vh;
+  background-color: #03045E;
+  border-radius: 50px;
+  color: white;
+  padding: 1vw;
 }
 
 .formContainer {

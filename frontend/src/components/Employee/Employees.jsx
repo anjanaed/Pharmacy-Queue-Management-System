@@ -110,18 +110,18 @@ const Employees = () => {
       </div>
       <div className={styles.rightDiv}>
         <header className={styles.title}>
-          <h1>Employee Details</h1>
+          <h1><strong>Employee Details</strong></h1>
         </header>
         <div className={styles.content}>
           <div className={styles.new}>
-            <button className={styles['add-new']} onClick={() => navigate("/register")}>+ Add New</button>
+            <button className={styles['add-new']} onClick={() => navigate("/register")}>Register New Employee</button>
           </div>
           <table>
             <thead>
               <tr>
                 <th className={styles.myth}>Number</th>
                 <th className={styles.myth}>Employee ID</th>
-                <th className={styles.myth}>Gmail</th>
+                <th className={styles.myth}>E-mail</th>
                 <th className={styles.myth}>Name</th>
                 <th className={styles.myth}>Actions</th>
               </tr>
@@ -135,10 +135,10 @@ const Employees = () => {
                   <td>{employee.name}</td>
                   <td>
                     <button className={styles.edit} onClick={() => handleEdit(employee)}>
-                      <FontAwesomeIcon icon={faPenToSquare} /> Edit
+                      <FontAwesomeIcon icon={faPenToSquare} /> 
                     </button>
                     <button className={styles.delete} onClick={() => deleteEmployee(employee.id)}>
-                      <FontAwesomeIcon icon={faTrash} /> Delete
+                      <FontAwesomeIcon icon={faTrash} /> 
                     </button>
                   </td>
                 </tr>

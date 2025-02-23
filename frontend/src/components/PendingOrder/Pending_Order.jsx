@@ -137,7 +137,7 @@ const PendingOrder = () => {
       <div className={styles["right-div"]}>
         <div className={styles.conPed}>
           <div className={styles.title}>
-            <h1>Pending Orders</h1>
+            <h1><strong>Pending Orders</strong></h1>
           </div>
           <div className={styles["order-contain"]}>
             <div className={styles["main-box"]}>
@@ -154,7 +154,7 @@ const PendingOrder = () => {
                     <div className={styles.top}>
                       <p className={styles.emp}>Emp - {order.empId}</p>
                       <IoMdCloseCircle
-                        color="red"
+                        color="#1255ff"
                         className={styles["close-icon"]}
                         onClick={(e) => {
                           e.stopPropagation();

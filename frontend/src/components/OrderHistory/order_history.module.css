@@ -16,6 +16,7 @@
 
 .title{
   margin: 1.5vw;
+  font-family: "Comfortaa", sans-serif;
 }
 
 .content {
@@ -37,9 +38,9 @@ table {
 }
 
 .table-raw{
-    background-color: #baccfc;
+    background-color: #060640;
     text-align: center;
-    color: rgb(34, 34, 34); /* Optional: to make the text color white for better contrast */
+    color: white;
 }
 
 tr{
@@ -82,21 +83,23 @@ button {
 }
 
 .downloadButton {
-  background-color: #4CAF50; /* Green */
+  background-color: #006fd0; /* Green */
   border: none;
   color: white;
   padding: 1vw 2vw;
   text-align: center;
   text-decoration: none;
   display: inline-block;
+  transition-duration: 0.5s ;
   font-size: 1vw;
-  margin: 1vw 0;
+  margin-right: 1.5vw;
   cursor: pointer;
   border-radius: 1vw;
 }
 
 .downloadButton:hover {
-  background-color: #45a049;
+  background-color: #060640;
+  transform: scale(1.1);
 }
 
 
@@ -119,12 +122,14 @@ button {
   background: white;
   padding: 20px;
   border-radius: 5px;
+  
   max-width: 500px;
   width: 100%;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: relative;
   display: flex;
   flex-direction: column;
+  border: 3px solid blue;
   align-items: center; /* Center the button horizontally */
 }
 
@@ -142,25 +147,37 @@ button {
 
 .datePickerContainer {
   display: flex;
-  justify-content: space-between;
+  font-weight: 650;
+  font-size: 1vw;
+  justify-content:space-between;
+  
+  
   
 }
 
 .datePicker {
   display: flex;
   flex-direction: column;
+  
   align-items: flex-start;
+  margin: 1vw;
 }
 
 .downloadButton1 {
-  background: blue;
+  background: #006fd0;
   color: white;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
   margin-top: 20px;
   border-radius: 5px;
+  transition-duration: 0.5s;
   text-align: center;
   font-size: 16px;
   align-self: center; /* Center the button horizontally */
+}
+
+.downloadButton1:hover{
+  background-color: #060640;
+  transform: scale(1.05);
 }
