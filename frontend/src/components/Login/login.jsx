@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -6,6 +6,7 @@ import styles from './login.module.css';
 import { useNavigate } from "react-router-dom";
 import Loading from "../Loading/Loading";
 import Notification from '../Notifications/Notification';
+
 
 const Login = () => {
   const [name, setName] = useState("");
@@ -18,6 +19,7 @@ const Login = () => {
     const id = Date.now();
     setNotifications(prev => [...prev, { id, message, type }]);
   };
+
   useEffect(() => {
     const notificationMessage = localStorage.getItem('logoutNotification');
     if (notificationMessage) {
@@ -70,7 +72,6 @@ const Login = () => {
 
   return (
     <div className={styles['login-wrapper']}>
-      {/* Notification Stack */}
       <div className={styles.notificationContainer}>
         {notifications.map(({ id, message, type }) => (
           <Notification
@@ -82,50 +83,67 @@ const Login = () => {
         ))}
       </div>
 
-      <div className={`row g-0 ${styles['login-container']}`}>
-        <div className={`col-md-6 ${styles['left-side']} `}>
-          <img
-            src="public/img/logo.png"
-            alt="Logo"
-            className={styles['left-image']}
-          />
-          <img
-            src="public/img/pills.png"
-            alt="Pills"
-            className={styles['right-image']}
-          />
+      <div className={styles["login-container"]}>
+        <div className="text-center">
+          <h2>
+            Sign in to your account
+          </h2>
         </div>
 
-        <div className={styles['right-side']}>
-          <h3 className={`text-center mb-3 ${styles['welcome-heading']}`}>Hello! Welcome Back</h3>
-          <h3 className={`text-center ${styles['register-heading']}`}>Lanka Pharmacy</h3>
-          <form onSubmit={handleSubmit} className={styles['form-container']}>
-            <div className="mb-3 position-relative">
-              <label htmlFor="name" className={`form-label ${styles['smaller-text']}`}>User Name</label>
-              <input
-                onChange={(e) => setName(e.target.value)}
-                className={`form-control form-control-lg ${styles['text-box-small']} ps-2`}
-                placeholder="Enter Username"
-                type="name"
-                id="name"
-                name="name"
-              />
+        <div>
+          <form onSubmit={handleSubmit}>
+            <div className={styles["email-container"]}>
+              <label htmlFor="email">
+                Email address
+              </label>
+              <div className={styles["input-container"]}>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  autoComplete="email"
+                  onChange={(e) => setName(e.target.value)}
+                  className={styles["email-input"]}
+                  placeholder="Enter your email"
+                />
+              </div>
             </div>
-            <div className="mb-3 position-relative">
-              <label htmlFor="pass" className={` ${styles['smaller-text']}`}>Password</label>
-              <input
-                onChange={(e) => setPassword(e.target.value)}
-                className={`form-control form-control-lg ${styles['text-box-small']} ps-2`}
-                placeholder="Enter Password"
-                type="password"
-                id="password"
-                name="password"
-              />
+
+            <div>
+              <div className={styles["Password-container"]}>
+                <label htmlFor="password">
+                  Password
+                </label>
+              </div>
+              <div className="mt-2">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  required
+                  autoComplete="current-password"
+                  onChange={(e) => setPassword(e.target.value)}
+                  className={styles["password-input"]}
+                  placeholder="Enter your password"
+                />
+              </div>
             </div>
-            <button type="submit" className={styles['custom-button']}>
-              Login
-            </button>
+            <div>
+              <button
+                type="submit"
+                className={styles["login-button"]}
+              >
+                Login
+              </button>
+            </div>
+            
           </form>
+        </div>
+        <div>
+              <a href="#">
+                Powered by Mavericks
+              </a>
         </div>
       </div>
     </div>
