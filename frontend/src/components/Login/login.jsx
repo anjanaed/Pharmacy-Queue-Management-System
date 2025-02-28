@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -18,6 +18,7 @@ const Login = () => {
     const id = Date.now();
     setNotifications(prev => [...prev, { id, message, type }]);
   };
+
   useEffect(() => {
     const notificationMessage = localStorage.getItem('logoutNotification');
     if (notificationMessage) {
@@ -82,36 +83,79 @@ const Login = () => {
         ))}
       </div>
 
-        <div className={styles['right-side']}>
-          <h3 className={`text-center mb-3 ${styles['welcome-heading']}`}>Sign in to your account</h3>
-          <form onSubmit={handleSubmit} className={styles['form-container']}>
-            <div className="mb-3 position-relative">
-              <label htmlFor="name" className={`form-label ${styles['smaller-text']}`}>User Name</label>
-              <input
-                onChange={(e) => setName(e.target.value)}
-                className={`form-control form-control-lg ${styles['text-box-small']} ps-2`}
-                placeholder="Enter Username"
-                type="name"
-                id="name"
-                name="name"
-              />
-            </div>
-            <div className="mb-3 position-relative">
-              <label htmlFor="pass" className={` ${styles['smaller-text']}`}>Password</label>
-              <input
-                onChange={(e) => setPassword(e.target.value)}
-                className={`form-control form-control-lg ${styles['text-box-small']} ps-2`}
-                placeholder="Enter Password"
-                type="password"
-                id="password"
-                name="password"
-              />
-            </div>
-            <button type="submit" className={styles['custom-button']}>
-              Login
-            </button>
-          </form>
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+          <img
+            alt="Your Company"
+            src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
+            className="mx-auto h-10 w-auto"
+          />
+          <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
+            Sign in to your account
+          </h2>
         </div>
+
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
+                Email address
+              </label>
+              <div className="mt-2">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  autoComplete="email"
+                  onChange={(e) => setName(e.target.value)}
+                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                />
+              </div>
+            </div>
+
+            <div>
+              <div className="flex items-center justify-between">
+                <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
+                  Password
+                </label>
+                <div className="text-sm">
+                  <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                    Forgot password?
+                  </a>
+                </div>
+              </div>
+              <div className="mt-2">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  required
+                  autoComplete="current-password"
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                />
+              </div>
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Sign in
+              </button>
+            </div>
+          </form>
+
+          <p className="mt-10 text-center text-sm/6 text-gray-500">
+            Not a member?{' '}
+            <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+              Start a 14 day free trial
+            </a>
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
