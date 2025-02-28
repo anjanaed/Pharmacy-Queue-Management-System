@@ -4,7 +4,7 @@ body {
   }
   
   .login-wrapper {
-    background: linear-gradient(to left, #6dd5fa, #2f2fbc, #6dd5fa);
+    background: #101828;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -25,30 +25,6 @@ body {
     height: 75%; 
     border-radius: 40px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Left Side */
-  .left-side {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), 
-                url('public/img/background.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    padding: 2vw;
-    border-radius: 40px;
-  }
-  
-  .left-image {
-    width: 15vw;
-  }
-  
-  .right-image {
-    width: 15vw;
   }
   
   .right-side {

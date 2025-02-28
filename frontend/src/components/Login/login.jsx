@@ -82,23 +82,8 @@ const Login = () => {
         ))}
       </div>
 
-      <div className={`row g-0 ${styles['login-container']}`}>
-        <div className={`col-md-6 ${styles['left-side']} `}>
-          <img
-            src="public/img/logo.png"
-            alt="Logo"
-            className={styles['left-image']}
-          />
-          <img
-            src="public/img/pills.png"
-            alt="Pills"
-            className={styles['right-image']}
-          />
-        </div>
-
         <div className={styles['right-side']}>
-          <h3 className={`text-center mb-3 ${styles['welcome-heading']}`}>Hello! Welcome Back</h3>
-          <h3 className={`text-center ${styles['register-heading']}`}>Lanka Pharmacy</h3>
+          <h3 className={`text-center mb-3 ${styles['welcome-heading']}`}>Sign in to your account</h3>
           <form onSubmit={handleSubmit} className={styles['form-container']}>
             <div className="mb-3 position-relative">
               <label htmlFor="name" className={`form-label ${styles['smaller-text']}`}>User Name</label>
@@ -127,7 +112,6 @@ const Login = () => {
             </button>
           </form>
         </div>
-      </div>
     </div>
   );
 };
