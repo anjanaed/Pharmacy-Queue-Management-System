@@ -1,10 +1,10 @@
-const express = require('express')
-const mongoose = require('mongoose');
-const cors = require('cors')
-const dotenv = require('dotenv');
-const employeeRoutes = require('./routes/employee.routes.js');
-const orderRoutes = require('./routes/order.routes.js');
-const OrderModel=require('./model/order.model.js');
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import employeeRoutes from './routes/employee.routes.js';
+import orderRoutes from './routes/order.routes.js';
+import OrderModel from './model/order.model.js';
 const app = express()
 app.use(cors())
 

@@ -24,6 +24,10 @@ function Header() {
   return (
     <div >
         <div className="navbar_base">
+          <div className="logo-section">
+            <img src="/img/logo.png" alt="Lanka Pharmacy" className="sidebar-logo" />
+            <h2 className="pharmacy-name">Lanka Pharmacy</h2>
+          </div>
           <div className="navbar">
             <Link to="/pending-order"><FontAwesomeIcon icon={faClipboard} /> Pending Orders</Link>
             <Link to="/employees"><FontAwesomeIcon icon={faUser} /> Employees</Link>

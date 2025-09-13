@@ -1,5 +1,4 @@
-const { text } = require('express');
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const employeeSchema = mongoose.Schema(
     {
@@ -30,4 +29,4 @@ const employeeSchema = mongoose.Schema(
 
 const EmployeeModel = mongoose.model('Employee', employeeSchema);
 
-module.exports = EmployeeModel;
+export default EmployeeModel;

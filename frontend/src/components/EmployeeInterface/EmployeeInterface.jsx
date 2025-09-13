@@ -154,26 +154,26 @@ const EmployeeInterface = () => {
       </div>
       <div className={styles.topDiv}>
         <div className={styles.title}>
-          <div className={styles.titleUnWrap}>Lanka </div>
-          <div className={styles.titleWrap}> Pharmacy</div>
-          <div className={styles.logoutBtn}>
-            <button onClick={handleLogOut}>Logout</button>
-          </div>
+          <div className={styles.titleUnWrap}>Lanka</div>
+          <div className={styles.titleWrap}>Pharmacy</div>
+        </div>
+        <div className={styles.logoutBtn}>
+          <button onClick={handleLogOut}>Logout</button>
         </div>
       </div>
       <div className={styles.secondDiv}>
         <div className={styles.genBox}>
           <div className={styles.boxTop}>
-            Recent Order Number : {currentOrder - 1}{" "}
-            <FontAwesomeIcon icon={faCircleCheck} />
+            Recent Order: #{currentOrder > 0 ? currentOrder - 1 : 0}
+            <FontAwesomeIcon icon={faCircleCheck} style={{ color: "#22c55e" }} />
           </div>
           <div className={styles.boxDes}>
-            Enter Your Employee ID To Place Order & Print The Receipt
+            Enter your Employee ID to place an order and print the token.
           </div>
           <div className={styles.inputArea}>
             <div className={styles.inputData}>
+              <FontAwesomeIcon icon={faUser} size="1x" color="#6b7280" />
               <div className={styles.inputBox}>
-                <FontAwesomeIcon icon={faUser} size="2x" />
                 <input
                   type="text"
                   id="employeeID"
@@ -181,7 +181,7 @@ const EmployeeInterface = () => {
                   value={employeeID}
                   onChange={(e) => setEmployeeID(e.target.value)}
                   placeholder="Enter Employee ID"
-                ></input>
+                />
               </div>
             </div>
           </div>

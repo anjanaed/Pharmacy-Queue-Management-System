@@ -73,77 +73,84 @@ const Register = () => {
       <div className={`row g-0 ${styles.loginContainer}`}>
         {/* Left Side */}
         <div
-          className={`col-md-6 ${styles.leftSide} d-flex flex-column justify-content-center align-items-center`}
+          className={`col-md-6 ${styles.leftSide}`}
         >
           <img
-            src="public/img/logo.png"
+            src="/img/logo.png"
             alt="Logo"
             className={styles.leftImage}
           />
           <img
-            src="public/img/pills.png"
+            src="/img/pills.png"
             alt="Pills"
             className={styles.rightImage}
           />
         </div>
         {/* Right Side */}
         <div
-          className={`${styles.rightSide} d-flex flex-column justify-content-center`}
+          className={`col-md-6 ${styles.rightSide}`}
         >
-          <h3 className={`text-center ${styles.registerHeading}`}>
-          Lanka Pharmacy
+          <button
+            type="button"
+            className={styles.backButton}
+            onClick={() => navigate('/employees')}
+          >
+            ◀ Back
+          </button>
+          <h3 className={styles.registerHeading}>
+            Employee Registration
           </h3>
           <form onSubmit={handleRegister} className={styles.formContainer}>
-            <div className="mb-3 position-relative">
+            <div className="mb-3">
               <label
                 htmlFor="id"
-                className={`form-label ${styles.smallerText}`}
+                className={styles.smallerText}
               >
                 Employee ID
               </label>
               <input
                 onChange={(e) => setId(e.target.value)}
-                className={`form-control form-control-lg ${styles.textBoxSmall} ps-2`}
-                placeholder="Enter your ID"
-                type="id"
+                className={styles.textBoxSmall}
+                placeholder="Enter Employee ID"
+                type="text"
                 id="id"
                 name="id"
               />
             </div>
-            <div className="mb-3 position-relative">
+            <div className="mb-3">
               <label
                 htmlFor="name"
-                className={`form-label ${styles.smallerText}`}
+                className={styles.smallerText}
               >
                 Name
               </label>
               <input
                 onChange={(e) => setName(e.target.value)}
-                className={`form-control form-control-lg ${styles.textBoxSmall} ps-2`}
-                placeholder="Enter your Name"
-                type="name"
+                className={styles.textBoxSmall}
+                placeholder="Enter Full Name"
+                type="text"
                 id="name"
                 name="name"
               />
             </div>
-            <div className="mb-3 position-relative">
+            <div className="mb-3">
               <label
-                htmlFor="pass"
-                className={`form-label ${styles.smallerText}`}
+                htmlFor="email"
+                className={styles.smallerText}
               >
                 Email
               </label>
               <input
                 onChange={(e) => setEmail(e.target.value)}
-                className={`form-control form-control-lg ${styles.textBoxSmall} ps-2`}
-                placeholder="Enter your Email"
+                className={styles.textBoxSmall}
+                placeholder="Enter Email Address"
                 type="email"
                 id="email"
                 name="email"
               />
             </div>
             <button type="submit" className={styles.customButton}>
-              Register
+              Register Employee
             </button>
           </form>
         </div>

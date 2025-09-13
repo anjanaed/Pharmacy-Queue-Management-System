@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+import EmployeeController from '../controller/employee.controller.js';
+import EmployeeModel from '../model/employee.model.js';
+
 const router = express.Router();
-const EmployeeController = require('../controller/employee.controller.js');
-const EmployeeModel = require('../model/employee.model.js');
 
 router.get('/', EmployeeController.getEmployees);
 router.get('/:empID', EmployeeController.getEmployee);
@@ -10,4 +11,4 @@ router.put('/:empID', EmployeeController.updateEmployee);
 router.delete('/:empID', EmployeeController.deleteEmployee);
 router.get('/check/:id', EmployeeController.employeeExists);
 
-module.exports = router;
+export default router;

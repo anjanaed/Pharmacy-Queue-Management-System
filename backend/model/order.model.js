@@ -1,5 +1,4 @@
-const { text } = require('express');
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const orderSchema = mongoose.Schema(
     {
@@ -36,4 +35,4 @@ const orderSchema = mongoose.Schema(
 
 const OrderModel = mongoose.model('Order', orderSchema);
 
-module.exports = OrderModel;
+export default OrderModel;

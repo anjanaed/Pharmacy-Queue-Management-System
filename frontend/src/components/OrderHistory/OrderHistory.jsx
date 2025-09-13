@@ -188,37 +188,41 @@ const OrderHistory = () => {
         <Header />
       </div>
       <div className={styles.rightDiv}>
-        <header className={styles.title}>
-          <h1><strong>Order History</strong></h1>
-          <div className={styles.downloadButtonContainer}>
-            <button className={styles.downloadButton} onClick={handleDownloadClick}>
-              Download as PDF
-            </button>
+        <div className={styles.conOrder}>
+          <div className={styles.title}>
+            <h1><strong>Order History</strong></h1>
           </div>
-        </header>
-        <div className={styles.content}>
-          <table>
-            <thead>
-              <tr>
-                <th className={styles["table-raw"]}>#</th>
-                <th className={styles["table-raw"]}>Order ID</th>
-                <th className={styles["table-raw"]}>Employee ID</th>
-                <th className={styles["table-raw"]}>Employee Name</th>
-                <th className={styles["table-raw"]}>Date & Time</th>
-              </tr>
-            </thead>
-            <tbody>
-              {orders.map((order, index) => (
-                <tr key={order.id}>
-                  <td>#{index + 1}</td>
-                  <td>{order.id}</td>
-                  <td>{order.empId}</td>
-                  <td>{order.empName}</td>
-                  <td>{order.date} | {order.time}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className={styles.content}>
+            <div className={styles.downloadSection}>
+              <button className={styles.downloadButton} onClick={handleDownloadClick}>
+                Download as PDF
+              </button>
+            </div>
+            <div className={styles.tableContainer}>
+              <table>
+                <thead>
+                  <tr>
+                    <th className={styles["table-raw"]}>#</th>
+                    <th className={styles["table-raw"]}>Order ID</th>
+                    <th className={styles["table-raw"]}>Employee ID</th>
+                    <th className={styles["table-raw"]}>Employee Name</th>
+                    <th className={styles["table-raw"]}>Date & Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orders.map((order, index) => (
+                    <tr key={order.id}>
+                      <td>#{index + 1}</td>
+                      <td>{order.id}</td>
+                      <td>{order.empId}</td>
+                      <td>{order.empName}</td>
+                      <td>{order.date} | {order.time}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
       {showModal && (

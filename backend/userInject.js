@@ -4,7 +4,7 @@ import { setDoc, doc } from "firebase/firestore";
 
 
 const UID="EMP029"
-const email="test1234@gmail.com"
+const email="employee@gmail.com"
 const password="05102002"
 const rolee="Employee" //Employee or Admin
 
@@ -21,7 +21,7 @@ async function userInject(){
    
     }
     }catch(err){
-        console.log(err.message);
+        console.log(err);
     }
 
 }

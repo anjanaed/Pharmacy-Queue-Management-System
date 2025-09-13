@@ -1,123 +1,138 @@
-/* Full viewport wrapper */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+@import "@fontsource/cinzel/index.css";
+
 body {
   overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+  background-color: #101828;
 }
 
 .loginWrapper {
-  background: linear-gradient(to left, #6dd5fa, #2f2fbc, #6dd5fa);
-
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  overflow: hidden;
+  padding: 2rem;
 }
 
-/* Login container styles */
 .loginContainer {
-  width: 65vw;
-  height: 75%; 
-  border-radius: 40px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  width: 100%;
+  max-width: 900px;
+  height: auto;
+  min-height: 600px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background-color: #ffffff;
 }
 
-/* Left Side */
 .leftSide {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), 
-              url('public/img/background.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  padding: 2vw;
-  border-radius: 40px;
+  background: linear-gradient(to top, #0580f3, #6dd5fa);
+  padding: 2rem;
+  color: white;
 }
 
 .leftImage {
-  width: 15vw;
+  width: 220px;
+  margin-bottom: 1rem;
 }
 
-
-
 .rightImage {
-  width: 15vw;
+  width: 220px;
 }
 
 .rightSide {
   flex: 1;
-  background-color: rgba(255, 255, 255, 0.779);
-  padding: 2rem;
+  padding: 3rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-radius: 40px;
+  position: relative;
 }
 
-.smallerText {
-  font-size: 1.2vw;
-  font-weight: 600;
-}
-
-.textBoxSmall {
-  font-size: 1vw;
-  padding: 0.25rem;
-  width: 18vw;
-  text-align: start;
-  border: 1px solid #000;
-  border-radius: 5px;
-}
-
-.customButton {
-  background-color: #00B4D8;
-  margin-top: 2vw;
+.backButton {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: transparent;
+  color: #0580f3;
   border: none;
-  width: 40%;
-  height: 6.5vh;
-  text-align: center;
-  color: white;
-  font-size: 1.1vw;
-  border-radius: 0.5vw;
-  transition-duration: 0.5s;
+  padding: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.customButton:hover {
-  background-color: #03045E;
-  transform: scale(1.05);
-}
-
-.welcomeHeading {
-  font-weight: 500;
-  font-size: 2rem;
-  color: black;
+.backButton:hover {
+  scale: 1.05;
 }
 
 .registerHeading {
-  font-family: "Comfortaa", sans-serif;
-  font-weight: 600;
-  font-size: 3vw;
-  background-color: #03045E;
-  border-radius: 50px;
-  color: white;
-  padding: 1vw;
+  font-family: "Cinzel", serif;
+  font-weight: 800;
+  font-size: 2rem;
+  color: #101828;
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
 .formContainer {
-  margin-top: 1rem;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+  width: 100%;
 }
 
+.smallerText {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
 
-/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap'); */
+.textBoxSmall {
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.textBoxSmall:focus {
+  border-color: #0580f3;
+  box-shadow: 0 0 0 2px rgba(5, 128, 243, 0.2);
+  outline: none;
+}
+
+.customButton {
+  background-color: #0580f3;
+  margin-top: 1.5rem;
+  border: none;
+  width: 100%;
+  padding: 0.75rem;
+  text-align: center;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.customButton:hover {
+  background-color: #0468d1;
+  box-shadow: 0 4px 12px rgba(5, 128, 243, 0.2);
+}
+
+.notificationContainer {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}

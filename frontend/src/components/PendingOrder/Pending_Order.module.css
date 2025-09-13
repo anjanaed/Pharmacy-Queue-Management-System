@@ -1,104 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 .conPed {
     height: 100vh;
     display: flex;
     width: 100%;
     flex-direction: column;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .empty{
     width: 100%;
     text-align: center;
     font-weight: 600;
+    font-size: 1.1rem;
+    color: #666;
+    padding: 40px 20px;
+    background: white;
+    border-radius: 15px;
+    margin: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .full{
     display: flex;
     flex-direction: row;
     width: 100vw;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+
     height: 100vh;
 }
 
 .left-div{
-    flex:1;
-
+    background: rgb(255, 255, 255);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
 }
 
 .right-div{
-    flex:5;
+    flex: 5;
     overflow-y: auto;
+    padding: 0 30px;
+
 }
 
 .title {
     text-align: center;
-    color: black;
-    font-family: "Comfortaa", sans-serif;
+    color: #2d3748;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-weight: 700;
-    margin-top: 2vh;
+    margin: 20px 0 30px 0;
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
 
+.title::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 .title h1{
-    color: black;
-    font-size: 2.5rem;
+    color: #2d3748;
+    font-size: 1.8rem;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 700;
 }
 .order-contain{
-    background: rgba(142, 183, 255, 0.64);
-    margin: 1vw;
-    border-radius: 10px;
-
+    background: white;
+    margin: 0;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 30px;
 }
 
 .main-box {
-    display: flex;
-    flex-wrap: wrap; /* Allow wrapping of boxes */
-    align-items: center;
-    justify-content: flex-start;
-    margin: 1vw; /* Optional: Adjust spacing between items */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 20px 0;
 }
 
 .box {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 1.5vw;
-    padding: 1vw;
-    width: 21%;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-size: 1.5vw;
+    padding: 20px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    font-size: 0.9rem;
     text-align: center;
-    transition-duration: 0.4s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
 }
 
 .box:hover{
-    transform: scale(1.03);
-    background-color: #f6f6f6;
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    border-color: #667eea;
+}
+
+.box:hover::before {
+    transform: scaleX(1);
 }
 
 .close-icon{
     cursor: pointer;
     margin-left: auto;
-    transition-duration: 0.3s;
+    transition: all 0.3s ease;
+    padding: 5px;
+    border-radius: 50%;
+    color: #ef4444;
 }
+
 .close-icon:hover{
-    font-size: 1.7vw;
+    background: rgba(239, 68, 68, 0.1);
+    transform: scale(1.1);
 }
-
-
 
 .box-title {
-    font-size: 1.8vw;
-    color: #333;
-    margin-bottom: 0;
+    font-size: 0.75rem;
+    color: #4a5568;
+    margin: 8px 0 5px 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .order-number {
-    font-size: 3vw;
-    font-weight: bold;
-    color: #1255ff;
-    margin-bottom: 0;
+    font-size: 1.8rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 5px 0 12px 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 
@@ -106,27 +172,41 @@
     display: flex;
     width: 100%;
     flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
 }
+
 .emp{
-    font-size: 0.9vw;
+    font-size: 0.75rem;
     font-weight: 600;
+    color: #718096;
+    background: #edf2f7;
+    padding: 3px 10px;
+    border-radius: 15px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .confirm-btn {
-    padding: 0.5vw 1vw;
-    font-weight: 500;
-    margin-top: 2.5vh;
+    padding: 8px 18px;
+    font-weight: 600;
+    margin-top: 12px;
     border: none;
-    background-color: #060640;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    border-radius: 4px;
+    border-radius: 20px;
     cursor: pointer;
-    font-size: 1vw;
-    transition-duration: 0.3s;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .confirm-btn:hover{
-    background-color: rgb(26, 26, 255);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
 }
 
 
@@ -137,39 +217,85 @@
   justify-content: center;
   align-items: center;
   position: fixed;
-  z-index: 1;
+  z-index: 1000;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
 }
 
 .modal-content {
-  background-color: #fefefe;
+  background: white;
   margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
+  padding: 30px;
+  border: none;
+  width: 90%;
   max-width: 400px;
-  border-radius: 10px;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center align items */
-  text-align: center; /* Center align text */
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  animation: modalSlideIn 0.3s ease-out;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.modal-content h2 {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  color: #2d3748;
+  font-weight: 600;
+}
+
+.modal-content p {
+  font-size: 0.95rem;
+  color: #4a5568;
+  margin-bottom: 20px;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .close {
-  color: #aaa;
-  align-self: flex-end; /* Align close button to the end */
+  color: #a0aec0;
+  align-self: flex-end;
   font-size: 28px;
   font-weight: bold;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
 }
 
 .close:hover,
 .close:focus {
-  color: black;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
   text-decoration: none;
-  cursor: pointer;
+}
+
+.notificationContainer {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed !important;
+  pointer-events: none;
 }

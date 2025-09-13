@@ -83,67 +83,68 @@ const Login = () => {
         ))}
       </div>
 
-      <div className={styles["login-container"]}>
-        <div className="text-center">
-          <h2>
-            Sign in to your account
-          </h2>
-        </div>
+      <div className={styles["pharmacy-title"]}>
+        <div className={styles["title-lanka"]}>Lanka</div>
+        <div className={styles["title-pharmacy"]}>Pharmacy</div>
+      </div>
 
-        <div>
-          <form onSubmit={handleSubmit}>
-            <div className={styles["email-container"]}>
-              <label htmlFor="email">
-                Email address
-              </label>
-              <div className={styles["input-container"]}>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  autoComplete="email"
-                  onChange={(e) => setName(e.target.value)}
-                  className={styles["email-input"]}
-                  placeholder="Enter your email"
-                />
-              </div>
-            </div>
+      <div className={styles["login-content"]}>
+        <div className={styles["login-container"]}>
+          <div>
+            <h2 className={styles.title}>
+              Welcome Back!
+            </h2>
+            <p className={styles.subtitle}>
+              Access Your User Account To Continue
+            </p>
+          </div>
 
-            <div>
-              <div className={styles["Password-container"]}>
-                <label htmlFor="password">
-                  Password
-                </label>
-              </div>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  required
-                  autoComplete="current-password"
-                  onChange={(e) => setPassword(e.target.value)}
-                  className={styles["password-input"]}
-                  placeholder="Enter your password"
-                />
-              </div>
-            </div>
-            <div>
-              <button
-                type="submit"
-                className={styles["login-button"]}
-              >
-                Login
-              </button>
-            </div>
-            
-          </form>
-        </div>
-        <div>
-              <a href="#">
-                Powered by Mavericks
-              </a>
+        <form onSubmit={handleSubmit}>
+          <div className={styles["form-group"]}>
+            <label htmlFor="email" className={styles["form-label"]}>
+              Email Address:
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              autoComplete="email"
+              onChange={(e) => setName(e.target.value)}
+              className={styles["form-input"]}
+              placeholder="Enter Your Email"
+            />
+          </div>
+
+          <div className={styles["form-group"]}>
+            <label htmlFor="password" className={styles["form-label"]}>
+              Password:
+            </label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              required
+              autoComplete="current-password"
+              onChange={(e) => setPassword(e.target.value)}
+              className={styles["form-input"]}
+              placeholder="Enter Your Password"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className={styles["login-button"]}
+          >
+            Sign In
+          </button>
+        </form>
+
+          <div className={styles["footer-text"]}>
+            <a href="#">
+              Powered by Mavericks
+            </a>
+          </div>
         </div>
       </div>
     </div>
