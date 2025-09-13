@@ -2,6 +2,7 @@
   "name": "frontend",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -19,7 +20,9 @@
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "date-fns": "^4.1.0",
+    "dotenv": "^17.2.2",
     "firebase": "^11.1.0",
+    "firebase-admin": "^13.5.0",
     "jspdf": "^2.5.2",
     "jspdf-autotable": "^3.8.4",
     "node": "^23.5.0",
